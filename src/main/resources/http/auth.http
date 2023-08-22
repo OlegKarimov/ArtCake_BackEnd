@@ -1,0 +1,23 @@
+### Добавление первого пользователя
+POST http://localhost:8080/api/registration
+Content-Type: application/json
+
+{
+  "fullName": "Jackie Chan",
+  "email": "example@mail.com",
+  "password": "Qwerty123!",
+  "address": "Hamburg, Norbert-Schmid-Platz 11",
+  "phoneNumber": "+4917611223344"
+}
+
+### Добавление второго пользователя
+POST http://localhost:8080/api/registration
+Content-Type: application/json
+
+{
+  "fullName": "Will Smith",
+  "email": "simple@mail.com",
+  "password": "willS007!",
+  "address": "Kiel, StadtStrasse 49",
+  "phoneNumber": "+4917699887766"
+}
