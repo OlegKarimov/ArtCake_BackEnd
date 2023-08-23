@@ -30,13 +30,13 @@ public interface CakesApi {
 //    @ResponseStatus(HttpStatus.CREATED)
 //    ResponseEntity<CakeDto> addCake(RequestBody NewCakeDto newCake);
 
-    @Operation(summary = "get cakes", description = "for authenticated user")
+    @Operation(summary = "get cakes", description = "for all user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "get lessons",
+            @ApiResponse(responseCode = "200", description = "get cakes",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = CakesDto.class))
                     }),
-            @ApiResponse(responseCode = "401", description = "user not authenticated",
+            @ApiResponse(responseCode = "404", description = "not found",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
