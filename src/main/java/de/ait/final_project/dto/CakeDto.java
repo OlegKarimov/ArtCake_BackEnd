@@ -1,6 +1,6 @@
 package de.ait.final_project.dto;
 
-import de.ait.final_project.models.Cakes;
+import de.ait.final_project.models.Cake;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Data
@@ -36,7 +35,7 @@ public class CakeDto {
     @Schema(description = "linking a cake to ordersId", example = "1")
     private Long ordersId;
 
-    public static CakeDto from (Cakes cake) {
+    public static CakeDto from (Cake cake) {
         CakeDto result = CakeDto.builder()
                 .id(cake.getId())
                 .name(cake.getName())
@@ -48,7 +47,7 @@ public class CakeDto {
         return result;
     }
 
-    public static List<CakeDto> from(Collection<Cakes> cakes){
+    public static List<CakeDto> from(Collection<Cake> cakes){
         return cakes.stream()
                 .map(CakeDto::from)
                 .collect(Collectors.toList());

@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @DisplayNameGeneration(value = DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("Cakes is works")
-public class CakesControllerIntegrationTest {
+public class CakeControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;

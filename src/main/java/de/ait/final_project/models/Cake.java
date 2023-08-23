@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Cakes {
+public class Cake {
 
     public enum Category{
         CUPCAKES,
