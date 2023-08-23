@@ -28,6 +28,6 @@ public class CakesControllerIntegrationTest {
     public void getAllCakes()throws Exception{
         mockMvc.perform(get("/api/cakes")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isOk());
     }
 }

@@ -15,10 +15,10 @@ import javax.persistence.*;
 public class Cakes {
 
     public enum Category{
-        CATEGORY_1,
-        CATEGORY_2,
-        CATEGORY_3,
-        CATEGORY_4
+        CUPCAKES,
+        CHEESECAKES,
+        MACARONS,
+        MOUSSE
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,7 @@ public class Cakes {
     @Column(nullable = false)
     private String ingredients;
 
+    @Column(nullable = false)
     private Double price;
 
     @Column(nullable = false)

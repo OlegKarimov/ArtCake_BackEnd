@@ -41,7 +41,6 @@ public interface CakesApi {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
     })
-    @PreAuthorize("isAuthenticated()")
     @GetMapping
     ResponseEntity<CakesDto> getAllCakes();
 }
