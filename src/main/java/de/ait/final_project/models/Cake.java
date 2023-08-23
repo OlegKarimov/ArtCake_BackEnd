@@ -6,6 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+
+/**
+ * 22-08-23/0022
+ * ArtCake_BackEnd
+ *
+ * @author Dmytro Sainozhenko (AIT TR)
+ */
+
 
 @Data
 @AllArgsConstructor
@@ -13,13 +22,13 @@ import javax.persistence.*;
 @Builder
 @Entity
 public class Cake {
-
     public enum Category{
         CUPCAKES,
         CHEESECAKES,
         MACARONS,
         MOUSSE
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,4 +47,13 @@ public class Cake {
     private Category category;
 
     //private Orders ordersId;
+
+    private String text;
+
+    private LocalDate publishDate;
+
+    @ManyToOne
+    @JoinColumn(name = "about_id")
+    private User about;
+
 }
