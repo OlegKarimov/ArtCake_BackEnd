@@ -28,10 +28,7 @@ public class Cakes {
     private String name;
 
     @Column(nullable = false)
-    private String recipe;
-
-    @Column(nullable = false)
-    private String description;
+    private String ingredients;
 
     private Double price;
 
@@ -39,4 +36,5 @@ public class Cakes {
     @Enumerated(value = EnumType.STRING)
     private Category category;
 
+    //private Orders ordersId;
 }
