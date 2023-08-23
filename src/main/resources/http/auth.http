@@ -6,7 +6,9 @@ Content-Type: application/json
   "fullName": "Jackie Chan",
   "email": "example@mail.com",
   "password": "Qwerty123!",
-  "address": "Hamburg, Norbert-Schmid-Platz 11",
+  "town": "Hamburg",
+  "street": "Norbert-Schmid-Platz",
+  "houseNumber": "11",
   "phoneNumber": "+4917611223344"
 }
 
@@ -18,6 +20,12 @@ Content-Type: application/json
   "fullName": "Will Smith",
   "email": "simple@mail.com",
   "password": "willS007!",
-  "address": "Kiel, StadtStrasse 49",
+  "town": "Kiel",
+  "street": "StadtStrasse",
+  "houseNumber": "49",
   "phoneNumber": "+4917699887766"
 }
+
+### Получение профиля пользователя
+
+GET http://localhost:8080/api/users/my

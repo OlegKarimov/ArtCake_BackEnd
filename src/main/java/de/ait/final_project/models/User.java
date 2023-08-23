@@ -1,11 +1,9 @@
 package de.ait.final_project.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -41,7 +39,13 @@ public class User {
     private String hashPassword;
 
     @Column(nullable = false)
-    private String Address;
+    private String town;
+
+    @Column(nullable = false)
+    private String street;
+
+    @Column(nullable = false)
+    private Integer houseNumber;
 
     @Column(nullable = false)
     private String phoneNumber;
@@ -53,6 +57,7 @@ public class User {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
 
 
 }

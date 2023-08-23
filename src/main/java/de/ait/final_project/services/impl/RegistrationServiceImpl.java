@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static de.ait.final_project.dto.UserDto.from;
 
@@ -25,13 +26,16 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     PasswordEncoder passwordEncoder;
 
+    @Transactional
     @Override
     public UserDto register(RegisterDto registerData) {
         User user = User.builder()
                 .fullName(registerData.getFullName())
                 .email(registerData.getEmail())
                 .hashPassword(passwordEncoder.encode(registerData.getPassword()))
-                .Address(registerData.getAddress())
+                .town(registerData.getTown())
+                .street(registerData.getStreet())
+                .houseNumber(registerData.getHouseNumber())
                 .phoneNumber(registerData.getPhoneNumber())
                 .role(User.Role.CLIENT)
                 .state(User.State.CONFIRMED).build();

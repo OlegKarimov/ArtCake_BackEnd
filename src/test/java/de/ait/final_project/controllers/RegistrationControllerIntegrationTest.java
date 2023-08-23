@@ -35,7 +35,9 @@ public class RegistrationControllerIntegrationTest {
                                 "  \"fullName\": \"Jackie Chan\",\n" +
                                 "  \"email\": \"example@mail.com\",\n" +
                                 "  \"password\": \"Qwerty123!\",\n" +
-                                "  \"address\": \"Hamburg, Norbert-Schmid-Platz 11\",\n" +
+                                "  \"town\": \"Hamburg, Norbert-Schmid-Platz 11\",\n" +
+                                "  \"street\": \"Norbert-Schmid-Platz\",\n" +
+                                "  \"houseNumber\": \"11\",\n" +
                                 "  \"phoneNumber\": \"+4917611223344!\"\n" +
                                 "}"))
                 .andDo(print())

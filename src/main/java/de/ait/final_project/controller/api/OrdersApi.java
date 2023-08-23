@@ -2,6 +2,7 @@ package de.ait.final_project.controller.api;
 
 import de.ait.final_project.dto.NewOrderDto;
 import de.ait.final_project.dto.OrderDto;
+import de.ait.final_project.dto.OrderToProcessDto;
 import de.ait.final_project.security.details.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Tags(value = {
-        @Tag(name = "Cakes")
+        @Tag(name = "Orders")
 })
-@RequestMapping("/api/cakes")
-public interface CakesApi {
+@RequestMapping("/api/orders")
+public interface OrdersApi {
 
     @Operation(summary = "Creating order", description = "Allowed all")
     @ApiResponses(value = {
@@ -30,9 +31,19 @@ public interface CakesApi {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
                     })
     })
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{cake-id}/order")
-    ResponseEntity<OrderDto> addOrder(@RequestParam @PathVariable("cake-id") Integer cakeId,
-                                      @RequestBody NewOrderDto newOrder);
+    @PostMapping("/me/{cake-id}")
+    ResponseEntity<OrderDto> orOrder(@PathVariable("cake-id") Long cakeId,
+                                      @AuthenticationPrincipal AuthenticatedUser currentUser,
+                                      @RequestBody @Valid NewOrderDto newOrder);
 
+    @Operation(summary = "Giving order to process", description = "Allowed MANAGER")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Order in process",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
+                    })
+    })
+    @PreAuthorize("hasAuthority('MANAGER')")
+    @PostMapping
+    ResponseEntity<OrderDto> orderToProcess(@RequestBody @Valid OrderToProcessDto orderToProcess);
 }
