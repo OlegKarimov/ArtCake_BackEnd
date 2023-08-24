@@ -20,16 +20,16 @@ public class CakeDto {
     @Schema(description = "Cakes id", example = "1")
     private Long id;
 
-    @Schema(description = "Cakes name", example = "Cupcake")
+    @Schema(description = "Cakes name", example = "BlueBerry-Cupcake")
     private String name;
 
-    @Schema(description = "Cakes ingredients", example = "1 egg, 100g milk")
+    @Schema(description = "Cakes ingredients", example = "eggs, milk, salt")
     private String ingredients;
 
-    @Schema(description = "Cakes price", example = "100$")
+    @Schema(description = "Cakes price", example = "100.00")
     private Double price;
-
-    @Schema(description = "Cakes Category", example = "1")
+  
+    @Schema(description = "Cakes Category", example = "CUPCAKES")
     private String category;
 
     @Schema(description = "linking a cake to ordersId", example = "1")
@@ -40,12 +40,9 @@ public class CakeDto {
                 .id(cake.getId())
                 .name(cake.getName())
                 .ingredients(cake.getIngredients())
+                .price(cake.getPrice())
                 .category(cake.getCategory().name())
                 .build();
-
-        if (cake.getPrice() != null){
-            result.setPrice(cake.getPrice());
-        }
 
         return result;
     }

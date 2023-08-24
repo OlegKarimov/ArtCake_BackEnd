@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +21,7 @@ public class Cake {
         MACARONS,
         MOUSSE
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +38,6 @@ public class Cake {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Category category;
-
 
 
 }

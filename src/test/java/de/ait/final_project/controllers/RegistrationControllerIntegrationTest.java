@@ -26,7 +26,6 @@ public class RegistrationControllerIntegrationTest {
     private MockMvc mockMvc;
 
 
-
     @Test
     public void registerMethodReturnsCreated() throws Exception {
         mockMvc.perform(post("/api/registration")
