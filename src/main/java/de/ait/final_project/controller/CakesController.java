@@ -2,29 +2,16 @@ package de.ait.final_project.controller;
 
 import de.ait.final_project.controller.api.CakesApi;
 
-import de.ait.final_project.dto.NewOrderDto;
-import de.ait.final_project.dto.OrderDto;
-import de.ait.final_project.security.details.AuthenticatedUser;
+import de.ait.final_project.dto.*;
 import de.ait.final_project.services.OrderService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import de.ait.final_project.dto.CakesDto;
 import de.ait.final_project.services.CakesService;
-import de.ait.final_project.services.impl.CakesServiceImpl;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-
 
 @RequiredArgsConstructor
 @RestController
@@ -36,17 +23,45 @@ public class CakesController implements CakesApi {
     OrderService orderService;
 
     @Override
-    public ResponseEntity<OrderDto> addOrder(Integer cakeId, NewOrderDto newOrder) {
-
+    public ResponseEntity<CakeDto> addCake(NewCakeDto newCake) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(orderService.addOrder(cakeId, newOrder));
+                .body(cakesService.addCake(newCake));
+    }
 
+    @Override
+    public ResponseEntity<CakeDto> getCake(Long cakeId) {
+        return ResponseEntity
+                .ok()
+                .body(cakesService.getCake(cakeId));
+    }
 
     @Override
     public ResponseEntity<CakesDto> getAllCakes() {
         return ResponseEntity
                 .ok()
                 .body(cakesService.getAllCakes());
+    }
+
+    @Override
+    public ResponseEntity<CakeDto> updateCake(Long cakeId, UpdateCakeDto updateCake) {
+        return ResponseEntity
+                .ok()
+                .body(cakesService.updateCake(cakeId, updateCake));
+    }
+
+    @Override
+    public ResponseEntity<CakeDto> deleteCake(Long cakeId) {
+        return ResponseEntity
+                .ok()
+                .body(cakesService.deleteCake(cakeId));
+    }
+
+    @Override
+    public ResponseEntity<OrderDto> addOrder(Integer cakeId, NewOrderDto newOrder) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(orderService.addOrder(cakeId, newOrder));
     }
 }

@@ -32,9 +32,6 @@ public class OrderServiceImpl implements OrderService {
 
     CakesRepository cakesRepository;
 
-
-
-
     @Override
     public OrderDto addOrder(Integer cakeId, NewOrderDto newOrder) {
 
@@ -44,8 +41,6 @@ public class OrderServiceImpl implements OrderService {
         Integer user = userId.intValue();
 
         Cake cake = getCakeOrThrow(cakeId.longValue());
-
-
 
         Order order = Order.builder()
                 .count(newOrder.getCount())
