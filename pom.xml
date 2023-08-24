@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>de.ait</groupId>
-	<artifactId>final_project</artifactId>
+	<artifactId>art-cake-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>final_project</name>
-	<description>final_project</description>
+	<name>artcake</name>
+	<description>artcake</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
