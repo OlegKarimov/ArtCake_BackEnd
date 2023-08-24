@@ -6,14 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-
-/**
- * 22-08-23/0022
- * ArtCake_BackEnd
- *
- * @author Dmytro Sainozhenko (AIT TR)
- */
 
 
 @Data
@@ -22,6 +14,7 @@ import java.time.LocalDate;
 @Builder
 @Entity
 public class Cake {
+
     public enum Category{
         CUPCAKES,
         CHEESECAKES,
@@ -46,14 +39,5 @@ public class Cake {
     @Enumerated(value = EnumType.STRING)
     private Category category;
 
-    //private Orders ordersId;
-
-    private String text;
-
-    private LocalDate publishDate;
-
-    @ManyToOne
-    @JoinColumn(name = "about_id")
-    private User about;
 
 }

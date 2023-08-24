@@ -25,7 +25,7 @@ public class UsersServiceImpl implements UsersService {
         return from(getUserOrThrow(userId));
     }
 
-    private User getUserOrThrow(Long userId) {
+     User getUserOrThrow(Long userId) {
         return usersRepository.findById(userId).orElseThrow(
                 () -> new RestException(HttpStatus.NOT_FOUND, "User with id <" + userId +"> not found"));
     }

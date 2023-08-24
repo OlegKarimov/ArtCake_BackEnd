@@ -33,6 +33,6 @@ public interface UsersApi {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
     })
-    @GetMapping("/my")
+    @GetMapping("/me")
     ResponseEntity<UserDto> getMyProfile(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
 }

@@ -25,8 +25,14 @@ public class UserDto {
     @Schema(description = "User Email", example = "example@mail.com")
     private String email;
 
-    @Schema(description = "User Address", example = "Town - Berlin, Street - Sonnenallee, House Number - 17")
-    private String address;
+    @Schema(description = "User Town", example = "Berlin")
+    private String town;
+
+    @Schema(description = "User street", example = "Sonnenallee")
+    private String street;
+
+    @Schema(description = "User houseNumber", example = "17")
+    private Integer houseNumber;
 
     @Schema(description = "User PhoneNumber", example = "+4917611223344")
     private String phoneNumber;
@@ -42,7 +48,9 @@ public class UserDto {
                 .id(user.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
-                .address(user.getAddress())
+                .town(user.getTown())
+                .street(user.getStreet())
+                .houseNumber(user.getHouseNumber())
                 .phoneNumber(user.getPhoneNumber())
                 .state(user.getState().name())
                 .role(user.getRole().name())

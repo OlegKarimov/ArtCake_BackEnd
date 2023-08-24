@@ -26,9 +26,9 @@ public class CakeDto {
     @Schema(description = "Cakes ingredients", example = "eggs, milk, salt")
     private String ingredients;
 
-    @Schema(description = "Cakes price", example = "100$")
-    private String price;
-
+    @Schema(description = "Cakes price", example = "100.00")
+    private Double price;
+  
     @Schema(description = "Cakes Category", example = "CUPCAKES")
     private String category;
 
@@ -40,8 +40,8 @@ public class CakeDto {
                 .id(cake.getId())
                 .name(cake.getName())
                 .ingredients(cake.getIngredients())
-                .price(cake.getPrice().toString())
-                .category(cake.getCategory().toString())
+                .price(cake.getPrice())
+                .category(cake.getCategory().name())
                 .build();
 
         return result;
