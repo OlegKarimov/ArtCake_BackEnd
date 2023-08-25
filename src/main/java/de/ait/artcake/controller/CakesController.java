@@ -69,11 +69,4 @@ public class CakesController implements CakesApi {
                 .body(cakesService.deleteCake(cakeId));
     }
 
-    @Override
-    public ResponseEntity<OrderDto> addOrder(Integer cakeId, NewOrderDto newOrder) {
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(orderService.addOrder(cakeId, newOrder));
-    }
 }
