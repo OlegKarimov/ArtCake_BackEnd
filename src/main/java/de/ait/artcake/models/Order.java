@@ -17,9 +17,12 @@ import java.time.LocalDate;
 public class Order {
 
     public enum State {
+
+        CREATED,
         IN_PROCESS,
-        FINISHED,
-        CREATED
+        CANT_FINISH,
+        FINISHED
+
     }
 
 
@@ -28,7 +31,7 @@ public class Order {
     private Long id;
 
     @Column(nullable = false)
-    private Double count;
+    private Integer count = 1;
 
     @Column(length = 200)
     private String description;
@@ -39,13 +42,15 @@ public class Order {
 
     private LocalDate deadline;
 
-    private Integer clientId;
+    private Long clientId;
 
-    private Integer cakeId;
+    private Long cakeId;
 
     private String cakeName;
 
     private Long confectionerId;
+
+    private Long confectionerIdOtKAZALSJA;
 
     @Enumerated(value = EnumType.STRING)
     private State state;

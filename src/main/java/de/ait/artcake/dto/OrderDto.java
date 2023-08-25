@@ -23,10 +23,10 @@ public class OrderDto {
     private String cakeName;
 
     @Schema(description = "Cake id", example = "1")
-    private Integer cakeId;
+    private Long cakeId;
 
     @Schema(description = "Quantity of cakes", example = "1")
-    private Double count;
+    private Integer count;
 
     @Schema(description = "Client wishes", example = "Make in blue and white colours")
     private String description;

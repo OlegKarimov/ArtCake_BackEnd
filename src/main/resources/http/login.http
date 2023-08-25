@@ -1,12 +1,21 @@
-### login
+###Login as user
 
 POST http://localhost:8080/login
 Content-Type: application/x-www-form-urlencoded
 
 username=example@mail.com&password=Qwerty123!
 
-### logout
+### Login as CONFECTIONER
+POST http://localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
 
+username=simple@mail.com&password=willS007!
+
+### Login as Manager
+POST http://localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+
+username=manager@mail.com&password=Manager007!
+
+### Logout
 GET http://localhost:8080/logout
-
-###
