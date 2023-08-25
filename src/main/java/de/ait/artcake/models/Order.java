@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "orderss")
+@Table(name = "orders")
 public class Order {
 
     public enum State {

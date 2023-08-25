@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @RestController
-public class    UsersController implements UsersApi {
+public class UsersController implements UsersApi {
+
 
     UsersService usersService;
 
