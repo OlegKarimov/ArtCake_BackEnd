@@ -1,0 +1,39 @@
+### Add new order
+POST http://localhost:8080/api/orders/1?cakeId=1
+Content-Type: application/json
+
+{
+  "count": 1,
+  "description": "Need Letters HappyBirthday",
+  "deadline": "2023-08-11"
+}
+
+### Set order to Process
+PUT http://localhost:8080/api/orders/process/5?orderId=5&confectionerId=1
+Content-Type: application/json
+
+{
+  "id": 5,
+  "cakeId": 1,
+  "cakeName": "dsad",
+  "count": 1,
+  "description": "Make in blue and white colours",
+  "deadLine": "2023-10-11",
+  "confectionerId": 1,
+  "state": "IN_PROCESS"
+}
+
+### Set order Finished
+PUT http://localhost:8080/api/orders/5?orderId=5
+Content-Type: application/json
+
+{
+  "id": 5,
+  "cakeId": 1,
+  "cakeName": "dsad",
+  "count": 1,
+  "description": "Make in blue and white colours",
+  "deadLine": "2023-10-11",
+  "confectionerId": 1,
+  "state": "FINISHED"
+}

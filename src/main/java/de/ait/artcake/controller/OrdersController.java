@@ -3,8 +3,7 @@ package de.ait.artcake.controller;
 import de.ait.artcake.controller.api.OrdersApi;
 import de.ait.artcake.dto.NewOrderDto;
 import de.ait.artcake.dto.OrderDto;
-import de.ait.artcake.dto.OrderToProcessDto;
-import de.ait.artcake.security.details.AuthenticatedUser;
+import de.ait.artcake.dto.OrderInProcessDto;
 import de.ait.artcake.services.OrderService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -21,20 +20,36 @@ public class OrdersController implements OrdersApi {
     OrderService orderService;
 
     @Override
-    public ResponseEntity<OrderDto> orOrder(Long cakeId, AuthenticatedUser currentUser, NewOrderDto newOrder) {
-
-
-
+    public ResponseEntity<OrderDto> addOrder(Long cakeId, NewOrderDto newOrder) {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(orderService.addOrder(cakeId.intValue(), newOrder));
+                .body(orderService.addOrder(cakeId, newOrder));
 
     }
 
+
     @Override
-    public ResponseEntity<OrderDto> orderToProcess(OrderToProcessDto orderToProcess) {
-        return null;
+    public ResponseEntity<OrderInProcessDto> orderToProcess(Long orderId, Long confectionerId, OrderInProcessDto orderToProcess) {
+        return ResponseEntity
+                .ok()
+                .body(orderService.addOrderToProcess(orderId, confectionerId, orderToProcess));
+    }
+
+    @Override
+    public ResponseEntity<OrderInProcessDto> orderFinishedOrDeclined(Long orderId, OrderInProcessDto orderToProcess) {
+        return ResponseEntity
+                .ok()
+                .body(orderService.orderFinished(orderId, orderToProcess));
+    }
+
+    @Override
+    public ResponseEntity<OrderInProcessDto> getAllOrders(String orderBy,
+                                                          Boolean desc,
+                                                          String filterBy,
+                                                          String filterValue) {
+        return ResponseEntity
+                .ok(orderService.getAllOrders(orderBy,desc,filterBy,filterValue));
     }
 
 

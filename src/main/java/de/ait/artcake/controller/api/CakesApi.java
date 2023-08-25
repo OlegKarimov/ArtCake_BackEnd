@@ -64,19 +64,6 @@ public interface CakesApi {
     @GetMapping("/{cake-id}")
     ResponseEntity<CakeDto> getCake(@PathVariable("cake-id") Long cakeId);
 
-    @Operation(summary = "Creating order", description = "Allowed all")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Order created",
-                    content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
-                    })
-    })
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{cake-id}/order")
-    ResponseEntity<OrderDto> addOrder(@RequestParam @PathVariable("cake-id") Integer cakeId,
-                                      @RequestBody NewOrderDto newOrder);
-
-
     @Operation(summary = "get cakes", description = "for all user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "get cakes",

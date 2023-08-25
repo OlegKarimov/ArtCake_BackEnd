@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class CakesDto {
+@NoArgsConstructor
+@Builder
+public class OrdersDto {
 
-    private List<CakeDto> cakes;
+    private List<UserDto> orders;
 
 }

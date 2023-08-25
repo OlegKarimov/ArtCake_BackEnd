@@ -1,4 +1,4 @@
-### Добавление первого пользователя
+### Adding user as CLIENT
 POST http://localhost:8080/api/registration
 Content-Type: application/json
 
@@ -12,7 +12,7 @@ Content-Type: application/json
   "phoneNumber": "+4917611223344"
 }
 
-### Добавление второго пользователя
+### Adding user as CONFECTIONER
 POST http://localhost:8080/api/registration
 Content-Type: application/json
 
@@ -26,6 +26,19 @@ Content-Type: application/json
   "phoneNumber": "+4917699887766"
 }
 
+### Adding user as MANAGER
+POST http://localhost:8080/api/registration
+Content-Type: application/json
+
+{
+  "fullName": "Vasiliy Morozov",
+  "email": "manager@mail.com",
+  "password": "Manager007!",
+  "town": "Kiel",
+  "street": "StrandStrasse",
+  "houseNumber": "21",
+  "phoneNumber": "+4917688776655"
+}
 ### Получение профиля пользователя
 
 GET http://localhost:8080/api/users/my
