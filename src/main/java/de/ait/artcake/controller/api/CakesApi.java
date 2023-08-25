@@ -4,13 +4,24 @@ import de.ait.artcake.dto.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+
+import de.ait.artcake.dto.NewOrderDto;
+import de.ait.artcake.dto.OrderDto;
+
+import de.ait.artcake.dto.CakesDto;
+import de.ait.artcake.dto.StandardResponseDto;
+
+import io.swagger.v3.oas.annotations.Operation;
+
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+
 import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -22,7 +33,6 @@ import org.springframework.web.bind.annotation.*;
 })
 @RequestMapping("/api/cakes")
 public interface CakesApi {
-
     @Operation(summary = "add Cake to our assortment", description = "only for manager")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "adding successful",
@@ -53,6 +63,18 @@ public interface CakesApi {
     })
     @GetMapping("/{cake-id}")
     ResponseEntity<CakeDto> getCake(@PathVariable("cake-id") Long cakeId);
+
+    @Operation(summary = "Creating order", description = "Allowed all")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Order created",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
+                    })
+    })
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/{cake-id}/order")
+    ResponseEntity<OrderDto> addOrder(@RequestParam @PathVariable("cake-id") Integer cakeId,
+                                      @RequestBody NewOrderDto newOrder);
 
 
     @Operation(summary = "get cakes", description = "for all user")
@@ -102,16 +124,5 @@ public interface CakesApi {
                                        @PathVariable("cake-id") Long cakeId);
 
 
-    @Operation(summary = "Creating order", description = "Allowed all")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Order created",
-                    content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
-                    })
-    })
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{cake-id}/order")
-    ResponseEntity<OrderDto> addOrder(@RequestParam @PathVariable("cake-id") Integer cakeId,
-                                      @RequestBody NewOrderDto newOrder);
-
 }
+

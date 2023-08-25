@@ -4,6 +4,8 @@ import de.ait.artcake.dto.CakeDto;
 import de.ait.artcake.dto.CakesDto;
 import de.ait.artcake.dto.NewCakeDto;
 import de.ait.artcake.dto.UpdateCakeDto;
+import de.ait.artcake.dto.CakesDto;
+
 
 public interface CakesService {
 
@@ -16,4 +18,5 @@ public interface CakesService {
     CakeDto updateCake(Long cakeId, UpdateCakeDto updateCake);
 
     CakeDto deleteCake(Long cakeId);
+
 }

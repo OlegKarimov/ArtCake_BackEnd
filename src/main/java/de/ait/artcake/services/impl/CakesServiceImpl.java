@@ -6,14 +6,21 @@ import de.ait.artcake.dto.NewCakeDto;
 import de.ait.artcake.dto.UpdateCakeDto;
 import de.ait.artcake.handler.RestException;
 import de.ait.artcake.models.Cake;
+
+import de.ait.artcake.dto.CakesDto;
+
 import de.ait.artcake.repositories.CakesRepository;
 import de.ait.artcake.services.CakesService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import org.springframework.stereotype.Service;
+
 
 import static de.ait.artcake.dto.CakeDto.from;
 
@@ -23,7 +30,7 @@ import static de.ait.artcake.dto.CakeDto.from;
 public class CakesServiceImpl implements CakesService {
 
     CakesRepository cakesRepository;
-
+  
     @Transactional
     @Override
     public CakeDto addCake(NewCakeDto newCake) {
@@ -65,12 +72,14 @@ public class CakesServiceImpl implements CakesService {
         return from(cake);
     }
 
+
     @Override
     public CakesDto getAllCakes() {
         return CakesDto.builder()
                 .cakes(from(cakesRepository.findAll()))
                 .build();
     }
+
 
     @Override
     public CakeDto getCake(Long cakeId) {
@@ -82,4 +91,5 @@ public class CakesServiceImpl implements CakesService {
                 .orElseThrow(() ->
                         new RestException(HttpStatus.NOT_FOUND,"Cake with id <"+ cakeId + "> not found"));
     }
+
 }
