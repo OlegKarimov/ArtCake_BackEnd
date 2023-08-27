@@ -1,5 +1,4 @@
-### add cake
-
+### add cake MOUSSE
 POST localhost:8080/api/cakes
 Content-Type: application/json
 
@@ -10,11 +9,24 @@ Content-Type: application/json
   "category": "MOUSSE"
 }
 
-### get all cakes
+### add cake CUPCAKES
+POST localhost:8080/api/cakes
+Content-Type: application/json
 
+{
+  "name": "strawberry-mousse",
+  "ingredients": "water, sugar, egg",
+  "price": "250.00",
+  "category": "CUPCAKES"
+}
+
+### get all cakes
 GET localhost:8080/api/cakes
 
-### get cake
 
+### get cake
 GET localhost:8080/api/cakes/1
 
+
+### get cakes by category
+GET localhost:8080/api/cakes/category/MOUSSE

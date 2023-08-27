@@ -49,8 +49,7 @@ public interface CakesApi {
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<CakeDto> addCake(@RequestBody NewCakeDto newCake);
 
-
-    @Operation(summary = "get cake", description = "for all")
+    @Operation(summary = "get cake", description = "for all users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "get cake",
                     content = {
@@ -64,7 +63,7 @@ public interface CakesApi {
     @GetMapping("/{cake-id}")
     ResponseEntity<CakeDto> getCake(@PathVariable("cake-id") Long cakeId);
 
-    @Operation(summary = "get cakes", description = "for all user")
+    @Operation(summary = "get cakes", description = "for all users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "get cakes",
                     content = {
@@ -77,6 +76,20 @@ public interface CakesApi {
     })
     @GetMapping
     ResponseEntity<CakesDto> getAllCakes();
+
+    @Operation(summary = "get cakes by category", description = "for all users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "get cakes by category",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = CakesDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "not found",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    })
+    })
+    @GetMapping("/category/{category}")
+    ResponseEntity<CakesDto> getCakesByCategory(@PathVariable("category") String category);
 
     @Operation(summary = "update cake in our assortment", description = "only for manager")
     @ApiResponses(value = {

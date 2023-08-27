@@ -19,4 +19,5 @@ public interface CakesService {
 
     CakeDto deleteCake(Long cakeId);
 
+    CakesDto getCakesByCategory(String category);
 }

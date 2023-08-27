@@ -22,7 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
+
 import static de.ait.artcake.dto.CakeDto.from;
+import static de.ait.artcake.dto.CakeDto.fromToCategory;
 
 @Service
 @RequiredArgsConstructor
@@ -82,7 +85,8 @@ public class CakesServiceImpl implements CakesService {
 
 
     @Override
-    public CakeDto getCake(Long cakeId) {
+    public CakeDto getCake(Long cakeId)
+    {
         return CakeDto.from(getCakeOrThrow(cakeId));
     }
 
@@ -90,6 +94,21 @@ public class CakesServiceImpl implements CakesService {
         return cakesRepository.findById(cakeId)
                 .orElseThrow(() ->
                         new RestException(HttpStatus.NOT_FOUND,"Cake with id <"+ cakeId + "> not found"));
+    }
+    @Override
+    public CakesDto getCakesByCategory(String category)
+    {
+        return CakesDto.builder()
+                .cakes(fromToCategory(cakesRepository.findAll(), category))
+//                .cakes(from(cakesRepository.findAll()
+//                        .stream()
+//                        .filter(cake -> cake.getCategory().valueOf(category).equals(category)))
+//                .cakes((List<CakeDto>) from(cakesRepository.findAll()).stream().filter(cake -> cake.getCategory().equals(category)))
+//                .cakes(fromToCategory(cakesRepository.findAll(), category))
+//                .cakes(from(cakesRepository.findAll(equals(Cake.Category.valueOf(category)))))
+//                .cakes(from(cakesRepository.findAll().stream().filter(cake -> cake.getCategory().equals(category))))
+//                .stream().filter(cake -> cake.getCategory().equals(category))
+                .build();
     }
 
 }
