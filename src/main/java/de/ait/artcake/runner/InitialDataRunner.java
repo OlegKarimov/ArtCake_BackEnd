@@ -36,7 +36,8 @@ public class InitialDataRunner implements CommandLineRunner {
             User manager = User.builder()
                     .fullName("John Manageroff")
                     .email("manager@mail.com")
-                    .hashPassword("$2a$10$FpU1JQY4sOslpT2pnjhglOrfl8lta1z1LE4OOe9ohLu/tkmaYYWM2")
+                    .hashPassword("$2a$10$VQky6jadkcnsisW/SSrqeuvP5p7Tomz5F7x/fMBzikyMGv7sfPOay")
+//                    qwerty123!
                     .town("Kiel")
                     .street("StrandStrasse")
                     .houseNumber(21)

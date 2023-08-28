@@ -2,6 +2,7 @@ package de.ait.artcake.controller;
 
 import de.ait.artcake.controller.api.UsersApi;
 import de.ait.artcake.dto.UserDto;
+import de.ait.artcake.dto.UsersDto;
 import de.ait.artcake.security.details.AuthenticatedUser;
 import de.ait.artcake.services.UsersService;
 import lombok.AccessLevel;
@@ -21,6 +22,14 @@ public class UsersController implements UsersApi {
     @Override
     public ResponseEntity<UserDto> getMyProfile(AuthenticatedUser currentUser) {
         Long userId = currentUser.id();
-        return ResponseEntity.ok(usersService.getUser(userId));
+        return ResponseEntity
+                .ok(usersService.getUser(userId));
+    }
+
+    @Override
+    public ResponseEntity<UsersDto> getAllUsersByRole(String role) {
+        return ResponseEntity
+                .ok()
+                .body(usersService.getAllUsersByRole(role));
     }
 }

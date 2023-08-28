@@ -59,11 +59,9 @@ public class CakeDto {
     }
 
     public static List<CakeDto> fromByCategory(Collection<Cake> cakes, String category) {
-
             return cakes.stream()
                     .filter(cake -> cake.getCategory().toString().equalsIgnoreCase(category))
                     .map(CakeDto::from)
                     .collect(Collectors.toList());
-
     }
 }
