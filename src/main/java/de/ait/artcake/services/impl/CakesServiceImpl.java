@@ -7,8 +7,6 @@ import de.ait.artcake.dto.UpdateCakeDto;
 import de.ait.artcake.handler.RestException;
 import de.ait.artcake.models.Cake;
 
-import de.ait.artcake.dto.CakesDto;
-
 import de.ait.artcake.repositories.CakesRepository;
 import de.ait.artcake.services.CakesService;
 import lombok.AccessLevel;
@@ -19,13 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.stereotype.Service;
-
-
-import java.util.List;
 
 import static de.ait.artcake.dto.CakeDto.from;
-import static de.ait.artcake.dto.CakeDto.fromToCategory;
+import static de.ait.artcake.dto.CakeDto.fromByCategory;
 
 @Service
 @RequiredArgsConstructor
@@ -98,17 +92,14 @@ public class CakesServiceImpl implements CakesService {
     @Override
     public CakesDto getCakesByCategory(String category)
     {
-        return CakesDto.builder()
-                .cakes(fromToCategory(cakesRepository.findAll(), category))
-//                .cakes(from(cakesRepository.findAll()
-//                        .stream()
-//                        .filter(cake -> cake.getCategory().valueOf(category).equals(category)))
-//                .cakes((List<CakeDto>) from(cakesRepository.findAll()).stream().filter(cake -> cake.getCategory().equals(category)))
-//                .cakes(fromToCategory(cakesRepository.findAll(), category))
-//                .cakes(from(cakesRepository.findAll(equals(Cake.Category.valueOf(category)))))
-//                .cakes(from(cakesRepository.findAll().stream().filter(cake -> cake.getCategory().equals(category))))
-//                .stream().filter(cake -> cake.getCategory().equals(category))
-                .build();
+        CakesDto returnCakes = CakesDto.builder()
+            .cakes(fromByCategory(cakesRepository.findAll(), category))
+            .build();
+        if (!returnCakes.getCakes().isEmpty()){
+            return returnCakes;
+        } else {
+            throw new RestException(HttpStatus.NOT_FOUND, "Category <" + category + "> not found");
+        }
     }
 
 }
