@@ -34,7 +34,6 @@ public class InitialDataRunner implements CommandLineRunner {
 
         if(!usersRepository.existsByRole(User.Role.MANAGER)){
             User manager = User.builder()
-                    .id(1L)
                     .fullName("John Manageroff")
                     .email("manager@mail.com")
                     .hashPassword("$2a$10$FpU1JQY4sOslpT2pnjhglOrfl8lta1z1LE4OOe9ohLu/tkmaYYWM2")
@@ -53,7 +52,6 @@ public class InitialDataRunner implements CommandLineRunner {
 
         if(!usersRepository.existsByRole(User.Role.CONFECTIONER)){
             User konditerow = User.builder()
-                    .id(2L)
                     .fullName("Konditer Konditerow")
                     .email("konditerow@gmail.com")
                     .hashPassword("$2a$10$XhZqBs2ID5aIey7WJJiPAexSGXcfuB6NFSb/ZC/S3GMkO/ouhmTdG")
@@ -66,7 +64,6 @@ public class InitialDataRunner implements CommandLineRunner {
                     .build();
 
             User konditeryan = User.builder()
-                    .id(3L)
                     .fullName("Konditer Konditeryan")
                     .email("konditeryan@gmail.com")
                     .hashPassword("$2a$10$jtLDeFSt7C1jNGtxpzh6kurTi.rej21OBRqjMexaC9jbW4JI967bC")
@@ -79,7 +76,6 @@ public class InitialDataRunner implements CommandLineRunner {
                     .build();
 
             User konditeridze = User.builder()
-                    .id(4L)
                     .fullName("Konditer Konditeridze")
                     .email("konditeridze@gmail.com")
                     .hashPassword("$2a$10$KrckCT.RKuAbniEAJoi2R.xIoeTHin/PEjuPH4qRVtTV9DStncu1K")
@@ -92,7 +88,6 @@ public class InitialDataRunner implements CommandLineRunner {
                     .build();
 
             User konditerenko = User.builder()
-                    .id(5L)
                     .fullName("Konditer Konditerenko")
                     .email("konditerenko@gmail.com")
                     .hashPassword("$2a$10$ruOLOFb6ugIquDl4iSv0DOVfSpC1orM5E512eitSFPoaJF03EfhP2")
@@ -114,43 +109,43 @@ public class InitialDataRunner implements CommandLineRunner {
 
         if(!cakesRepository.existsByCategory(Cake.Category.CHEESECAKES)) {
             Cake chocolateCheesecake = Cake.builder()
-                    .id(1L)
                     .name("Chocolate-Cheesecake")
                     .ingredients("cookies, chocolate, butter, cream-cheese, sugar, eggs, cream-35%")
-                    .price(150.00)
+                    .price(210.00)
                     .category(Cake.Category.CHEESECAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake raspberryCheesecake = Cake.builder()
-                    .id(2L)
                     .name("Raspberry-Cheesecake")
                     .ingredients("cookies, raspberry, butter, cream-cheese, sugar, eggs, cream-35%")
-                    .price(150.00)
+                    .price(170.00)
                     .category(Cake.Category.CHEESECAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake wildberriesCheesecake = Cake.builder()
-                    .id(3L)
                     .name("Wildberries-Cheesecake")
                     .ingredients("cookies, wildberries, butter, cream-cheese, sugar, eggs, cream-35%")
-                    .price(150.00)
+                    .price(170.00)
                     .category(Cake.Category.CHEESECAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake lillyCheesecake = Cake.builder()
-                    .id(4L)
                     .name("Lilly-Cheesecake")
                     .ingredients("cookies, lavender, butter, cream-cheese, sugar, eggs, cream-35%")
-                    .price(150.00)
+                    .price(160.00)
                     .category(Cake.Category.CHEESECAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake vanillaCheesecake = Cake.builder()
-                    .id(5L)
                     .name("Vanilla-Cheesecake")
                     .ingredients("cookies, vanilla, butter, cream-cheese, sugar, eggs, cream-35%")
                     .price(150.00)
                     .category(Cake.Category.CHEESECAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             cakesRepository.save(chocolateCheesecake);
@@ -162,43 +157,43 @@ public class InitialDataRunner implements CommandLineRunner {
 
         if(!cakesRepository.existsByCategory(Cake.Category.CUPCAKES)) {
             Cake chocolateCupcake = Cake.builder()
-                    .id(6L)
                     .name("Chocolate-Cupcake")
                     .ingredients("butter, chocolate, sugar, eggs, flour, baking-powder")
-                    .price(70.00)
+                    .price(80.00)
                     .category(Cake.Category.CUPCAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake ferreroCupcake = Cake.builder()
-                    .id(7L)
                     .name("Ferrero-Cupcake")
                     .ingredients("butter, ferrero, sugar, eggs, flour, baking-powder")
-                    .price(70.00)
+                    .price(90.00)
                     .category(Cake.Category.CUPCAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake blackberryCupcake = Cake.builder()
-                    .id(8L)
                     .name("Blackberry-Cupcake")
                     .ingredients("butter, blackberry, sugar, eggs, flour, baking-powder")
                     .price(70.00)
                     .category(Cake.Category.CUPCAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake blueberryCupcake = Cake.builder()
-                    .id(9L)
                     .name("Blueberry-Cupcake")
                     .ingredients("butter, blueberry, sugar, eggs, flour, baking-powder")
                     .price(70.00)
                     .category(Cake.Category.CUPCAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake wildberriesCupcake = Cake.builder()
-                    .id(10L)
                     .name("Wildberries-Cupcake")
                     .ingredients("butter, wildberries, sugar, eggs, flour, baking-powder")
                     .price(70.00)
                     .category(Cake.Category.CUPCAKES)
+                    .state(Cake.State.CREATED)
                     .build();
 
             cakesRepository.save(chocolateCupcake);
@@ -210,43 +205,43 @@ public class InitialDataRunner implements CommandLineRunner {
 
         if(!cakesRepository.existsByCategory(Cake.Category.MACARONS)) {
             Cake chocolateMacarons = Cake.builder()
-                    .id(11L)
                     .name("Chocolate-Macarons")
                     .ingredients("egg-white, dark-chocolate, almond-flour, powdered-sugar baking-powder")
-                    .price(90.00)
+                    .price(95.00)
                     .category(Cake.Category.MACARONS)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake lemonMacarons = Cake.builder()
-                    .id(12L)
                     .name("Lemon-Macarons")
                     .ingredients("egg-white, lemon, almond-flour, powdered-sugar baking-powder")
                     .price(90.00)
                     .category(Cake.Category.MACARONS)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake velvetMacarons = Cake.builder()
-                    .id(13L)
                     .name("Velvet-Macarons")
                     .ingredients("egg-white, cherry, almond-flour, powdered-sugar baking-powder")
-                    .price(90.00)
+                    .price(95.00)
                     .category(Cake.Category.MACARONS)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake raspberriesMacarons = Cake.builder()
-                    .id(14L)
                     .name("Raspberries-Macarons")
                     .ingredients("egg-white, raspberries, almond-flour, powdered-sugar baking-powder")
-                    .price(90.00)
+                    .price(80.00)
                     .category(Cake.Category.MACARONS)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake bloodorangeMacarons = Cake.builder()
-                    .id(15L)
                     .name("Bloodorange-Macarons")
                     .ingredients("egg-white, bloodorange, almond-flour, powdered-sugar baking-powder")
                     .price(90.00)
                     .category(Cake.Category.MACARONS)
+                    .state(Cake.State.CREATED)
                     .build();
 
             cakesRepository.save(chocolateMacarons);
@@ -258,43 +253,43 @@ public class InitialDataRunner implements CommandLineRunner {
 
         if(!cakesRepository.existsByCategory(Cake.Category.MOUSSE)) {
             Cake coconutMousse = Cake.builder()
-                    .id(16L)
                     .name("Coconut-Mousse")
                     .ingredients("sugar, coconut, eggs, flour, milk, gelatin, cream-35%")
                     .price(190.00)
                     .category(Cake.Category.MOUSSE)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake strawberryMousse = Cake.builder()
-                    .id(17L)
                     .name("Strawberry-Mousse")
                     .ingredients("sugar, strawberry, eggs, flour, milk, gelatin, cream-35%")
-                    .price(190.00)
+                    .price(180.00)
                     .category(Cake.Category.MOUSSE)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake blackberryMousse = Cake.builder()
-                    .id(18L)
                     .name("Blackberry-Mousse")
                     .ingredients("sugar, blackberry, eggs, flour, milk, gelatin, cream-35%")
-                    .price(190.00)
+                    .price(180.00)
                     .category(Cake.Category.MOUSSE)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake appleMousse = Cake.builder()
-                    .id(19L)
                     .name("Apple-Mousse")
                     .ingredients("sugar, apple, eggs, flour, milk, gelatin, cream-35%")
-                    .price(190.00)
+                    .price(180.00)
                     .category(Cake.Category.MOUSSE)
+                    .state(Cake.State.CREATED)
                     .build();
 
             Cake raspberryMousse = Cake.builder()
-                    .id(20L)
                     .name("Raspberry-Mousse")
                     .ingredients("sugar, raspberry, eggs, flour, milk, gelatin, cream-35%")
-                    .price(190.00)
+                    .price(180.00)
                     .category(Cake.Category.MOUSSE)
+                    .state(Cake.State.CREATED)
                     .build();
 
             cakesRepository.save(coconutMousse);

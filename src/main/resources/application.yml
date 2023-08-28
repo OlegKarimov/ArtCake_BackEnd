@@ -14,3 +14,6 @@ spring:
     sort:
       cake:
         fields: id,category,name,price
+    cake:
+      page:
+        size: 5

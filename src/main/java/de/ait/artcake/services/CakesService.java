@@ -9,7 +9,7 @@ import de.ait.artcake.dto.CakesDto;
 
 public interface CakesService {
 
-    CakesDto getAllCakes(String orderByField, Boolean desc);
+    CakesDto getAllCakes(Integer pageNumber, String orderByField, Boolean desc);
 
     CakeDto getCake(Long cakeId);
 

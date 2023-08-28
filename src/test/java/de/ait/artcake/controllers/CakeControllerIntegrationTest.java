@@ -63,6 +63,7 @@ public class CakeControllerIntegrationTest {
                     .ingredients("oreo, mascarpone, sugar")
                     .price(180.00)
                     .category("CHEESECAKES")
+                    .state("CREATED")
                     .build());
 
             mockMvc.perform(post("/api/cakes")
@@ -74,7 +75,8 @@ public class CakeControllerIntegrationTest {
                     .andExpect(jsonPath("$.name", is("oreoCheesecake")))
                     .andExpect(jsonPath("$.ingredients", is("oreo, mascarpone, sugar")))
                     .andExpect(jsonPath("$.price", is(180.00)))
-                    .andExpect(jsonPath("$.category", is("CHEESECAKES")));
+                    .andExpect(jsonPath("$.category", is("CHEESECAKES")))
+                    .andExpect(jsonPath("$.state", is("CREATED")));
         }
 
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -86,6 +88,7 @@ public class CakeControllerIntegrationTest {
                     .ingredients("oreo, mascarpone, sugar")
                     .price(180.00)
                     .category("CHEESECAKES")
+                    .state("CREATED")
                     .build());
 
             mockMvc.perform(post("/api/cakes")
@@ -101,10 +104,13 @@ public class CakeControllerIntegrationTest {
     class GetAllCakesTests {
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @Test
-        public void getAllCakes() throws Exception {
+        public void getAllCakesWithSortingAndPagination() throws Exception {
             mockMvc.perform(get("/api/cakes")
-                            .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk());
+                            .param("page", "1")
+                            .param("orderBy", "id")
+                            .param("desc", "false"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.count", is(0)));
         }
     }
 
@@ -152,6 +158,7 @@ public class CakeControllerIntegrationTest {
                     .name("ferrero-cheesecake")
                     .ingredients("ferrero, mascarpone, egg....")
                     .price(210.50)
+                    .state("CREATED")
                     .build());
 
             mockMvc.perform(put("/api/cakes/1")
@@ -170,6 +177,7 @@ public class CakeControllerIntegrationTest {
                     .name("ferrero-cheesecake")
                     .ingredients("ferrero, mascarpone, egg....")
                     .price(210.50)
+                    .state("DELETED")
                     .build());
 
             mockMvc.perform(put("/api/cakes/1")
@@ -181,7 +189,8 @@ public class CakeControllerIntegrationTest {
                     .andExpect(jsonPath("$.name", is("ferrero-cheesecake")))
                     .andExpect(jsonPath("$.ingredients", is("ferrero, mascarpone, egg....")))
                     .andExpect(jsonPath("$.price", is(210.50)))
-                    .andExpect(jsonPath("$.category", is("CHEESECAKES")));
+                    .andExpect(jsonPath("$.category", is("CHEESECAKES")))
+                    .andExpect(jsonPath("$.state", is("DELETED")));
         }
     }
 }

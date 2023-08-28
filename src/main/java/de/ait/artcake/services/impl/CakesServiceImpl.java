@@ -9,11 +9,13 @@ import de.ait.artcake.models.Cake;
 
 import de.ait.artcake.repositories.CakesRepository;
 import de.ait.artcake.services.CakesService;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,19 +23,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 import static de.ait.artcake.dto.CakeDto.from;
 import static de.ait.artcake.dto.CakeDto.fromByCategory;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PROTECTED)
 public class CakesServiceImpl implements CakesService {
 
-    CakesRepository cakesRepository;
+    private final CakesRepository cakesRepository;
 
     @Value("${spring.application.sort.cake.fields}")
-    private List<String> sortFields;
+    private final List<String> sortFields;
+
+    @Value("${spring.application.cake.page.size}")
+    private Integer pageSize;
   
     @Transactional
     @Override
@@ -44,6 +47,7 @@ public class CakesServiceImpl implements CakesService {
                 .ingredients(newCake.getIngredients())
                 .price(newCake.getPrice())
                 .category(Cake.Category.valueOf(newCake.getCategory()))
+                .state(Cake.State.valueOf(newCake.getState()))
                 .build();
 
         cakesRepository.save(cake);
@@ -59,6 +63,7 @@ public class CakesServiceImpl implements CakesService {
         cake.setName(updateCake.getName());
         cake.setIngredients(updateCake.getIngredients());
         cake.setPrice(updateCake.getPrice());
+        cake.setState(Cake.State.valueOf(updateCake.getState()));
 
         cakesRepository.save(cake);
 
@@ -76,31 +81,34 @@ public class CakesServiceImpl implements CakesService {
         return from(cake);
     }
 
-
     @Override
-    public CakesDto getAllCakes(String orderByField, Boolean desc) {
-        List<Cake> cakes;
+    public CakesDto getAllCakes(Integer pageNumber, String orderByField, Boolean desc) {
 
+        PageRequest pageRequest = getPageRequest(pageNumber, orderByField, desc);
+
+        Page<Cake> page = cakesRepository.findAll(pageRequest);
+
+        return CakesDto.builder()
+                .cakes(from(page.getContent()))
+                .count(page.getTotalElements())
+                .pagesCount(page.getTotalPages())
+                .build();
+    }
+
+    private PageRequest getPageRequest(Integer pageNumber, String orderByField, Boolean desc) {
         if(orderByField != null && !orderByField.equals("")) {
 
             checkSortField(orderByField);
-
             Sort.Direction direction = Sort.Direction.ASC;
 
             if (desc != null && desc) {
                 direction = Sort.Direction.DESC;
             }
-
             Sort sort = Sort.by(direction, orderByField);
-
-            cakes = cakesRepository.findAll(sort);
-        } else  {
-            cakes = cakesRepository.findAll();
+            return PageRequest.of(pageNumber, pageSize, sort);
+        } else {
+            return PageRequest.of(pageNumber, pageSize);
         }
-
-        return CakesDto.builder()
-                .cakes(from(cakes))
-                .build();
     }
 
     private void checkSortField(String field) {

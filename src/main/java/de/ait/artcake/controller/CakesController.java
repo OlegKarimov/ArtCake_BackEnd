@@ -32,8 +32,6 @@ public class CakesController implements CakesApi {
 
     CakesService cakesService;
 
-//    OrderService orderService;
-
     @Override
     public ResponseEntity<CakeDto> addCake(NewCakeDto newCake) {
         return ResponseEntity
@@ -49,10 +47,10 @@ public class CakesController implements CakesApi {
     }
 
     @Override
-    public ResponseEntity<CakesDto> getAllCakes(String orderByField, Boolean desc) {
+    public ResponseEntity<CakesDto> getAllCakes(Integer pageNumber, String orderByField, Boolean desc ) {
         return ResponseEntity
                 .ok()
-                .body(cakesService.getAllCakes(orderByField, desc));
+                .body(cakesService.getAllCakes(pageNumber, orderByField, desc));
     }
 
     @Override
