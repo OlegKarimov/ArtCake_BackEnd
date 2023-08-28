@@ -18,9 +18,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
+
 import static de.ait.artcake.dto.CakeDto.from;
+import static de.ait.artcake.dto.CakeDto.fromByCategory;
 
 @Service
 @RequiredArgsConstructor
@@ -107,7 +110,8 @@ public class CakesServiceImpl implements CakesService {
     }
 
     @Override
-    public CakeDto getCake(Long cakeId) {
+    public CakeDto getCake(Long cakeId)
+    {
         return CakeDto.from(getCakeOrThrow(cakeId));
     }
 
@@ -115,6 +119,18 @@ public class CakesServiceImpl implements CakesService {
         return cakesRepository.findById(cakeId)
                 .orElseThrow(() ->
                         new RestException(HttpStatus.NOT_FOUND,"Cake with id <"+ cakeId + "> not found"));
+    }
+    @Override
+    public CakesDto getCakesByCategory(String category)
+    {
+        CakesDto returnCakes = CakesDto.builder()
+            .cakes(fromByCategory(cakesRepository.findAll(), category))
+            .build();
+        if (!returnCakes.getCakes().isEmpty()){
+            return returnCakes;
+        } else {
+            throw new RestException(HttpStatus.NOT_FOUND, "Category <" + category + "> not found");
+        }
     }
 
 }

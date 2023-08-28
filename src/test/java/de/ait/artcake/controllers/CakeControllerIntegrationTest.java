@@ -109,6 +109,18 @@ public class CakeControllerIntegrationTest {
     }
 
     @Nested
+    @DisplayName("GET /api/cakes/category/{category} method is works: ")
+    class GetCakesByCategoryTests {
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        public void getCakesByCategory() throws Exception {
+            mockMvc.perform(get("/api/cakes/category/MOUSSE")
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk());
+        }
+    }
+
+    @Nested
     @DisplayName("DELETE /api/cakes/{cakesId} method is works: ")
     class DeleteCakeTests {
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -171,6 +183,5 @@ public class CakeControllerIntegrationTest {
                     .andExpect(jsonPath("$.price", is(210.50)))
                     .andExpect(jsonPath("$.category", is("CHEESECAKES")));
         }
-
     }
 }

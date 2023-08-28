@@ -1,47 +1,74 @@
 ### Entities
-
+-----------------------------------------------------------------------------------------------
 # User
-* Роли
-  User не зарег./зарег.
-  Manager
-  Konditer
 
-* Состояние
-  Confirmet, NotConfirmet
+* Role
+  CLIENT,
+  MANAGER,
+  CONFECTIONER
 
-* Поля
-  ID
-  Name
-  Email
-  Password
-  Adress
-  Phone
+* State
+  NOT_CONFIRMED,
+  CONFIRMED,
+  DELETED
+  BANNED // TODO сделать в будущем если будет время(не разрешать ему оформлять заказы или коменты если они будут)
 
+* Поля 
+  id;
+  fullName;
+  email;
+  hashPassword;
+  town;
+  street;
+  houseNumber;
+  phoneNumber;
+  state;
+  Role role;
+
+-----------------------------------------------------------------------------------------------
 
 # Cake
+
+* Category
+  CUPCAKES,
+  CHEESECAKES,
+  MACARONS,
+  MOUSSE
+
 * Поля
-  Название
-  Категория 4 шт
-  Состав или рецепт
-  Цена
-  Рейтинг
+  id;
+  name;
+  ingredients;
+  price;
+  Category category;
 
 
+-----------------------------------------------------------------------------------------------
 
 # Order
+
+* State
+  CREATED,
+  IN_PROCESS,
+  CANT_FINISH,
+  FINISHED
+  DELETED
+
 * Поля
-  ID_User
-  ID_Ceks
-  Время заказа
-  Дата на когда нужен заказ
-  Количество
+  id;
+  count;
+  description;
+  totalPrice;
+  creationDate;
+  deadline;
+  clientId;
+  cakeId;
+  cakeName;
+  confectionerId;
+  confectionerIdOtKAZALSJA;
+  state;
 
-
-* Статусы заказов
-  Принят
-  Отклонен
-  Готов
-
+-----------------------------------------------------------------------------------------------
 
 Добавление продукции менеджером ****
 Корзина *****

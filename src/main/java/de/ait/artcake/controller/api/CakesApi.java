@@ -43,8 +43,7 @@ public interface CakesApi {
     ResponseEntity<CakeDto> addCake(@Parameter(required = true, description = "Cake" )
                                     @Valid @RequestBody NewCakeDto newCake);
 
-
-    @Operation(summary = "get cake", description = "for all")
+    @Operation(summary = "get cake", description = "for all users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "get cake",
                     content = {
@@ -60,7 +59,7 @@ public interface CakesApi {
                                     @PathVariable("cake-id") Long cakeId);
 
 
-    @Operation(summary = "get cakes", description = "for all user")
+    @Operation(summary = "get all cakes", description = "for all users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "get cakes",
                     content = {
@@ -76,6 +75,20 @@ public interface CakesApi {
                                          @RequestParam(value = "orderBy", required = false) String field,
                                          @Parameter(description = "true if you want to sort in reverse order")
                                          @RequestParam(value = "desc", required = false) Boolean desc);
+
+    @Operation(summary = "get cakes by category", description = "for all users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "get cakes by category",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = CakesDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "not found",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    })
+    })
+    @GetMapping("/category/{category}")
+    ResponseEntity<CakesDto> getCakesByCategory(@PathVariable("category") String category);
 
     @Operation(summary = "update cake in our assortment", description = "only for manager")
     @ApiResponses(value = {

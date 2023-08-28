@@ -32,7 +32,7 @@ public class CakesController implements CakesApi {
 
     CakesService cakesService;
 
-    OrderService orderService;
+//    OrderService orderService;
 
     @Override
     public ResponseEntity<CakeDto> addCake(NewCakeDto newCake) {
@@ -53,6 +53,13 @@ public class CakesController implements CakesApi {
         return ResponseEntity
                 .ok()
                 .body(cakesService.getAllCakes(orderByField, desc));
+    }
+
+    @Override
+    public ResponseEntity<CakesDto> getCakesByCategory(String category) {
+        return ResponseEntity
+                .ok()
+                .body(cakesService.getCakesByCategory(category));
     }
 
     @Override
