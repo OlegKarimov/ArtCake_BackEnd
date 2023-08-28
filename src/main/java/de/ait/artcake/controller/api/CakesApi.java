@@ -90,7 +90,7 @@ public interface CakesApi {
                     })
     })
     @GetMapping("/category/{category}")
-    ResponseEntity<CakesDto> getCakesByCategory(@Parameter(description = "category", example = "MOUSSE")
+    ResponseEntity<CakesDto> getCakesByCategory(@Parameter(required = true, description = "category", example = "MOUSSE")
                                                 @PathVariable("category") String category);
 
     @Operation(summary = "update cake in our assortment", description = "only for manager")

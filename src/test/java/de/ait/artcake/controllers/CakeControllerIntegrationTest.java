@@ -127,6 +127,18 @@ public class CakeControllerIntegrationTest {
     }
 
     @Nested
+    @DisplayName("GET /api/users/role/{role} method is works: ")
+    class GetUsersByRoleTests {
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        public void getCakesByCategory() throws Exception {
+            mockMvc.perform(get("/api/users/role/CONFECTIONER")
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk());
+        }
+    }
+
+    @Nested
     @DisplayName("DELETE /api/cakes/{cakesId} method is works: ")
     class DeleteCakeTests {
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)

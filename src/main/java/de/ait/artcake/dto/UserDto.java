@@ -1,5 +1,6 @@
 package de.ait.artcake.dto;
 
+import de.ait.artcake.models.Cake;
 import de.ait.artcake.models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,6 +61,13 @@ public class UserDto {
 
     public static List<UserDto> from(List<User> users) {
         return users.stream()
+                .map(UserDto::from)
+                .collect(Collectors.toList());
+    }
+
+    public static List<UserDto> fromByRole(Collection<User> users, String role) {
+        return users.stream()
+                .filter(user -> user.getRole().toString().equalsIgnoreCase(role))
                 .map(UserDto::from)
                 .collect(Collectors.toList());
     }

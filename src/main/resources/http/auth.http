@@ -43,3 +43,5 @@ Content-Type: application/json
 
 GET http://localhost:8080/api/users/my
 
+### Getting all Users by Role
+GET localhost:8080/api/users/role/CONFECTIONER
