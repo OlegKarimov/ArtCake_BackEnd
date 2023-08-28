@@ -22,7 +22,6 @@ public class UpdateCakeDto {
     @Schema(example = "sugar...")
     private String ingredients;
 
-    @NotBlank
     @Schema(example = "57.90")
     private Double price;
 

@@ -7,20 +7,18 @@ import de.ait.artcake.dto.UpdateCakeDto;
 import de.ait.artcake.handler.RestException;
 import de.ait.artcake.models.Cake;
 
-import de.ait.artcake.dto.CakesDto;
-
 import de.ait.artcake.repositories.CakesRepository;
 import de.ait.artcake.services.CakesService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import org.springframework.stereotype.Service;
-
+import java.util.List;
 
 import static de.ait.artcake.dto.CakeDto.from;
 
@@ -30,6 +28,9 @@ import static de.ait.artcake.dto.CakeDto.from;
 public class CakesServiceImpl implements CakesService {
 
     CakesRepository cakesRepository;
+
+    @Value("${spring.application.sort.cake.fields}")
+    private List<String> sortFields;
   
     @Transactional
     @Override
@@ -74,12 +75,36 @@ public class CakesServiceImpl implements CakesService {
 
 
     @Override
-    public CakesDto getAllCakes() {
+    public CakesDto getAllCakes(String orderByField, Boolean desc) {
+        List<Cake> cakes;
+
+        if(orderByField != null && !orderByField.equals("")) {
+
+            checkSortField(orderByField);
+
+            Sort.Direction direction = Sort.Direction.ASC;
+
+            if (desc != null && desc) {
+                direction = Sort.Direction.DESC;
+            }
+
+            Sort sort = Sort.by(direction, orderByField);
+
+            cakes = cakesRepository.findAll(sort);
+        } else  {
+            cakes = cakesRepository.findAll();
+        }
+
         return CakesDto.builder()
-                .cakes(from(cakesRepository.findAll()))
+                .cakes(from(cakes))
                 .build();
     }
 
+    private void checkSortField(String field) {
+        if(!sortFields.contains(field)) {
+            throw new RestException(HttpStatus.FORBIDDEN, "Can not sort <" + field + ">" );
+        }
+    }
 
     @Override
     public CakeDto getCake(Long cakeId) {

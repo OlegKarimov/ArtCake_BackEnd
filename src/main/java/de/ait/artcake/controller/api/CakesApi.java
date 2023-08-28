@@ -5,13 +5,8 @@ import de.ait.artcake.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
-import de.ait.artcake.dto.NewOrderDto;
-import de.ait.artcake.dto.OrderDto;
-
 import de.ait.artcake.dto.CakesDto;
 import de.ait.artcake.dto.StandardResponseDto;
-
-import io.swagger.v3.oas.annotations.Operation;
 
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,14 +14,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-
 import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 
 @Tags(value = {
         @Tag(name = "Cakes")
@@ -47,7 +40,8 @@ public interface CakesApi {
     @PreAuthorize("hasAnyAuthority('MANAGER')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<CakeDto> addCake(@RequestBody NewCakeDto newCake);
+    ResponseEntity<CakeDto> addCake(@Parameter(required = true, description = "Cake" )
+                                    @Valid @RequestBody NewCakeDto newCake);
 
 
     @Operation(summary = "get cake", description = "for all")
@@ -62,7 +56,9 @@ public interface CakesApi {
                     })
     })
     @GetMapping("/{cake-id}")
-    ResponseEntity<CakeDto> getCake(@PathVariable("cake-id") Long cakeId);
+    ResponseEntity<CakeDto> getCake(@Parameter(required = true, description = "cake id", example = "1")
+                                    @PathVariable("cake-id") Long cakeId);
+
 
     @Operation(summary = "get cakes", description = "for all user")
     @ApiResponses(value = {
@@ -76,7 +72,10 @@ public interface CakesApi {
                     })
     })
     @GetMapping
-    ResponseEntity<CakesDto> getAllCakes();
+    ResponseEntity<CakesDto> getAllCakes(@Parameter(description = "field to sort by. Only available for id")
+                                         @RequestParam(value = "orderBy", required = false) String field,
+                                         @Parameter(description = "true if you want to sort in reverse order")
+                                         @RequestParam(value = "desc", required = false) Boolean desc);
 
     @Operation(summary = "update cake in our assortment", description = "only for manager")
     @ApiResponses(value = {
@@ -91,8 +90,9 @@ public interface CakesApi {
     })
     @PreAuthorize("hasAnyAuthority('MANAGER')")
     @PutMapping("/{cake-id}")
-    ResponseEntity<CakeDto> updateCake(@PathVariable("cake-id") Long cakeId,
-                                       @RequestBody  UpdateCakeDto updateCake);
+    ResponseEntity<CakeDto> updateCake(@Parameter(required = true, description = "cake id", example = "1")
+                                       @PathVariable("cake-id") Long cakeId,
+                                       @Valid @RequestBody  UpdateCakeDto updateCake);
 
     @Operation(summary = "delete cake from our assortment", description = "only for manager")
     @ApiResponses(value = {

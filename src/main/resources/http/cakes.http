@@ -12,7 +12,7 @@ Content-Type: application/json
 
 ### get all cakes
 
-GET localhost:8080/api/cakes
+GET localhost:8080/api/cakes?orderBy=id
 
 ### get cake
 

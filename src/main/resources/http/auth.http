@@ -31,7 +31,7 @@ POST http://localhost:8080/api/registration
 Content-Type: application/json
 
 {
-  "fullName": "Vasiliy Morozov",
+  "fullName": "John Manageroff",
   "email": "manager@mail.com",
   "password": "Manager007!",
   "town": "Kiel",
@@ -42,3 +42,4 @@ Content-Type: application/json
 ### Получение профиля пользователя
 
 GET http://localhost:8080/api/users/my
+

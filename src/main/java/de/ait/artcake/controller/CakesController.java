@@ -49,10 +49,10 @@ public class CakesController implements CakesApi {
     }
 
     @Override
-    public ResponseEntity<CakesDto> getAllCakes() {
+    public ResponseEntity<CakesDto> getAllCakes(String orderByField, Boolean desc) {
         return ResponseEntity
                 .ok()
-                .body(cakesService.getAllCakes());
+                .body(cakesService.getAllCakes(orderByField, desc));
     }
 
     @Override

@@ -27,8 +27,14 @@ public class ValidationExceptionHandler {
                     if (error instanceof FieldError fieldError) {
                         errorDto.setField(fieldError.getField());
 
-                        if (fieldError.getRejectedValue() != null) {
-                            errorDto.setRejectedValue(fieldError.getRejectedValue().toString());
+                        // Добавляем обработку для числовых значений
+                        Object rejectedValue = fieldError.getRejectedValue();
+                        if (rejectedValue != null) {
+                            if (rejectedValue instanceof Number) {
+                                errorDto.setRejectedValue(rejectedValue.toString());
+                            } else {
+                                errorDto.setRejectedValue(rejectedValue.toString());
+                            }
                         }
                     }
 
@@ -42,4 +48,8 @@ public class ValidationExceptionHandler {
                         .errors(validationErrors)
                         .build());
     }
+
+
+
+
 }
