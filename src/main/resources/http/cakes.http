@@ -6,7 +6,8 @@ Content-Type: application/json
   "name": "strawberry-mousse",
   "ingredients": "water, sugar, egg",
   "price": "250.00",
-  "category": "MOUSSE"
+  "category": "MOUSSE",
+  "state": "CREATED"
 }
 
 ### add cake CUPCAKES
@@ -17,12 +18,13 @@ Content-Type: application/json
   "name": "strawberry-mousse",
   "ingredients": "water, sugar, egg",
   "price": "250.00",
-  "category": "CUPCAKES"
+  "category": "CUPCAKES",
+  "state": "CREATED"
 }
 
 
 ### get all cakes
-GET localhost:8080/api/cakes?orderBy=id
+GET localhost:8080/api/cakes?page=1&orderBy=id&desc=false
 
 
 ### get cake

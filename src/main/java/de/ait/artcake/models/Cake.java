@@ -23,6 +23,12 @@ public class Cake {
         MOUSSE
     }
 
+    public enum State{
+        CREATED,
+        DELETED,
+        UPDATED
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,5 +47,7 @@ public class Cake {
     @Enumerated(value = EnumType.STRING)
     private Category category;
 
-
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private State state;
 }

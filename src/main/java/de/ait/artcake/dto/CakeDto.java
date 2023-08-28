@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +33,9 @@ public class CakeDto {
     @Schema(description = "Cakes Category", example = "CUPCAKES")
     private String category;
 
+    @Schema(description = "Cakes State", example = "DELETED")
+    private String state;
+
     @Schema(description = "linking a cake to ordersId", example = "1")
     private Long ordersId;
 
@@ -42,6 +46,7 @@ public class CakeDto {
                 .ingredients(cake.getIngredients())
                 .price(cake.getPrice())
                 .category(cake.getCategory().name())
+                .state(cake.getState().name())
                 .build();
 
         return result;

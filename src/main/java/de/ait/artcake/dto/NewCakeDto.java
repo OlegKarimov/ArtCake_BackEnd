@@ -31,4 +31,7 @@ public class NewCakeDto {
     @Schema(description = "cake category", example = "CUPCAKE")
     private String category;
 
+    @NotBlank
+    @Schema(description = "cake state", example = "DELETED")
+    private String state;
 }

@@ -71,7 +71,9 @@ public interface CakesApi {
                     })
     })
     @GetMapping
-    ResponseEntity<CakesDto> getAllCakes(@Parameter(description = "field to sort by. Only available for id")
+    ResponseEntity<CakesDto> getAllCakes(@Parameter(description = "page number", example = "1")
+                                         @RequestParam(value = "page") Integer page,
+                                         @Parameter(description = "field to sort by. Available for id, name, price, category")
                                          @RequestParam(value = "orderBy", required = false) String field,
                                          @Parameter(description = "true if you want to sort in reverse order")
                                          @RequestParam(value = "desc", required = false) Boolean desc);
@@ -88,7 +90,8 @@ public interface CakesApi {
                     })
     })
     @GetMapping("/category/{category}")
-    ResponseEntity<CakesDto> getCakesByCategory(@PathVariable("category") String category);
+    ResponseEntity<CakesDto> getCakesByCategory(@Parameter(description = "category", example = "MOUSSE")
+                                                @PathVariable("category") String category);
 
     @Operation(summary = "update cake in our assortment", description = "only for manager")
     @ApiResponses(value = {
