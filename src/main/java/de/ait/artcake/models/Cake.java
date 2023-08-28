@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 
 
 @Data
@@ -33,6 +34,7 @@ public class Cake {
     private String ingredients;
 
     @Column(nullable = false)
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
     private Double price;
 
     @Column(nullable = false)

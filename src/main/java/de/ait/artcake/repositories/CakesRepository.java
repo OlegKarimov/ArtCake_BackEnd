@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CakesRepository extends JpaRepository<Cake, Long> {
 
+    boolean existsByCategory (Cake.Category category);
 }

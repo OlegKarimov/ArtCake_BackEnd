@@ -24,7 +24,6 @@ public class NewCakeDto {
     @Schema(description = "cake ingredients", example = "milk,egg,salt...")
     private String ingredients;
 
-    @NotBlank
     @Schema(description = "cake price", example = "70.50")
     private Double price;
 

@@ -55,7 +55,7 @@ public class CakeControllerIntegrationTest {
         @Sql(scripts = "/sql/data_for_cakes.sql")
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @Test
-        void add_cake_as_Manager() throws Exception{
+        void add_cake_as_Manager() throws Exception {
 
 
             String body = objectMapper.writeValueAsString(NewCakeDto.builder()
@@ -70,7 +70,7 @@ public class CakeControllerIntegrationTest {
                             .content(body))
                     .andDo(print())
                     .andExpect(status().isCreated())
-                    .andExpect(jsonPath("$.id", is (4)))
+                    .andExpect(jsonPath("$.id", is(4)))
                     .andExpect(jsonPath("$.name", is("oreoCheesecake")))
                     .andExpect(jsonPath("$.ingredients", is("oreo, mascarpone, sugar")))
                     .andExpect(jsonPath("$.price", is(180.00)))
