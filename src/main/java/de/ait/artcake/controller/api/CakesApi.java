@@ -63,7 +63,7 @@ public interface CakesApi {
     @GetMapping("/{cake-id}")
     ResponseEntity<CakeDto> getCake(@PathVariable("cake-id") Long cakeId);
 
-    @Operation(summary = "get cakes", description = "for all users")
+    @Operation(summary = "get all cakes", description = "for all users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "get cakes",
                     content = {

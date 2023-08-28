@@ -1,14 +1,11 @@
 package de.ait.artcake.dto;
 
-import de.ait.artcake.handler.RestException;
 import de.ait.artcake.models.Cake;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
-import de.ait.artcake.handler.RestException;
 
 import java.util.Collection;
 import java.util.List;
@@ -56,19 +53,12 @@ public class CakeDto {
                 .collect(Collectors.toList());
     }
 
-    public static List<CakeDto> fromToCategory(Collection<Cake> cakes, String category) {
-//        return cakes.stream().filter(cake -> false)
-//        return cakes.stream().filter(cake -> cake.getCategory().equals(category))
-//        return cakes.stream().filter(cake -> cake.getCategory().valueOf(category).equals(category))
-        List<CakeDto> cakeDtoList = null;
-        try {
-            cakeDtoList = cakes.stream()
-                    .filter(cake -> cake.getCategory().valueOf(category).equals(category))
+    public static List<CakeDto> fromByCategory(Collection<Cake> cakes, String category) {
+
+            return cakes.stream()
+                    .filter(cake -> cake.getCategory().toString().equalsIgnoreCase(category))
                     .map(CakeDto::from)
                     .collect(Collectors.toList());
-        } catch (RestException e) {
-            throw new RestException(HttpStatus.NOT_FOUND, "Category <" + category + "> not found");
-        }
-            return cakeDtoList;
+
     }
 }
