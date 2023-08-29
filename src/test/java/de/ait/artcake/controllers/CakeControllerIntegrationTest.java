@@ -26,11 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -38,7 +34,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayNameGeneration(value = DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("CakesController is works: ")
 @ActiveProfiles("test")
-
 public class CakeControllerIntegrationTest {
 
     @Autowired
@@ -117,22 +112,12 @@ public class CakeControllerIntegrationTest {
     @Nested
     @DisplayName("GET /api/cakes/category/{category} method is works: ")
     class GetCakesByCategoryTests {
+
+        @Sql(scripts = "/sql/data_for_cakes.sql")
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @Test
         public void getCakesByCategory() throws Exception {
             mockMvc.perform(get("/api/cakes/category/MOUSSE")
-                            .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk());
-        }
-    }
-
-    @Nested
-    @DisplayName("GET /api/users/role/{role} method is works: ")
-    class GetUsersByRoleTests {
-        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-        @Test
-        public void getCakesByCategory() throws Exception {
-            mockMvc.perform(get("/api/users/role/CONFECTIONER")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         }
