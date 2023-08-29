@@ -1,19 +1,18 @@
 spring:
   datasource:
-    url: jdbc:h2:file:~/databases/fp_db;AUTO_SERVER=TRUE
-    username: admin
+    url: jdbc:postgresql://localhost:5432/fp_db
+    username: postgres
     password: admin
   jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
     properties:
       hibernate:
-        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
   application:
     sort:
-      cake:
-        fields: id,category,name,price
+       cake:
+         fields: id,category,name,price
     cake:
-      page:
-        size: 5
+       page:
+         size: 5
