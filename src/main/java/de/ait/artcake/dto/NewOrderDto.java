@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -18,6 +19,7 @@ public class NewOrderDto {
 
 
     @Schema(description = "Quantity of cakes", example = "3")
+    @Column(nullable = false)
     private Integer count;
 
     @NotBlank
@@ -26,6 +28,6 @@ public class NewOrderDto {
     private String deadline;
 
     @Schema(description = "Client wishes", example = "Make in blue and white colours")
-    private String description;
+    private String clientWishes;
 
 }

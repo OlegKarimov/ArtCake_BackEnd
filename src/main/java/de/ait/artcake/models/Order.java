@@ -1,9 +1,6 @@
 package de.ait.artcake.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +9,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode(exclude = {"client", "cake"})
+@ToString(exclude = {"client", "cake"})
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -34,7 +33,7 @@ public class Order {
     private Integer count = 1;
 
     @Column(length = 200)
-    private String description;
+    private String clientWishes;
 
     private Double totalPrice;
 
@@ -42,18 +41,19 @@ public class Order {
 
     private LocalDate deadline;
 
-    private Long clientId;
-
-    private Long cakeId;
-
-    private String cakeName;
-
     private Long confectionerId;
-
-    private Long confectionerIdOtKAZALSJA;
 
     @Enumerated(value = EnumType.STRING)
     private State state;
+
+    @ManyToOne
+    @JoinColumn(name = "Client_id")
+    private User client;
+
+    @ManyToOne
+    @JoinColumn(name = "Cake_id")
+    private Cake cake;
+
 
 
     @PrePersist

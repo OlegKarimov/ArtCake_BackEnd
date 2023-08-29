@@ -1,6 +1,8 @@
 package de.ait.artcake.controller;
 
 import de.ait.artcake.controller.api.UsersApi;
+import de.ait.artcake.dto.OrdersDto;
+import de.ait.artcake.dto.OrdersRequest;
 import de.ait.artcake.dto.UserDto;
 import de.ait.artcake.dto.UsersDto;
 import de.ait.artcake.security.details.AuthenticatedUser;
@@ -32,4 +34,10 @@ public class UsersController implements UsersApi {
                 .ok()
                 .body(usersService.getAllUsersByRole(role));
     }
+    @Override
+    public ResponseEntity<OrdersDto> getAllOrders(OrdersRequest request) {
+        return ResponseEntity
+                .ok(usersService.getAllOrders(request));
+    }
+
 }
