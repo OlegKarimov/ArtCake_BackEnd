@@ -40,7 +40,7 @@ public class CakeDto {
     private Long ordersId;
 
     public static CakeDto from (Cake cake) {
-        CakeDto result = CakeDto.builder()
+        return CakeDto.builder()
                 .id(cake.getId())
                 .name(cake.getName())
                 .ingredients(cake.getIngredients())
@@ -49,7 +49,6 @@ public class CakeDto {
                 .state(cake.getState().name())
                 .build();
 
-        return result;
     }
 
     public static List<CakeDto> from(Collection<Cake> cakes){

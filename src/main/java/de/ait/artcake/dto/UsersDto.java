@@ -14,6 +14,7 @@ import java.util.List;
 @Builder
 @Schema(description = "List of all users")
 public class UsersDto {
-    @Schema(description = "User")
+
+    @Schema(description = "Users list")
     private List<UserDto> users;
 }

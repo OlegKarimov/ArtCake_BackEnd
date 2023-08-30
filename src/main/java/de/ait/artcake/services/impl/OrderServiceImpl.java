@@ -7,7 +7,6 @@ import de.ait.artcake.handler.RestException;
 import de.ait.artcake.models.Cake;
 import de.ait.artcake.models.Order;
 import de.ait.artcake.models.User;
-import de.ait.artcake.repositories.CakesRepository;
 import de.ait.artcake.repositories.OrdersRepository;
 import de.ait.artcake.security.details.AuthenticatedUser;
 import de.ait.artcake.services.OrdersService;
@@ -23,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Service
@@ -31,9 +29,9 @@ public class OrderServiceImpl implements OrdersService {
 
     OrdersRepository ordersRepository;
 
-    CakesRepository cakesRepository;
-
     UsersServiceImpl usersService;
+
+    CakesServiceImpl cakesService;
 
     @Transactional
     @Override
@@ -42,30 +40,29 @@ public class OrderServiceImpl implements OrdersService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = ((AuthenticatedUser) authentication.getPrincipal()).id();
 
-        Cake cake = getCakeOrThrow(cakeId);
+        Cake cake = cakesService.getCakeOrThrow(cakeId);
 
         User user = usersService.getUserOrThrow(userId);
 
         Order order = Order.builder()
                 .count(newOrder.getCount())
-                .totalPrice((double)newOrder.getCount()*cake.getPrice())
+                .totalPrice((double) newOrder.getCount() * cake.getPrice())
                 .state(Order.State.CREATED)
                 .build();
 
-        if(newOrder.getClientWishes() != null){
+        if (newOrder.getClientWishes() != null) {
             order.setClientWishes(newOrder.getClientWishes());
-        }else {
+        } else {
             order.setClientWishes("Client had no wishes");
         }
 
-        if(newOrder.getDeadline() != null){
+        if (newOrder.getDeadline() != null) {
             order.setDeadline(LocalDate.parse(newOrder.getDeadline()));
         } else {
             order.setDeadline(LocalDate.now().plus(3, ChronoUnit.DAYS));
         }
 
         order.setCake(cake);
-
         order.setClient(user);
         order.setConfectionerId(0L);
 
@@ -79,9 +76,7 @@ public class OrderServiceImpl implements OrdersService {
 
         Order order = getOrderOrThrow(orderId);
 
-
         order.setConfectionerId(orderToProcess.getConfectionerId());
-
         order.setState(Order.State.IN_PROCESS);
 
         ordersRepository.save(order);
@@ -112,15 +107,8 @@ public class OrderServiceImpl implements OrdersService {
         return OrderDto.from(order);
     }
 
-    private Cake getCakeOrThrow(Long cakeId) {
-        return cakesRepository.findById(cakeId).orElseThrow(
-                () -> new RestException(HttpStatus.NOT_FOUND, "Cake with id <" + cakeId +"> not found"));
-    }
-
     private Order getOrderOrThrow(Long orderId) {
         return ordersRepository.findById(orderId).orElseThrow(
                 () -> new RestException(HttpStatus.NOT_FOUND, "Order with id <" + orderId + "> not found"));
     }
-
-
 }

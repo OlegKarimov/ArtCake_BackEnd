@@ -58,7 +58,6 @@ public interface CakesApi {
     ResponseEntity<CakeDto> getCake(@Parameter(required = true, description = "cake id", example = "1")
                                     @PathVariable("cake-id") Long cakeId);
 
-
     @Operation(summary = "get all cakes", description = "for all users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "get cakes",
@@ -125,7 +124,5 @@ public interface CakesApi {
     @DeleteMapping("/{cake-id}")
     ResponseEntity<CakeDto> deleteCake(@Parameter(required = true, description = "cake id", example = "2")
                                        @PathVariable("cake-id") Long cakeId);
-
-
 }
 

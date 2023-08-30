@@ -48,5 +48,4 @@ public class OrdersController implements OrdersApi {
                 .ok()
                 .body(orderService.orderCantFinish(orderId));
     }
-
 }

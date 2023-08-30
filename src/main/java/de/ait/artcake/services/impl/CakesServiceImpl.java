@@ -10,9 +10,7 @@ import de.ait.artcake.models.Cake;
 import de.ait.artcake.repositories.CakesRepository;
 import de.ait.artcake.services.CakesService;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

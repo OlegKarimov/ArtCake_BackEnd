@@ -4,7 +4,6 @@ import de.ait.artcake.dto.NewOrderDto;
 import de.ait.artcake.dto.OrderDto;
 import de.ait.artcake.dto.OrderInProcessDto;
 
-
 public interface OrdersService {
     OrderDto addOrder(Long cakeId, NewOrderDto newOrder);
 

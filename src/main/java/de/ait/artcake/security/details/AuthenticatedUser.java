@@ -1,6 +1,5 @@
 package de.ait.artcake.security.details;
 
-
 import de.ait.artcake.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-
 
 public class AuthenticatedUser implements UserDetails {
 
@@ -56,6 +54,5 @@ public class AuthenticatedUser implements UserDetails {
     public boolean isEnabled() {
         return user.getState().equals(User.State.CONFIRMED);
     }
-
 
 }

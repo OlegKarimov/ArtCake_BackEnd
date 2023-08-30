@@ -1,7 +1,5 @@
 package de.ait.artcake.security.details;
 
-
-
 import de.ait.artcake.repositories.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

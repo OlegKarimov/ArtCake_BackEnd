@@ -21,8 +21,11 @@ public class UserDto {
     @Schema(description = "User Identifier",example = "1")
     private Long id;
 
-    @Schema(description = "User Name", example = "Will Smith")
-    private String fullName;
+    @Schema(description = "User First Name", example = "Will")
+    private String firstName;
+
+    @Schema(description = "User Last Name", example = "Smith")
+    private String lastName;
 
     @Schema(description = "User Email", example = "example@mail.com")
     private String email;
@@ -48,7 +51,8 @@ public class UserDto {
     public static UserDto from(User user) {
         return UserDto.builder()
                 .id(user.getId())
-                .fullName(user.getFullName())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
                 .email(user.getEmail())
                 .town(user.getTown())
                 .street(user.getStreet())

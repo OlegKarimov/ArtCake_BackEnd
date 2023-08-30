@@ -1,6 +1,7 @@
 package de.ait.artcake.runner;
 
 import de.ait.artcake.models.Cake;
+import de.ait.artcake.models.Order;
 import de.ait.artcake.models.User;
 import de.ait.artcake.repositories.CakesRepository;
 import de.ait.artcake.repositories.OrdersRepository;
@@ -13,6 +14,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Profile("!test")
@@ -34,7 +37,8 @@ public class InitialDataRunner implements CommandLineRunner {
 
         if(!usersRepository.existsByRole(User.Role.MANAGER)){
             User manager = User.builder()
-                    .fullName("John Manageroff")
+                    .firstName("John")
+                    .lastName("Manageroff")
                     .email("manager@mail.com")
                     .hashPassword("$2a$10$VQky6jadkcnsisW/SSrqeuvP5p7Tomz5F7x/fMBzikyMGv7sfPOay")
 //                    qwerty123!
@@ -53,7 +57,8 @@ public class InitialDataRunner implements CommandLineRunner {
 
         if(!usersRepository.existsByRole(User.Role.CONFECTIONER)){
             User konditerow = User.builder()
-                    .fullName("Konditer Konditerow")
+                    .firstName("Konditer")
+                    .lastName("Konditerow")
                     .email("konditerow@gmail.com")
                     .hashPassword("$2a$10$XhZqBs2ID5aIey7WJJiPAexSGXcfuB6NFSb/ZC/S3GMkO/ouhmTdG")
                     .town("Kiel")
@@ -65,7 +70,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .build();
 
             User konditeryan = User.builder()
-                    .fullName("Konditer Konditeryan")
+                    .firstName("Konditer")
+                    .lastName("Konditeryan")
                     .email("konditeryan@gmail.com")
                     .hashPassword("$2a$10$jtLDeFSt7C1jNGtxpzh6kurTi.rej21OBRqjMexaC9jbW4JI967bC")
                     .town("Kiel")
@@ -77,7 +83,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .build();
 
             User konditeridze = User.builder()
-                    .fullName("Konditer Konditeridze")
+                    .firstName("Konditer")
+                    .lastName("Konditeridze")
                     .email("konditeridze@gmail.com")
                     .hashPassword("$2a$10$KrckCT.RKuAbniEAJoi2R.xIoeTHin/PEjuPH4qRVtTV9DStncu1K")
                     .town("Kiel")
@@ -89,7 +96,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .build();
 
             User konditerenko = User.builder()
-                    .fullName("Konditer Konditerenko")
+                    .firstName("Konditer")
+                    .lastName("Konditerenko")
                     .email("konditerenko@gmail.com")
                     .hashPassword("$2a$10$ruOLOFb6ugIquDl4iSv0DOVfSpC1orM5E512eitSFPoaJF03EfhP2")
                     .town("Kiel")
@@ -300,24 +308,114 @@ public class InitialDataRunner implements CommandLineRunner {
             cakesRepository.save(blackberryMousse);
         }
 
-        //if(usersRepository.count() == 5) {
-        //    User client = User.builder()
-        //            .fullName("Client Clientowitsch")
-        //            .email("client@gmail.com")
-        //            .hashPassword("$2a$10$x4x5qCBkKBUMsYpUpOJYw.GxFbFgSBHryob0sHZOTB4Rl8DmwP1M6")
-        //            .town("Kiel")
-        //            .street("StrandStrasse")
-        //            .houseNumber(7)
-        //            .phoneNumber("+4917688777755")
-        //            .state(User.State.CONFIRMED)
-        //            .role(User.Role.CLIENT)
-        //            .build();
-        //
-        //    usersRepository.save(client);
-        //
-        //    log.info("Insert a client into database");
-        //}
+        if(usersRepository.count() == 5) {
+            User client1 = User.builder()
+                    .firstName("Client")
+                    .lastName("Clientowitsch")
+                    .email("client@gmail.com")
+                    .hashPassword("$2a$10$x4x5qCBkKBUMsYpUpOJYw.GxFbFgSBHryob0sHZOTB4Rl8DmwP1M6")
+                    .town("Kiel")
+                    .street("StrandStrasse")
+                    .houseNumber(7)
+                    .phoneNumber("+4917688777755")
+                    .state(User.State.CONFIRMED)
+                    .role(User.Role.CLIENT)
+                    .build();
 
+            User client2 = User.builder()
+                    .firstName("Ivan")
+                    .lastName("Ivanovich")
+                    .email("client1@gmail.com")
+                    .hashPassword("$2a$10$x4x5qCBkKBUMsYpUpOJYw.GxFbFgSBHryob0sHZOTB4Rl8DmwP1M6")
+                    .town("Timmendorf")
+                    .street("Timmendorfer")
+                    .houseNumber(99)
+                    .phoneNumber("+4917688777755")
+                    .state(User.State.CONFIRMED)
+                    .role(User.Role.CLIENT)
+                    .build();
+
+            User client3 = User.builder()
+                    .firstName("Petr")
+                    .lastName("Petrenko")
+                    .email("client2@gmail.com")
+                    .hashPassword("$2a$10$x4x5qCBkKBUMsYpUpOJYw.GxFbFgSBHryob0sHZOTB4Rl8DmwP1M6")
+                    .town("Winser")
+                    .street("NeuerStr.")
+                    .houseNumber(10)
+                    .phoneNumber("+4917688777755")
+                    .state(User.State.CONFIRMED)
+                    .role(User.Role.CLIENT)
+                    .build();
+
+            usersRepository.save(client1);
+            usersRepository.save(client2);
+            usersRepository.save(client3);
+
+            log.info("Insert a client into database");
+        }
+
+        if(ordersRepository.count() < 1 ) {
+
+            User client = usersRepository.findByEmail("client@gmail.com").get();
+            Cake cake = cakesRepository.findById(2L).get();
+            Order order1 = Order.builder()
+                    .count(2)
+                    .clientWishes("Make in blue and white colours")
+                    .totalPrice((double)340)
+                    .creationDate(LocalDate.parse("2023-08-30"))
+                    .deadline(LocalDate.parse("2023-11-10"))
+                    .client(client)
+                    .cake(cake)
+                    .confectionerId(0L)
+                    .state(Order.State.CREATED)
+                    .build();
+
+            Cake cake1 = cakesRepository.findById(5L).get();
+            Order order2 = Order.builder()
+                    .count(5)
+                    .clientWishes("Make in blue and white colours")
+                    .totalPrice((double)750)
+                    .creationDate(LocalDate.parse("2023-08-30"))
+                    .deadline(LocalDate.parse("2023-11-10"))
+                    .client(client)
+                    .cake(cake1)
+                    .confectionerId(0L)
+                    .state(Order.State.CREATED)
+                    .build();
+
+            Cake cake2 = cakesRepository.findById(1L).get();
+            Order order3 = Order.builder()
+                    .count(1)
+                    .clientWishes("Make in blue and white colours")
+                    .totalPrice((double)210)
+                    .creationDate(LocalDate.parse("2023-08-30"))
+                    .deadline(LocalDate.parse("2023-11-10"))
+                    .client(client)
+                    .cake(cake2)
+                    .confectionerId(0L)
+                    .state(Order.State.CREATED)
+                    .build();
+
+            User client1 = usersRepository.findByEmail("client1@gmail.com").get();
+            Cake cake3 = cakesRepository.findById(10L).get();
+            Order order4 = Order.builder()
+                    .count(10)
+                    .clientWishes("Make in blue and white colours")
+                    .totalPrice((double)700)
+                    .creationDate(LocalDate.parse("2023-08-30"))
+                    .deadline(LocalDate.parse("2023-11-10"))
+                    .client(client1)
+                    .cake(cake3)
+                    .confectionerId(0L)
+                    .state(Order.State.CREATED)
+                    .build();
+
+            ordersRepository.save(order1);
+            ordersRepository.save(order2);
+            ordersRepository.save(order3);
+            ordersRepository.save(order4);
+        }
 
     }
 }
