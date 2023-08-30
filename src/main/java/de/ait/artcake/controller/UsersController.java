@@ -2,6 +2,7 @@ package de.ait.artcake.controller;
 
 import de.ait.artcake.controller.api.UsersApi;
 import de.ait.artcake.dto.OrdersDto;
+
 import de.ait.artcake.dto.OrdersRequest;
 import de.ait.artcake.dto.UserDto;
 import de.ait.artcake.dto.UsersDto;
@@ -34,9 +35,17 @@ public class UsersController implements UsersApi {
                 .ok()
                 .body(usersService.getAllUsersByRole(role));
     }
+
     @Override
     public ResponseEntity<OrdersDto> getAllOrdersForConfectioner(Integer pageNumber, String orderByField, Boolean desc ) {
         return ResponseEntity
                 .ok(usersService.getAllOrdersForConfectioner(pageNumber, orderByField, desc));
+    }
+  
+    @Override
+    public ResponseEntity<OrdersDto> getAllOrdersForClient(Integer pageNumber, String orderByField, Boolean desc) {
+        return ResponseEntity
+                .ok()
+                .body(usersService.getAllOrdersForClient(pageNumber, orderByField, desc));
     }
 }
