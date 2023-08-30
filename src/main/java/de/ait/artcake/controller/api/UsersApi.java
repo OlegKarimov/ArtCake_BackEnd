@@ -2,6 +2,7 @@ package de.ait.artcake.controller.api;
 
 
 import de.ait.artcake.dto.*;
+import de.ait.artcake.dto.*;
 import de.ait.artcake.dto.OrdersDto;
 import de.ait.artcake.dto.StandardResponseDto;
 import de.ait.artcake.dto.UserDto;
@@ -68,11 +69,19 @@ public interface UsersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
                     }),
+            @ApiResponse(responseCode = "403", description = "Attempting to sort by a prohibited field",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    }),
             @ApiResponse(responseCode = "403", description = "Profile is not authenticated",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
     })
+    @PreAuthorize("hasAuthority('MANAGER')")
+    @GetMapping("/manager/orders")
+    ResponseEntity<OrdersDto> getAllOrders(OrdersRequest request);
+
     @PreAuthorize("hasAuthority('CONFECTIONER')")
     @GetMapping("/confectioner/orders")
     ResponseEntity<OrdersDto> getAllOrdersForConfectioner(@Parameter(description = "page number", example = "1")
@@ -101,5 +110,4 @@ public interface UsersApi {
                                                     @RequestParam(value = "orderBy", required = false) String field,
                                                     @Parameter(description = "true if you want to sort in reverse order")
                                                     @RequestParam(value = "desc", required = false) Boolean desc);
-
 }

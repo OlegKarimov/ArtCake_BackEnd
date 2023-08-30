@@ -1,0 +1,14 @@
+### Get all Orders
+
+GET http://localhost:8080/api/users/orders?page=0&orderBy=state&desc=true&filterBy=client&filterValue=1
+Content-Type: application/json
+
+### Get all Orders of User
+
+GET http://localhost:8080/api/users/orders/client?page=0
+Content-Type: application/json
+
+### Get all Orders for confectioner
+
+http://localhost:8080/api/users/confectioner/orders?page=0&desc=false
+Content-Type: application/json

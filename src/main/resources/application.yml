@@ -13,6 +13,17 @@ spring:
     sort:
        cake:
          fields: id,category,name,price
+       order:
+         fields: state
+    filter:
+       order:
+           fields: client, confectionerId, state
     cake:
        page:
          size: 5
+    order:
+      page:
+        size: 10
+
+
+

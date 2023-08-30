@@ -1,39 +1,34 @@
 ### Add new order
-POST http://localhost:8080/api/orders/1?cakeId=1
+POST http://localhost:8080/api/orders/cakes/1?cakeId=1
 Content-Type: application/json
 
 {
-  "count": 1,
-  "description": "Need Letters HappyBirthday",
-  "deadline": "2023-08-11"
+  "count": 3,
+  "clientWishes": "Need Letters WELCOME HOME",
+  "deadline": "2023-10-11"
+}
+
+### Add new order
+POST http://localhost:8080/api/orders/cakes/1?cakeId=1
+Content-Type: application/json
+
+{
+  "count": 7
 }
 
 ### Set order to Process
-PUT http://localhost:8080/api/orders/process/5?orderId=5&confectionerId=1
+PUT http://localhost:8080/api/orders/4?orderId=4&confectionerId=2
 Content-Type: application/json
 
 {
-  "id": 5,
-  "cakeId": 1,
-  "cakeName": "dsad",
-  "count": 1,
-  "description": "Make in blue and white colours",
-  "deadLine": "2023-10-11",
-  "confectionerId": 1,
-  "state": "IN_PROCESS"
+  "confectionerId": 2
 }
 
 ### Set order Finished
-PUT http://localhost:8080/api/orders/5?orderId=5
+PUT http://localhost:8080/api/orders/4/done?orderId=4
 Content-Type: application/json
 
-{
-  "id": 5,
-  "cakeId": 1,
-  "cakeName": "dsad",
-  "count": 1,
-  "description": "Make in blue and white colours",
-  "deadLine": "2023-10-11",
-  "confectionerId": 1,
-  "state": "FINISHED"
-}
+
+### Set order Cant Finish
+PUT http://localhost:8080/api/orders/3/decline?orderId=3
+Content-Type: application/json

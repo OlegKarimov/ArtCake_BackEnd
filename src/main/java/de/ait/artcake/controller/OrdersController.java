@@ -4,7 +4,7 @@ import de.ait.artcake.controller.api.OrdersApi;
 import de.ait.artcake.dto.NewOrderDto;
 import de.ait.artcake.dto.OrderDto;
 import de.ait.artcake.dto.OrderInProcessDto;
-import de.ait.artcake.services.OrderService;
+import de.ait.artcake.services.OrdersService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OrdersController implements OrdersApi {
 
-    OrderService orderService;
+    OrdersService orderService;
 
     @Override
     public ResponseEntity<OrderDto> addOrder(Long cakeId, NewOrderDto newOrder) {
@@ -28,29 +28,25 @@ public class OrdersController implements OrdersApi {
 
     }
 
-
     @Override
-    public ResponseEntity<OrderInProcessDto> orderToProcess(Long orderId, Long confectionerId, OrderInProcessDto orderToProcess) {
+    public ResponseEntity<OrderDto> orderToProcess(Long orderId, OrderInProcessDto orderToProcess) {
         return ResponseEntity
                 .ok()
-                .body(orderService.addOrderToProcess(orderId, confectionerId, orderToProcess));
+                .body(orderService.addOrderToProcess(orderId, orderToProcess));
     }
 
     @Override
-    public ResponseEntity<OrderInProcessDto> orderFinishedOrDeclined(Long orderId, OrderInProcessDto orderToProcess) {
+    public ResponseEntity<OrderDto> orderFinished(Long orderId) {
         return ResponseEntity
                 .ok()
-                .body(orderService.orderFinished(orderId, orderToProcess));
+                .body(orderService.orderFinished(orderId));
     }
 
     @Override
-    public ResponseEntity<OrderInProcessDto> getAllOrders(String orderBy,
-                                                          Boolean desc,
-                                                          String filterBy,
-                                                          String filterValue) {
+    public ResponseEntity<OrderDto> orderCantFinish(Long orderId) {
         return ResponseEntity
-                .ok(orderService.getAllOrders(orderBy,desc,filterBy,filterValue));
+                .ok()
+                .body(orderService.orderCantFinish(orderId));
     }
-
 
 }

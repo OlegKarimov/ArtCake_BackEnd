@@ -28,18 +28,18 @@ public interface OrdersApi {
                     }),
             @ApiResponse(responseCode = "403", description = "Forbidden",
                     content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderInProcessDto.class))
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),
     })
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{cake-id}")
+    @PostMapping("/cakes/{cake-id}")
     ResponseEntity<OrderDto> addOrder(@Parameter(required = true, description = "Cake id", example = "1")
                                       @RequestParam @PathVariable("cake-id") Long cakeId,
                                       @RequestBody NewOrderDto newOrder);
 
 
-    @Operation(summary = "Giving order to process", description = "Allowed MANAGER")
+    @Operation(summary = "Moving order to process", description = "Allowed MANAGER")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Not found",
                     content = {
@@ -51,18 +51,17 @@ public interface OrdersApi {
                     }),
             @ApiResponse(responseCode = "200", description = "Updated order",
                     content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderInProcessDto.class))
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
                     })
     })
     @PreAuthorize("hasAuthority('MANAGER')")
-    @PutMapping("/process/{order-id}")
-    ResponseEntity<OrderInProcessDto> orderToProcess(@Parameter(required = true, description = "Order id", example = "2")
-                                                     @RequestParam @PathVariable("order-id") Long orderId,
-                                                     @RequestParam Long confectionerId,
-                                                     @RequestBody OrderInProcessDto orderToProcess);
+    @PutMapping("/{order-id}")
+    ResponseEntity<OrderDto> orderToProcess(@Parameter(required = true, description = "Order id", example = "2")
+                                            @RequestParam @PathVariable("order-id") Long orderId,
+                                            @RequestBody OrderInProcessDto orderToProcess);
 
 
-    @Operation(summary = "Giving order to process", description = "Allowed MANAGER")
+    @Operation(summary = "Moving order to finished", description = "Allowed CONFECTIONER")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Not found",
                     content = {
@@ -74,33 +73,34 @@ public interface OrdersApi {
                     }),
             @ApiResponse(responseCode = "200", description = "Updated order",
                     content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderInProcessDto.class))
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
                     })
     })
     @PreAuthorize("hasAnyAuthority('CONFECTIONER')")
-    @PutMapping("/{order-id}")
-    ResponseEntity<OrderInProcessDto> orderFinishedOrDeclined(@Parameter(required = true, description = "Order id", example = "2")
-                                                     @RequestParam @PathVariable("order-id") Long orderId,
-                                                              @RequestBody OrderInProcessDto orderToFinished);
+    @PutMapping("{order-id}/done")
+    ResponseEntity<OrderDto> orderFinished(@Parameter(required = true, description = "Order id", example = "2")
+                                           @RequestParam @PathVariable("order-id") Long orderId);
 
+    @Operation(summary = "Moving order to declined", description = "Allowed CONFECTIONER")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Orders list",
-                    content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderInProcessDto.class))
-                    }),
-            @ApiResponse(responseCode = "403", description = "Attempting to sort by a prohibited field",
+            @ApiResponse(responseCode = "404", description = "Not found",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Excess denied",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "200", description = "Updated order",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
                     })
     })
-    @PreAuthorize("hasAuthority('MANAGER')")
-    @GetMapping
-    ResponseEntity<OrderInProcessDto> getAllOrders(@Parameter(description = "The field by which we want to perform sorting. Accessible: state, orderId")
-                                          @RequestParam(value = "orderBy", required = false) String orderBy,
-                                          @Parameter(description = "Specify true if reverse sorting is necessary.")
-                                          @RequestParam(value = "desc", required = false) Boolean desc,
-                                          @RequestParam(value = "filterBy", required = false) String filterBy,
-                                          @RequestParam(value = "filterValue", required = false) String filterValue);
+    @PreAuthorize("hasAnyAuthority('CONFECTIONER')")
+    @PutMapping("{order-id}/decline")
+    ResponseEntity<OrderDto> orderCantFinish(@Parameter(required = true, description = "Order id", example = "2")
+                                             @RequestParam @PathVariable("order-id") Long orderId);
+
 
 
 }
