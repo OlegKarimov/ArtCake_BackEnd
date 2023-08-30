@@ -1,6 +1,12 @@
 package de.ait.artcake.controller.api;
 
+
 import de.ait.artcake.dto.*;
+import de.ait.artcake.dto.*;
+import de.ait.artcake.dto.OrdersDto;
+import de.ait.artcake.dto.StandardResponseDto;
+import de.ait.artcake.dto.UserDto;
+import de.ait.artcake.dto.UsersDto;
 import de.ait.artcake.security.details.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -76,4 +82,32 @@ public interface UsersApi {
     @GetMapping("/manager/orders")
     ResponseEntity<OrdersDto> getAllOrders(OrdersRequest request);
 
+    @PreAuthorize("hasAuthority('CONFECTIONER')")
+    @GetMapping("/confectioner/orders")
+    ResponseEntity<OrdersDto> getAllOrdersForConfectioner(@Parameter(description = "page number", example = "1")
+                                                          @RequestParam(value = "page") Integer page,
+                                                          @Parameter(description = "field to sort by. Available for state")
+                                                          @RequestParam(value = "orderBy", required = false) String field,
+                                                          @Parameter(description = "true if you want to sort in reverse order")
+                                                          @RequestParam(value = "desc", required = false) Boolean desc);
+
+  
+  @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Orders list",
+                content = {
+                        @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
+                }),
+        @ApiResponse(responseCode = "403", description = "Profile is not authenticated",
+                content = {
+                        @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                })
+    })
+    @PreAuthorize("hasAuthority('CLIENT')")
+    @GetMapping("/client/orders")
+    ResponseEntity<OrdersDto> getAllOrdersForClient(@Parameter(description = "page number", example = "1")
+                                                    @RequestParam(value = "page") Integer page,
+                                                    @Parameter(description = "field to sort by. Available for state")
+                                                    @RequestParam(value = "orderBy", required = false) String field,
+                                                    @Parameter(description = "true if you want to sort in reverse order")
+                                                    @RequestParam(value = "desc", required = false) Boolean desc);
 }

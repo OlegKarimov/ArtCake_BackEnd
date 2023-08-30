@@ -34,10 +34,24 @@ public class UsersController implements UsersApi {
                 .ok()
                 .body(usersService.getAllUsersByRole(role));
     }
+
     @Override
     public ResponseEntity<OrdersDto> getAllOrders(OrdersRequest request) {
         return ResponseEntity
                 .ok(usersService.getAllOrders(request));
     }
 
+
+    @Override
+    public ResponseEntity<OrdersDto> getAllOrdersForConfectioner(Integer pageNumber, String orderByField, Boolean desc ) {
+        return ResponseEntity
+                .ok(usersService.getAllOrdersForConfectioner(pageNumber, orderByField, desc));
+    }
+  
+    @Override
+    public ResponseEntity<OrdersDto> getAllOrdersForClient(Integer pageNumber, String orderByField, Boolean desc) {
+        return ResponseEntity
+                .ok()
+                .body(usersService.getAllOrdersForClient(pageNumber, orderByField, desc));
+    }
 }
