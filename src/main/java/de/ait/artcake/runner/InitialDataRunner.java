@@ -313,7 +313,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .firstName("Client")
                     .lastName("Clientowitsch")
                     .email("client@gmail.com")
-                    .hashPassword("$2a$10$x4x5qCBkKBUMsYpUpOJYw.GxFbFgSBHryob0sHZOTB4Rl8DmwP1M6")
+                    .hashPassword("$2a$10$YdArHpvx6U8A6cFgmrv4GO46E6EJM9Pq2Xniz9QfHc0NsveV7oUdm")
                     .town("Kiel")
                     .street("StrandStrasse")
                     .houseNumber(7)

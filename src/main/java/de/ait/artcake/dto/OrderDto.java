@@ -42,7 +42,7 @@ public class OrderDto {
     private String state;
 
     public static OrderDto from(Order order) {
-        return OrderDto.builder()
+        OrderDto result = OrderDto.builder()
                 .id(order.getId())
                 .cake(CakeDto.from(order.getCake()))
                 .count(order.getCount())
@@ -52,6 +52,12 @@ public class OrderDto {
                 .creationDate(order.getCreationDate().toString())
                 .state(order.getState().name())
                 .build();
+
+        if(order.getState().toString().equals("CANT_FINISH")){
+            result.setState("IN_PROCESS");
+        }
+
+        return result;
     }
 
     public static List<OrderDto> fromByClient(Collection<Order> orders, Long clientId) {

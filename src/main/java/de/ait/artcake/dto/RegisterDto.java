@@ -10,13 +10,9 @@ import javax.validation.constraints.*;
 public class RegisterDto {
 
     @Schema(description = "User First Name", example = "Will")
-    @NotNull
-    @NotBlank
     private String firstName;
 
     @Schema(description = "User Last Name", example = "Smith")
-    @NotNull
-    @NotBlank
     private String lastName;
 
     @Schema(description = "User email", example = "example@mail.com")
@@ -35,23 +31,14 @@ public class RegisterDto {
     private String password;
 
     @Schema(description = "User Town", example = "Berlin")
-    @NotNull
-    @NotBlank
     private String town;
 
     @Schema(description = "User street", example = "Sonnenallee")
-    @NotNull
-    @NotBlank
     private String street;
 
     @Schema(description = "User houseNumber", example = "17")
-    @NotNull
-    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
-    @NotEmpty
     private Integer houseNumber;
 
     @Schema(description = "User PhoneNumber", example = "+4917612930456")
-    @NotNull
-    @NotBlank
     private String phoneNumber;
 }

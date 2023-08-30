@@ -1,11 +1,11 @@
-###Login as user
+###Login as Client
 
 POST http://localhost:8080/login
 Content-Type: application/x-www-form-urlencoded
 
-username=example@mail.com&password=Qwerty123!
+username=client@gmail.com&password=Client123!
 
-### Login as CONFECTIONER
+### Login as Confectioner
 POST http://localhost:8080/login
 Content-Type: application/x-www-form-urlencoded
 
@@ -15,7 +15,7 @@ username=simple@mail.com&password=willS007!
 POST http://localhost:8080/login
 Content-Type: application/x-www-form-urlencoded
 
-username=manager@mail.com&password=Manager007!
+username=manager@mail.com&password=qwerty123!
 
 ### Logout
 GET http://localhost:8080/logout

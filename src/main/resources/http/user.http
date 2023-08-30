@@ -5,7 +5,7 @@ Content-Type: application/json
 
 ### Get all Orders of User
 
-GET http://localhost:8080/api/users/orders/client?page=0
+GET http://localhost:8080/api/users/client/orders?page=0
 Content-Type: application/json
 
 ### Get all Orders for confectioner

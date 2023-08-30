@@ -112,7 +112,7 @@ public class UsersServiceImpl implements UsersService {
 
         return OrdersDto.builder()
                 .orders(OrderDto.fromByClient(page.getContent(), clientId))
-                .count((long) page.stream().filter(order -> order.getConfectionerId().equals(clientId)).toList().size())
+                .count((long) page.stream().filter(order -> order.getClient().getId().equals(clientId)).toList().size())
                 .pagesCount(page.getTotalPages())
                 .build();
     }
