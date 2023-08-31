@@ -3,6 +3,9 @@ package de.ait.artcake.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ait.artcake.dto.StandardResponseDto;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -12,6 +15,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,8 +24,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.http.HttpServletResponse;
 
+@RequiredArgsConstructor
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, proxyTargetClass = true)
 public class SecurityConfig {
 
     @Autowired
@@ -34,11 +41,12 @@ public class SecurityConfig {
         httpSecurity
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/register/**").permitAll()
+                //.antMatchers("/api/**").permitall()
                 .antMatchers("/api/**").authenticated()
                 .and()
                 .formLogin()
+                .loginProcessingUrl("/api/login")
                 .successHandler((request, response, authentication) -> {
                     fillResponse(response, HttpStatus.OK, "Login successful");
                 })
@@ -48,10 +56,18 @@ public class SecurityConfig {
                 .and()
                 .exceptionHandling()
                 .defaultAuthenticationEntryPointFor(((request, response, authException) -> {
-                    fillResponse(response, HttpStatus.FORBIDDEN, "Forbidden operation");
+                    fillResponse(response, HttpStatus.UNAUTHORIZED, "User unauthorized");
                 }), new AntPathRequestMatcher("/api/**"))
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+                    fillResponse(response, HttpStatus.FORBIDDEN, "Access denied for user with email <" +
+                            authentication.getName() + "> and role " + authentication.getAuthorities());
+
+                })
                 .and()
                 .logout()
+                .logoutUrl("/api/logout")
                 .logoutSuccessHandler((request, response, authentication) -> {
                     fillResponse(response, HttpStatus.OK, "Logout successful");
                 });
@@ -78,9 +94,9 @@ public class SecurityConfig {
     @Autowired
     public void bindUserDetailsServiceAndPasswordEncoder(
             PasswordEncoder passwordEncoder,
-            UserDetailsService authenticatedUsersService,
+            UserDetailsService userDetailsServiceImpl,
             AuthenticationManagerBuilder authenticationManager) throws Exception {
-            authenticationManager.userDetailsService(authenticatedUsersService).passwordEncoder(passwordEncoder);
+        authenticationManager.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder);
     }
 
 }
