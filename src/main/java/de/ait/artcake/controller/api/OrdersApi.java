@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-
 @Tags(value = {
         @Tag(name = "Orders")
 })
@@ -38,7 +37,6 @@ public interface OrdersApi {
                                       @RequestParam @PathVariable("cake-id") Long cakeId,
                                       @RequestBody NewOrderDto newOrder);
 
-
     @Operation(summary = "Moving order to process", description = "Allowed MANAGER")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Not found",
@@ -59,7 +57,6 @@ public interface OrdersApi {
     ResponseEntity<OrderDto> orderToProcess(@Parameter(required = true, description = "Order id", example = "2")
                                             @RequestParam @PathVariable("order-id") Long orderId,
                                             @RequestBody OrderInProcessDto orderToProcess);
-
 
     @Operation(summary = "Moving order to finished", description = "Allowed CONFECTIONER")
     @ApiResponses(value = {
@@ -100,7 +97,4 @@ public interface OrdersApi {
     @PutMapping("{order-id}/decline")
     ResponseEntity<OrderDto> orderCantFinish(@Parameter(required = true, description = "Order id", example = "2")
                                              @RequestParam @PathVariable("order-id") Long orderId);
-
-
-
 }

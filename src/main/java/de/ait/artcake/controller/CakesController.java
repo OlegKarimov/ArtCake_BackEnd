@@ -2,7 +2,6 @@ package de.ait.artcake.controller;
 
 import de.ait.artcake.controller.api.CakesApi;
 
-
 import de.ait.artcake.dto.*;
 
 import lombok.AccessLevel;
@@ -12,13 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import de.ait.artcake.services.CakesService;
-
-
-
 import de.ait.artcake.dto.CakesDto;
-
 
 @RequiredArgsConstructor
 @RestController
@@ -68,5 +62,4 @@ public class CakesController implements CakesApi {
                 .ok()
                 .body(cakesService.deleteCake(cakeId));
     }
-
 }

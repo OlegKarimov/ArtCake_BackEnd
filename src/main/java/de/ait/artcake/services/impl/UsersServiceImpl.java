@@ -1,6 +1,5 @@
 package de.ait.artcake.services.impl;
 
-
 import de.ait.artcake.dto.*;
 import de.ait.artcake.handler.RestException;
 import de.ait.artcake.models.Order;
@@ -63,17 +62,16 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public OrdersDto getAllOrders(OrdersRequest request) {
+    public OrdersForManagerDto getAllOrders(OrdersRequestDto request) {
 
         PageRequest pageRequest = pageRequestsUtil.getPageRequest(request.getPage(), request.getOrderBy(), request.getDesc(), sortFields);
         Page<Order> page = getOrdersPage(request.getFilterBy(), request.getFilterValue(), pageRequest);
 
-        return OrdersDto.builder()
-                .orders(OrderDto.from(page.getContent()))
+        return OrdersForManagerDto.builder()
+                .orders(OrderForManagerDto.from(page.getContent()))
                 .count(page.getTotalElements())
                 .pagesCount(page.getTotalPages())
                 .build();
-
     }
 
     private Page<Order> getOrdersPage(String filterBy, String filterValue, PageRequest pageRequest) {
@@ -100,7 +98,6 @@ public class UsersServiceImpl implements UsersService {
             }
         }
         return page;
-
     }
 
     @Override
@@ -115,7 +112,7 @@ public class UsersServiceImpl implements UsersService {
 
         return OrdersDto.builder()
                 .orders(OrderDto.fromByClient(page.getContent(), clientId))
-                .count((long) page.stream().filter(order -> order.getConfectionerId().equals(clientId)).toList().size())
+                .count((long) page.stream().filter(order -> order.getClient().getId().equals(clientId)).toList().size())
                 .pagesCount(page.getTotalPages())
                 .build();
     }
@@ -129,8 +126,6 @@ public class UsersServiceImpl implements UsersService {
         PageRequest pageRequest = getPageRequest(pageNumber, orderByField, desc);
 
         Page<Order> page = ordersRepository.findAll(pageRequest);
-
-
 
         return OrdersDto.builder()
                 .orders(OrderDto.fromByConfectioner(page.getContent(), confectionerId))

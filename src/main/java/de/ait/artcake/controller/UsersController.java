@@ -1,10 +1,7 @@
 package de.ait.artcake.controller;
 
 import de.ait.artcake.controller.api.UsersApi;
-import de.ait.artcake.dto.OrdersDto;
-import de.ait.artcake.dto.OrdersRequest;
-import de.ait.artcake.dto.UserDto;
-import de.ait.artcake.dto.UsersDto;
+import de.ait.artcake.dto.*;
 import de.ait.artcake.security.details.AuthenticatedUser;
 import de.ait.artcake.services.UsersService;
 import lombok.AccessLevel;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class UsersController implements UsersApi {
-
 
     UsersService usersService;
 
@@ -36,11 +32,10 @@ public class UsersController implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<OrdersDto> getAllOrders(OrdersRequest request) {
+    public ResponseEntity<OrdersForManagerDto> getAllOrders(OrdersRequestDto request) {
         return ResponseEntity
                 .ok(usersService.getAllOrders(request));
     }
-
 
     @Override
     public ResponseEntity<OrdersDto> getAllOrdersForConfectioner(Integer pageNumber, String orderByField, Boolean desc ) {

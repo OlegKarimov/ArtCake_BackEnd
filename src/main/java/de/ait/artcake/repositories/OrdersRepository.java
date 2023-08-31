@@ -5,8 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
-
 public interface OrdersRepository extends JpaRepository<Order, Long> {
 
     Page<Order> findAllByState(Order.State state, Pageable pageable);

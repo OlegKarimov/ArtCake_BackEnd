@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,12 +14,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderDto {
+public class OrderForManagerDto {
 
     @Schema(description = "Cake Identifier", example = "1")
     private Long id;
 
-    @Schema(description = "Cake id", example = "1")
+    @Schema(description = "The cake ordered by the client", example = "1")
     private CakeDto cake;
 
     @Schema(description = "Quantity of cakes", example = "1")
@@ -38,11 +37,14 @@ public class OrderDto {
     @Schema(description = "Deadline date ", example = "2023-02-02")
     private String deadline;
 
+    @Schema(description = "The client who placed the order")
+    private UserDto client;
+
     @Schema(description = "Order state, can be: CREATED, IN_PROCESS, CANT_FINISH, FINISHED ", example = "CREATED")
     private String state;
 
-    public static OrderDto from(Order order) {
-        OrderDto result = OrderDto.builder()
+    public static OrderForManagerDto from(Order order) {
+        return OrderForManagerDto.builder()
                 .id(order.getId())
                 .cake(CakeDto.from(order.getCake()))
                 .count(order.getCount())
@@ -50,27 +52,14 @@ public class OrderDto {
                 .deadline(order.getDeadline().toString())
                 .totalPrice(order.getTotalPrice())
                 .creationDate(order.getCreationDate().toString())
+                .client(UserDto.from(order.getClient()))
                 .state(order.getState().name())
                 .build();
-
-        if(order.getState().toString().equals("CANT_FINISH")){
-            result.setState("IN_PROCESS");
-        }
-
-        return result;
     }
 
-    public static List<OrderDto> fromByClient(Collection<Order> orders, Long clientId) {
+    public static List<OrderForManagerDto> from(List<Order> orders) {
         return orders.stream()
-                .filter(order -> order.getClient().getId().equals(clientId))
-                .map(OrderDto::from)
-                .collect(Collectors.toList());
-    }
-
-    public static List<OrderDto> fromByConfectioner(Collection<Order> orders, Long confectionerId) {
-        return orders.stream()
-                .filter(order -> order.getConfectionerId().equals(confectionerId))
-                .map(OrderDto::from)
+                .map(OrderForManagerDto::from)
                 .collect(Collectors.toList());
     }
 }

@@ -1,7 +1,5 @@
 package de.ait.artcake.controller.api;
 
-
-import de.ait.artcake.dto.*;
 import de.ait.artcake.dto.*;
 import de.ait.artcake.dto.OrdersDto;
 import de.ait.artcake.dto.StandardResponseDto;
@@ -50,11 +48,11 @@ public interface UsersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))
                     }),
-            @ApiResponse(responseCode = "403", description = "forbidden operation",
+            @ApiResponse(responseCode = "500", description = "forbidden operation",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),
-            @ApiResponse(responseCode = "404", description = "Confectioners not found",
+            @ApiResponse(responseCode = "404", description = "User not found",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
@@ -64,24 +62,32 @@ public interface UsersApi {
     ResponseEntity<UsersDto> getAllUsersByRole(@Parameter(required = true, description = "All all Users by Role", example = "CONFECTIONER")
                                                @PathVariable("role") String role);
 
+    @Operation(summary = "Getting all orders as manager", description = "Only for manager allowed")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Orders list",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
                     }),
-            @ApiResponse(responseCode = "403", description = "Attempting to sort by a prohibited field",
-                    content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
-                    }),
-            @ApiResponse(responseCode = "403", description = "Profile is not authenticated",
+            @ApiResponse(responseCode = "403", description = "Profile is not authenticated or attempting to sort by a prohibited field",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
     })
     @PreAuthorize("hasAuthority('MANAGER')")
     @GetMapping("/manager/orders")
-    ResponseEntity<OrdersDto> getAllOrders(OrdersRequest request);
+    ResponseEntity<OrdersForManagerDto> getAllOrders(OrdersRequestDto request);
 
+    @Operation(summary = "Getting all orders as confectioner", description = "Only for confectioner allowed")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Orders list",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Profile is not authenticated or attempting to sort by a prohibited field",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    })
+    })
     @PreAuthorize("hasAuthority('CONFECTIONER')")
     @GetMapping("/confectioner/orders")
     ResponseEntity<OrdersDto> getAllOrdersForConfectioner(@Parameter(description = "page number", example = "1")
@@ -91,16 +97,16 @@ public interface UsersApi {
                                                           @Parameter(description = "true if you want to sort in reverse order")
                                                           @RequestParam(value = "desc", required = false) Boolean desc);
 
-  
-  @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Orders list",
-                content = {
-                        @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
-                }),
-        @ApiResponse(responseCode = "403", description = "Profile is not authenticated",
-                content = {
-                        @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
-                })
+    @Operation(summary = "Getting all orders as client", description = "Only for clients allowed")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Orders list",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Profile is not authenticated",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    })
     })
     @PreAuthorize("hasAuthority('CLIENT')")
     @GetMapping("/client/orders")

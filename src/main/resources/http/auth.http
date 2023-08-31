@@ -3,7 +3,8 @@ POST http://localhost:8080/api/registration
 Content-Type: application/json
 
 {
-  "fullName": "Jackie Chan",
+  "firstName": "Jackie",
+  "lastName": "Chan",
   "email": "example@mail.com",
   "password": "Qwerty123!",
   "town": "Hamburg",
@@ -17,7 +18,8 @@ POST http://localhost:8080/api/registration
 Content-Type: application/json
 
 {
-  "fullName": "Will Smith",
+  "firstName": "Will",
+  "lastName": "Smith",
   "email": "simple@mail.com",
   "password": "willS007!",
   "town": "Kiel",
@@ -31,7 +33,8 @@ POST http://localhost:8080/api/registration
 Content-Type: application/json
 
 {
-  "fullName": "John Manageroff",
+  "firstName": "John",
+  "lastName": "Manageroff",
   "email": "manager@mail.com",
   "password": "Manager007!",
   "town": "Kiel",

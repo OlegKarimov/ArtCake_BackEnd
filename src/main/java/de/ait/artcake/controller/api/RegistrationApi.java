@@ -21,6 +21,7 @@ import javax.validation.Valid;
 @Tags(value =
         @Tag(name = "registration"))
 public interface RegistrationApi {
+
     @Operation(summary = "Creating user", description = "Allowed all")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created",
@@ -28,6 +29,10 @@ public interface RegistrationApi {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Validation error",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorsDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Validation error",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorsDto.class))
                     })

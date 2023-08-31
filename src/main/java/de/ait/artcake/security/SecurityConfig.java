@@ -1,6 +1,5 @@
 package de.ait.artcake.security;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ait.artcake.dto.StandardResponseDto;
@@ -19,7 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.http.HttpServletResponse;
-
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -82,7 +80,7 @@ public class SecurityConfig {
             PasswordEncoder passwordEncoder,
             UserDetailsService authenticatedUsersService,
             AuthenticationManagerBuilder authenticationManager) throws Exception {
-        authenticationManager.userDetailsService(authenticatedUsersService).passwordEncoder(passwordEncoder);
+            authenticationManager.userDetailsService(authenticatedUsersService).passwordEncoder(passwordEncoder);
     }
 
 }

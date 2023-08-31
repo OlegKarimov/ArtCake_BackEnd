@@ -3,13 +3,17 @@ package de.ait.artcake.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 
 @Data
 public class RegisterDto {
 
-    @Schema(description = "User Name", example = "Will Smith")
-    private String fullName;
+    @Schema(description = "User First Name", example = "Will")
+    private String firstName;
+
+    @Schema(description = "User Last Name", example = "Smith")
+    private String lastName;
 
     @Schema(description = "User email", example = "example@mail.com")
     @Email

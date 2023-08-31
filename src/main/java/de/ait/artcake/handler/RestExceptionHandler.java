@@ -17,5 +17,4 @@ public class RestExceptionHandler {
                         .message(e.getMessage())
                         .build());
     }
-
 }

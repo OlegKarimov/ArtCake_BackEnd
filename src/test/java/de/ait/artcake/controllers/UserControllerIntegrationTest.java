@@ -35,7 +35,7 @@ public class UserControllerIntegrationTest {
         public void getAllUsersByRole() throws Exception {
             mockMvc.perform(get("/api/users/role/CONFECTIONER")
                             .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk());
+                            .andExpect(status().isOk());
         }
     }
 }

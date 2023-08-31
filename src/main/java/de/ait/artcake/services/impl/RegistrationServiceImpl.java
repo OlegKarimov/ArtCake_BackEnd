@@ -1,6 +1,5 @@
 package de.ait.artcake.services.impl;
 
-
 import de.ait.artcake.dto.RegisterDto;
 import de.ait.artcake.dto.UserDto;
 import de.ait.artcake.models.User;
@@ -15,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static de.ait.artcake.dto.UserDto.from;
 
-
-
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Service
@@ -30,7 +27,8 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public UserDto register(RegisterDto registerData) {
         User user = User.builder()
-                .fullName(registerData.getFullName())
+                .firstName(registerData.getFirstName())
+                .lastName(registerData.getLastName())
                 .email(registerData.getEmail())
                 .hashPassword(passwordEncoder.encode(registerData.getPassword()))
                 .town(registerData.getTown())

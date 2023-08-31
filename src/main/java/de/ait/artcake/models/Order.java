@@ -3,6 +3,7 @@ package de.ait.artcake.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import java.time.LocalDate;
 
 @Data
@@ -24,11 +25,11 @@ public class Order {
 
     }
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
     @Column(nullable = false)
     private Integer count = 1;
 
@@ -54,11 +55,8 @@ public class Order {
     @JoinColumn(name = "Cake_id")
     private Cake cake;
 
-
-
     @PrePersist
     public void setCreationDate() {
         this.creationDate = LocalDate.now();
     }
-
 }

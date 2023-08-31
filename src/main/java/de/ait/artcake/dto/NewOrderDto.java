@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Data
@@ -17,9 +19,9 @@ import javax.validation.constraints.Pattern;
 @Builder
 public class NewOrderDto {
 
-
     @Schema(description = "Quantity of cakes", example = "3")
-    @Column(nullable = false)
+    @NotNull
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
     private Integer count;
 
     @NotBlank

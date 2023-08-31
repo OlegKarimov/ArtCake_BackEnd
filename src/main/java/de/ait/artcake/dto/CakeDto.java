@@ -36,11 +36,8 @@ public class CakeDto {
     @Schema(description = "Cakes State", example = "DELETED")
     private String state;
 
-    @Schema(description = "linking a cake to ordersId", example = "1")
-    private Long ordersId;
-
     public static CakeDto from (Cake cake) {
-        CakeDto result = CakeDto.builder()
+        return CakeDto.builder()
                 .id(cake.getId())
                 .name(cake.getName())
                 .ingredients(cake.getIngredients())
@@ -49,7 +46,6 @@ public class CakeDto {
                 .state(cake.getState().name())
                 .build();
 
-        return result;
     }
 
     public static List<CakeDto> from(Collection<Cake> cakes){
