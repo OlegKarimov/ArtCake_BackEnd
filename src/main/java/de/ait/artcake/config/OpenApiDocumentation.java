@@ -4,6 +4,7 @@ import de.ait.artcake.dto.StandardResponseDto;
 import io.swagger.v3.core.converter.AnnotatedType;
 import io.swagger.v3.core.converter.ModelConverters;
 import io.swagger.v3.core.converter.ResolvedSchema;
+
 import io.swagger.v3.oas.models.*;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.info.Info;
@@ -22,28 +23,12 @@ import java.util.Collections;
 
 
 @Configuration
-public class SwaggerConfig {
-
-    @Bean
-    public OpenAPI openApi() {
-        ResolvedSchema resolvedSchema = ModelConverters.getInstance()
-                .resolveAsResolvedSchema(
-                        new AnnotatedType(StandardResponseDto.class).resolveAsRef(false));
-
-        return new OpenAPI()
-                .components(new Components()
-                        .addSchemas("EmailAndPassword", emailAndPassword())
-                        .addSecuritySchemes("cookieAuth", securityScheme())
-                        .addSchemas("StandardResponseDto", resolvedSchema.schema.description("StandardResponseDto")))
-                .addSecurityItem(buildSecurity())
-                .paths(buildAuthenticationPath())
-                .info(new Info().title("Todo Service API").version("0.1"));
-    }
+public class OpenApiDocumentation {
 
     static Paths buildAuthenticationPath() {
         return new Paths()
-                .addPathItem("/login", buildAuthenticationPathItem())
-                .addPathItem("/logout", buildLogoutPathItem());
+                .addPathItem("/api/login", buildAuthenticationPathItem())
+                .addPathItem("/api/logout", buildLogoutPathItem());
     }
 
     private static PathItem buildLogoutPathItem() {
@@ -53,7 +38,6 @@ public class SwaggerConfig {
                         .responses(new ApiResponses()
                                 .addApiResponse("200", new ApiResponse().description("Successful logout"))));
     }
-
     private static PathItem buildAuthenticationPathItem() {
         return new PathItem().post(
                 new Operation()
@@ -107,5 +91,21 @@ public class SwaggerConfig {
                 .type(SecurityScheme.Type.APIKEY)
                 .in(SecurityScheme.In.COOKIE)
                 .name("JSESSOINID");
+    }
+
+    @Bean
+    public OpenAPI openApi() {
+        ResolvedSchema resolvedSchema = ModelConverters.getInstance()
+                .resolveAsResolvedSchema(
+                        new AnnotatedType(StandardResponseDto.class).resolveAsRef(false));
+
+        return new OpenAPI()
+                .components(new Components()
+                        .addSchemas("EmailAndPassword", emailAndPassword())
+                        .addSecuritySchemes("cookieAuth", securityScheme())
+                        .addSchemas("StandardResponseDto", resolvedSchema.schema.description("StandardResponseDto")))
+                .addSecurityItem(buildSecurity())
+                .paths(buildAuthenticationPath())
+                .info(new Info().title("Todo Service API").version("0.1"));
     }
 }
