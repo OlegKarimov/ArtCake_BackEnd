@@ -27,7 +27,7 @@ public interface OrdersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
                     }),
-            @ApiResponse(responseCode = "403", description = "Forbidden",
+            @ApiResponse(responseCode = "401", description = "Forbidden",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),

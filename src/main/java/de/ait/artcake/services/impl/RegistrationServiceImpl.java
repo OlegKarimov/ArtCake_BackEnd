@@ -32,6 +32,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 .email(registerData.getEmail())
                 .hashPassword(passwordEncoder.encode(registerData.getPassword()))
                 .town(registerData.getTown())
+                .zipCode(registerData.getZipCode())
                 .street(registerData.getStreet())
                 .houseNumber(registerData.getHouseNumber())
                 .phoneNumber(registerData.getPhoneNumber())
