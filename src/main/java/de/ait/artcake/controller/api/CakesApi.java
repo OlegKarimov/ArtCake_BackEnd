@@ -118,6 +118,10 @@ public interface CakesApi {
             @ApiResponse(responseCode = "200", description = "cake removed",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = CakeDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "forbidden operation",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
     })
     @PreAuthorize("hasAnyAuthority('MANAGER')")

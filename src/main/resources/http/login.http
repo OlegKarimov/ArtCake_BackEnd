@@ -1,21 +1,21 @@
 ###Login as Client
 
-POST http://localhost:8080/login
+POST http://localhost:8080/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=client@gmail.com&password=Client123!
 
 ### Login as Confectioner
-POST http://localhost:8080/login
+POST http://localhost:8080/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=simple@mail.com&password=willS007!
 
 ### Login as Manager
-POST http://localhost:8080/login
+POST http://localhost:8080/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=manager@mail.com&password=qwerty123!
 
 ### Logout
-GET http://localhost:8080/logout
+GET http://localhost:8080/api/logout
