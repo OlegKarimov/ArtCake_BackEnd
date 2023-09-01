@@ -7,3 +7,4 @@ VALUES ('konditerow@gmail.com', 'Konditer', 'Konditerow', '$2a$10$XhZqBs2ID5aIey
 INSERT INTO PUBLIC.ACCOUNT (EMAIL, FIRST_NAME, LAST_NAME, HASH_PASSWORD, HOUSE_NUMBER, PHONE_NUMBER, ROLE, ZIP_CODE, STATE, STREET, TOWN)
 VALUES ('konditeryan@gmail.com', 'Konditer', 'Konditeryan', '$2a$10$jtLDeFSt7C1jNGtxpzh6kurTi.rej21OBRqjMexaC9jbW4JI967bC', 12, '+4917612359755', 'CONFECTIONER', '22339', 'CONFIRMED', 'StrandStrasse', 'Kiel');
 
+
