@@ -31,9 +31,11 @@ public class RegistrationControllerIntegrationTest {
         mockMvc.perform(post("/api/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
-                                "  \"fullName\": \"Jackie Chan\",\n" +
+                                "  \"firstName\": \"Jackie\",\n" +
+                                "  \"lastName\": \"Chan\",\n" +
                                 "  \"email\": \"example@mail.com\",\n" +
                                 "  \"password\": \"Qwerty123!\",\n" +
+                                "  \"zipCode\": \"23456\",\n" +
                                 "  \"town\": \"Hamburg, Norbert-Schmid-Platz 11\",\n" +
                                 "  \"street\": \"Norbert-Schmid-Platz\",\n" +
                                 "  \"houseNumber\": \"11\",\n" +
