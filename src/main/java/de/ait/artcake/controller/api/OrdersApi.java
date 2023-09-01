@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Tags(value = {
         @Tag(name = "Orders")
 })
@@ -35,7 +37,7 @@ public interface OrdersApi {
     @PostMapping("/cakes/{cake-id}")
     ResponseEntity<OrderDto> addOrder(@Parameter(required = true, description = "Cake id", example = "1")
                                       @RequestParam @PathVariable("cake-id") Long cakeId,
-                                      @RequestBody NewOrderDto newOrder);
+                                      @RequestBody @Valid NewOrderDto newOrder);
 
     @Operation(summary = "Moving order to process", description = "Allowed MANAGER")
     @ApiResponses(value = {

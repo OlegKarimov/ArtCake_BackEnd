@@ -76,6 +76,9 @@ public class OrderServiceImpl implements OrdersService {
 
         Order order = getOrderOrThrow(orderId);
 
+        if(orderToProcess.getExtra() != null) {
+            order.setTotalPrice(order.getTotalPrice() + orderToProcess.getExtra());
+        }
         order.setConfectionerId(orderToProcess.getConfectionerId());
         order.setState(Order.State.IN_PROCESS);
 

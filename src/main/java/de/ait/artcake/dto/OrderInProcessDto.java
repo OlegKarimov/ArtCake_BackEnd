@@ -16,4 +16,8 @@ public class OrderInProcessDto {
     @Schema(description = "Confectioner Id of the confectioner who declined", example = "3")
     private Long confectionerId;
 
+    @Schema(description = "Additional fee depending on client wishes and urgency, " +
+            "standard order preparation time is 2 days.", example = "00.00")
+    private Double extra;
+
 }

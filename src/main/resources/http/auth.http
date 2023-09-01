@@ -8,6 +8,7 @@ Content-Type: application/json
   "email": "example@mail.com",
   "password": "Qwerty123!",
   "town": "Hamburg",
+  "zipCode": "44551",
   "street": "Norbert-Schmid-Platz",
   "houseNumber": "11",
   "phoneNumber": "+4917611223344"
@@ -23,6 +24,7 @@ Content-Type: application/json
   "email": "simple@mail.com",
   "password": "willS007!",
   "town": "Kiel",
+  "zipCode": "22312",
   "street": "StadtStrasse",
   "houseNumber": "49",
   "phoneNumber": "+4917699887766"
@@ -38,6 +40,7 @@ Content-Type: application/json
   "email": "manager@mail.com",
   "password": "Manager007!",
   "town": "Kiel",
+  "zipCode": "55212",
   "street": "StrandStrasse",
   "houseNumber": "21",
   "phoneNumber": "+4917688776655"
