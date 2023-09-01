@@ -90,7 +90,7 @@ public class CakeControllerIntegrationTest {
                             .header("Content-Type", "application/json")
                             .content(body))
                     .andDo(print())
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isUnauthorized());
         }
     }
 
@@ -130,7 +130,7 @@ public class CakeControllerIntegrationTest {
         @Test
         void delete_cake_as_Client() throws Exception {
             mockMvc.perform(delete("/api/cakes/1"))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isUnauthorized());
         }
 
         @WithUserDetails(value = "test@mail.com")
@@ -162,7 +162,7 @@ public class CakeControllerIntegrationTest {
                             .header("Content-Type", "application/json")
                             .content(body))
                     .andDo(print())
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isUnauthorized());
         }
 
         @Test
@@ -174,7 +174,7 @@ public class CakeControllerIntegrationTest {
                     .name("ferrero-cheesecake")
                     .ingredients("ferrero, mascarpone, egg....")
                     .price(210.50)
-                    .state("DELETED")
+                    .state("CREATED")
                     .build());
 
             mockMvc.perform(put("/api/cakes/1")
@@ -186,8 +186,8 @@ public class CakeControllerIntegrationTest {
                     .andExpect(jsonPath("$.name", is("ferrero-cheesecake")))
                     .andExpect(jsonPath("$.ingredients", is("ferrero, mascarpone, egg....")))
                     .andExpect(jsonPath("$.price", is(210.50)))
-                    .andExpect(jsonPath("$.category", is("CHEESECAKES")))
-                    .andExpect(jsonPath("$.state", is("DELETED")));
+                    .andExpect(jsonPath("$.category", is("CHEESECAKES")));
+
         }
     }
 }

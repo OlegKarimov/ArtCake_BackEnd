@@ -33,25 +33,14 @@ public class CakeDto {
     @Schema(description = "Cakes Category", example = "CUPCAKES")
     private String category;
 
-    @Schema(description = "Cakes State", example = "CREATED")
-    private String state;
-
     public static CakeDto from (Cake cake) {
-        CakeDto result = CakeDto.builder()
+        return CakeDto.builder()
                 .id(cake.getId())
                 .name(cake.getName())
                 .ingredients(cake.getIngredients())
                 .price(cake.getPrice())
                 .category(cake.getCategory().name())
                 .build();
-
-        //if(cake.getState() == Cake.State.DELETED) {
-        //    return CakeDto.builder()
-        //            .id(cake.getId())
-        //            .state("TEMPORARILY_UNAVAILABLE")
-        //            .build();
-        //}
-        return result;
     }
 
     public static List<CakeDto> from(Collection<Cake> cakes){
