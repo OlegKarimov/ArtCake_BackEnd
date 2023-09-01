@@ -37,5 +37,15 @@ public class UserControllerIntegrationTest {
                             .contentType(MediaType.APPLICATION_JSON))
                             .andExpect(status().isOk());
         }
+
+        @WithUserDetails(value = "test@mail.com")
+        @Sql(scripts = "/sql/data_for_manager_getAllOrders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        public void getAllOrdersAsManager() throws Exception {
+            mockMvc.perform(get("/api/users/manager/orders")
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk());
+        }
     }
 }
