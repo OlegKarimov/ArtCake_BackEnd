@@ -34,7 +34,7 @@ public interface UsersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))
                     }),
-            @ApiResponse(responseCode = "403", description = "Profile is not authenticated",
+            @ApiResponse(responseCode = "401", description = "Profile is not authenticated",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
