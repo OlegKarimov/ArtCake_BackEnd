@@ -33,6 +33,9 @@ public class UserDto {
     @Schema(description = "User Town", example = "Berlin")
     private String town;
 
+    @Schema(description = "Zip", example = "22339")
+    private String zipCode;
+
     @Schema(description = "User street", example = "Sonnenallee")
     private String street;
 
@@ -55,6 +58,7 @@ public class UserDto {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .town(user.getTown())
+                .zipCode(user.getZipCode())
                 .street(user.getStreet())
                 .houseNumber(user.getHouseNumber())
                 .phoneNumber(user.getPhoneNumber())

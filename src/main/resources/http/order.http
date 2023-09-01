@@ -13,7 +13,8 @@ POST http://localhost:8080/api/orders/cakes/1?cakeId=1
 Content-Type: application/json
 
 {
-  "count": 7
+  "count": 7,
+  "deadline": "2023-07-29"
 }
 
 ### Set order to Process

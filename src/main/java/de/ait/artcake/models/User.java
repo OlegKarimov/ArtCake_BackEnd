@@ -43,6 +43,9 @@ public class User {
     private String town;
 
     @Column(nullable = false)
+    private String zipCode;
+
+    @Column(nullable = false)
     private String street;
 
     @Column(nullable = false)

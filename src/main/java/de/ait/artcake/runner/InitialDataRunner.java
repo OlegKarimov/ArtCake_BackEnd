@@ -43,6 +43,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .hashPassword("$2a$10$VQky6jadkcnsisW/SSrqeuvP5p7Tomz5F7x/fMBzikyMGv7sfPOay")
                     //qwerty123!
                     .town("Kiel")
+                    .zipCode("22339")
                     .street("StrandStrasse")
                     .houseNumber(21)
                     .phoneNumber("+4917688776655")
@@ -63,6 +64,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .hashPassword("$2a$10$XhZqBs2ID5aIey7WJJiPAexSGXcfuB6NFSb/ZC/S3GMkO/ouhmTdG")
                     //Confectioner000!
                     .town("Kiel")
+                    .zipCode("22333")
                     .street("StrandStrasse")
                     .houseNumber(78)
                     .phoneNumber("+4917688359755")
@@ -77,6 +79,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .hashPassword("$2a$10$jtLDeFSt7C1jNGtxpzh6kurTi.rej21OBRqjMexaC9jbW4JI967bC")
                     //Confectioner111!
                     .town("Kiel")
+                    .zipCode("21193")
                     .street("StrandStrasse")
                     .houseNumber(12)
                     .phoneNumber("+4917612359755")
@@ -91,6 +94,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .hashPassword("$2a$10$KrckCT.RKuAbniEAJoi2R.xIoeTHin/PEjuPH4qRVtTV9DStncu1K")
                     //Confectioner222!
                     .town("Kiel")
+                    .zipCode("44333")
                     .street("StrandStrasse")
                     .houseNumber(99)
                     .phoneNumber("+4917333359755")
@@ -105,6 +109,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .hashPassword("$2a$10$ruOLOFb6ugIquDl4iSv0DOVfSpC1orM5E512eitSFPoaJF03EfhP2")
                     //Confectioner333!
                     .town("Kiel")
+                    .zipCode("32331")
                     .street("StrandStrasse")
                     .houseNumber(19)
                     .phoneNumber("+4917612359755")
@@ -319,6 +324,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .email("client@gmail.com")
                     .hashPassword("$2a$10$YdArHpvx6U8A6cFgmrv4GO46E6EJM9Pq2Xniz9QfHc0NsveV7oUdm")
                     .town("Kiel")
+                    .zipCode("22336")
                     .street("StrandStrasse")
                     .houseNumber(7)
                     .phoneNumber("+4917688777755")
@@ -332,6 +338,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .email("client1@gmail.com")
                     .hashPassword("$2a$10$x4x5qCBkKBUMsYpUpOJYw.GxFbFgSBHryob0sHZOTB4Rl8DmwP1M6")
                     .town("Timmendorf")
+                    .zipCode("22337")
                     .street("Timmendorfer")
                     .houseNumber(99)
                     .phoneNumber("+4917688777755")
@@ -345,6 +352,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .email("client2@gmail.com")
                     .hashPassword("$2a$10$x4x5qCBkKBUMsYpUpOJYw.GxFbFgSBHryob0sHZOTB4Rl8DmwP1M6")
                     .town("Winser")
+                    .zipCode("22332")
                     .street("NeuerStr.")
                     .houseNumber(10)
                     .phoneNumber("+4917688777755")
