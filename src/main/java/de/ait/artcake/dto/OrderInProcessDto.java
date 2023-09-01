@@ -1,6 +1,5 @@
 package de.ait.artcake.dto;
 
-import de.ait.artcake.models.Order;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

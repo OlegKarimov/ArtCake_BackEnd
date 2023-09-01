@@ -26,6 +26,6 @@ public class UpdateCakeDto {
     private Double price;
 
     @NotBlank
-    @Schema(example = "DELETED")
+    @Schema(example = "CREATED")
     private String state;
 }

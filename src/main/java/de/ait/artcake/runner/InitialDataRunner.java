@@ -41,7 +41,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .lastName("Manageroff")
                     .email("manager@mail.com")
                     .hashPassword("$2a$10$VQky6jadkcnsisW/SSrqeuvP5p7Tomz5F7x/fMBzikyMGv7sfPOay")
-//                    qwerty123!
+                    //qwerty123!
                     .town("Kiel")
                     .zipCode("22339")
                     .street("StrandStrasse")
@@ -62,6 +62,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .lastName("Konditerow")
                     .email("konditerow@gmail.com")
                     .hashPassword("$2a$10$XhZqBs2ID5aIey7WJJiPAexSGXcfuB6NFSb/ZC/S3GMkO/ouhmTdG")
+                    //Confectioner000!
                     .town("Kiel")
                     .zipCode("22333")
                     .street("StrandStrasse")
@@ -76,6 +77,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .lastName("Konditeryan")
                     .email("konditeryan@gmail.com")
                     .hashPassword("$2a$10$jtLDeFSt7C1jNGtxpzh6kurTi.rej21OBRqjMexaC9jbW4JI967bC")
+                    //Confectioner111!
                     .town("Kiel")
                     .zipCode("21193")
                     .street("StrandStrasse")
@@ -90,6 +92,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .lastName("Konditeridze")
                     .email("konditeridze@gmail.com")
                     .hashPassword("$2a$10$KrckCT.RKuAbniEAJoi2R.xIoeTHin/PEjuPH4qRVtTV9DStncu1K")
+                    //Confectioner222!
                     .town("Kiel")
                     .zipCode("44333")
                     .street("StrandStrasse")
@@ -104,6 +107,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .lastName("Konditerenko")
                     .email("konditerenko@gmail.com")
                     .hashPassword("$2a$10$ruOLOFb6ugIquDl4iSv0DOVfSpC1orM5E512eitSFPoaJF03EfhP2")
+                    //Confectioner333!
                     .town("Kiel")
                     .zipCode("32331")
                     .street("StrandStrasse")
