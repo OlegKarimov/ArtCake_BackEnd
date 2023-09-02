@@ -3,6 +3,7 @@ package de.ait.artcake.controller;
 import de.ait.artcake.controller.api.OrdersApi;
 import de.ait.artcake.dto.NewOrderDto;
 import de.ait.artcake.dto.OrderDto;
+import de.ait.artcake.dto.OrderForManagerDto;
 import de.ait.artcake.dto.OrderInProcessDto;
 import de.ait.artcake.services.OrdersService;
 import lombok.AccessLevel;
@@ -29,7 +30,7 @@ public class OrdersController implements OrdersApi {
     }
 
     @Override
-    public ResponseEntity<OrderDto> orderToProcess(Long orderId, OrderInProcessDto orderToProcess) {
+    public ResponseEntity<OrderForManagerDto> orderToProcess(Long orderId, OrderInProcessDto orderToProcess) {
         return ResponseEntity
                 .ok()
                 .body(orderService.addOrderToProcess(orderId, orderToProcess));
