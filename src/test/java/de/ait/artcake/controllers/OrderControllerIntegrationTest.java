@@ -47,14 +47,14 @@ public class OrderControllerIntegrationTest {
         void move_order_to_process_as_Manager() throws Exception {
 
             String body = objectMapper.writeValueAsString(OrderInProcessDto.builder()
-                            .confectionerId(1L)
-                            .extra(5.50)
-                            .build());
+                    .confectionerId(1L)
+                    .extra(5.50)
+                    .build());
 
             mockMvc.perform(put("/api/orders/1")
-                    .param("orderId", "1")
-                    .header("Content-Type", "application/json")
-                    .content(body))
+                            .param("orderId", "1")
+                            .header("Content-Type", "application/json")
+                            .content(body))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.id", is(1)))
                     .andExpect(jsonPath("$.count", is(1)))
@@ -68,12 +68,12 @@ public class OrderControllerIntegrationTest {
 //                            jsonPath("$.lastName", is("Carrey")),
 //                            jsonPath("$.email", is("manager @mail.com")),
 //                            jsonPath("$.town", is("Hamburg")),
-//                    jsonPath("$.zipCode", is("22339")),
-//                    jsonPath("$.street", is("Norbert-Schmid-Platz")),
-//                    jsonPath("$.houseNumber",is(55)),
+//                            jsonPath("$.zipCode", is("22339")),
+//                            jsonPath("$.street", is("Norbert-Schmid-Platz")),
+//                            jsonPath("$.houseNumber",is(55)),
 //                            jsonPath("$.phoneNumber", is("+4917611223344")),
-//                    jsonPath("$.role",is("MANAGER")),
-//                    jsonPath("$.state", is("CONFIRMED")));
+//                            jsonPath("$.role",is("MANAGER")),
+//                            jsonPath("$.state", is("CONFIRMED")));
         }
 
         @Sql(scripts = "/sql/data_for_orders.sql")
@@ -92,6 +92,7 @@ public class OrderControllerIntegrationTest {
                             .content(body))
                     .andExpect(status().isUnauthorized());
         }
+
         @WithUserDetails(value = "client@mail.com")
         @Sql(scripts = "/sql/data_for_orders.sql")
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -128,4 +129,54 @@ public class OrderControllerIntegrationTest {
                     .andExpect(status().isForbidden());
         }
     }
+
+    @Nested
+    @DisplayName("PUT /api/users/client/orders method is works:")
+    class GetAllOrdersForClient {
+
+        @WithUserDetails(value = "client@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void get_all_orders_for_Client_as_Client() throws Exception {
+
+            mockMvc.perform(get("/api/users/client/orders")
+                            .param("page", "0"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.count", is(1)));
+        }
+
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void get_all_orders_for_Client_as_Unauthorized() throws Exception {
+
+            mockMvc.perform(get("/api/users/client/orders")
+                            .param("page", "0"))
+                    .andExpect(status().isUnauthorized());
+        }
+
+        @WithUserDetails(value = "confectioner@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void get_all_orders_for_Client_as_Confectioner() throws Exception {
+
+            mockMvc.perform(get("/api/users/client/orders")
+                            .param("page", "0"))
+                    .andExpect(status().isForbidden());
+        }
+
+        @WithUserDetails(value = "manager@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void get_all_orders_for_Client_as_Manager() throws Exception {
+
+            mockMvc.perform(get("/api/users/client/orders")
+                            .param("page", "0"))
+                    .andExpect(status().isForbidden());
+        }
+    }
+
 }
