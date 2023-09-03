@@ -181,4 +181,52 @@ public class OrderControllerIntegrationTest {
         }
     }
 
+    @Nested
+    @DisplayName("PUT /api/users/confectioner/orders method is works:")
+    class GetAllOrdersToDoForConfectioner {
+
+        @WithUserDetails(value = "confectioner@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void get_all_orders_to_do_for_Confectioner_as_Confectioner() throws Exception {
+
+            mockMvc.perform(get("/api/users/confectioner/orders")
+                            .param("page", "0"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.count", is(2)));;
+        }
+
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void get_all_orders_to_do_for_Confectioner_as_Unauthorized() throws Exception {
+
+            mockMvc.perform(get("/api/users/confectioner/orders")
+                            .param("page", "0"))
+                    .andExpect(status().isUnauthorized());
+        }
+
+        @WithUserDetails(value = "client@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void get_all_orders_to_do_for_Confectioner_as_Client() throws Exception {
+
+            mockMvc.perform(get("/api/users/confectioner/orders")
+                            .param("page", "0"))
+                    .andExpect(status().isForbidden());
+        }
+
+        @WithUserDetails(value = "manager@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void get_all_orders_to_do_for_Confectioner_as_Manager() throws Exception {
+
+            mockMvc.perform(get("/api/users/confectioner/orders")
+                            .param("page", "0"))
+                    .andExpect(status().isForbidden());
+        }
+    }
 }
