@@ -164,7 +164,8 @@ public class OrderControllerIntegrationTest {
 
             mockMvc.perform(get("/api/users/client/orders")
                             .param("page", "0"))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.count", is(0)));;
         }
 
         @WithUserDetails(value = "manager@mail.com")
@@ -175,7 +176,8 @@ public class OrderControllerIntegrationTest {
 
             mockMvc.perform(get("/api/users/client/orders")
                             .param("page", "0"))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.count", is(1)));;
         }
     }
 

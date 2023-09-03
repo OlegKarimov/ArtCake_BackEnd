@@ -108,7 +108,6 @@ public interface UsersApi {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
     })
-    @PreAuthorize("hasAuthority('CLIENT')")
     @GetMapping("/client/orders")
     ResponseEntity<OrdersDto> getAllOrdersForClient(@Parameter(description = "page number", example = "1")
                                                     @RequestParam(value = "page") Integer page,

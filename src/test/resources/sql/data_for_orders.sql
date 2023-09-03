@@ -9,7 +9,7 @@ insert into cake (category, state, ingredients, name, price)
 values ('MOUSSE', 'CREATED','water, sugar, egg','raspberry-mousse',33.33);
 
 insert into orders (count, client_wishes, deadline, confectioner_id, state, client_id, cake_id, total_price, creation_date)
-values (1,'For birthday(30 years)', '2023-10-10', 1, 'CREATED', 1, 1, 200.50, '2023-09-01');
+values (1,'For birthday(30 years)', '2023-10-10', 2, 'CREATED', 1, 1, 200.50, '2023-09-01');
 insert into orders (count, client_wishes, deadline, confectioner_id, state, client_id, cake_id, total_price, creation_date)
-values (1,'Make in blue and white colors', '2023-10-10', 1, 'CREATED', 3, 1, 250.50, '2023-09-01');
+values (1,'Make in blue and white colors', '2023-10-10', 2, 'CREATED', 3, 1, 250.50, '2023-09-01');
 
