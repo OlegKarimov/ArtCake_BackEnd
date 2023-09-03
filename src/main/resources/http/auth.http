@@ -1,4 +1,4 @@
-### Adding user as CLIENT
+### Adding user
 POST http://localhost:8080/api/registration
 Content-Type: application/json
 
@@ -14,7 +14,7 @@ Content-Type: application/json
   "phoneNumber": "+4917611223344"
 }
 
-### Adding user as CONFECTIONER
+### Adding user
 POST http://localhost:8080/api/registration
 Content-Type: application/json
 
@@ -30,7 +30,7 @@ Content-Type: application/json
   "phoneNumber": "+4917699887766"
 }
 
-### Adding user as MANAGER
+### Adding user
 POST http://localhost:8080/api/registration
 Content-Type: application/json
 
