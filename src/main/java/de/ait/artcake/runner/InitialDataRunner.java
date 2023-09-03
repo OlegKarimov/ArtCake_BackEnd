@@ -40,8 +40,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .firstName("John")
                     .lastName("Manageroff")
                     .email("manager@mail.com")
-                    .hashPassword("$2a$10$VQky6jadkcnsisW/SSrqeuvP5p7Tomz5F7x/fMBzikyMGv7sfPOay")
-                    //qwerty123!
+                    .hashPassword("$2a$10$OaIlOXNzo6Fh9EO4BSeduOYiXPhnajGh4H1tas7HEPHNyARpM2blG")
+//                    Manager007!
                     .town("Kiel")
                     .zipCode("22339")
                     .street("StrandStrasse")
@@ -61,8 +61,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .firstName("Konditer")
                     .lastName("Konditerow")
                     .email("konditerow@gmail.com")
-                    .hashPassword("$2a$10$XhZqBs2ID5aIey7WJJiPAexSGXcfuB6NFSb/ZC/S3GMkO/ouhmTdG")
-                    //Confectioner000!
+                    .hashPassword("$2a$10$haaeEtWromRC9K21rlrIV.4uA.9YBICWgd3IkqxUwYmc/ZQhm0IeK")
+                    // Qwerty123!
                     .town("Kiel")
                     .zipCode("22333")
                     .street("StrandStrasse")
@@ -76,8 +76,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .firstName("Konditer")
                     .lastName("Konditeryan")
                     .email("konditeryan@gmail.com")
-                    .hashPassword("$2a$10$jtLDeFSt7C1jNGtxpzh6kurTi.rej21OBRqjMexaC9jbW4JI967bC")
-                    //Confectioner111!
+                    .hashPassword("$2a$10$haaeEtWromRC9K21rlrIV.4uA.9YBICWgd3IkqxUwYmc/ZQhm0IeK")
+                    // Qwerty123!
                     .town("Kiel")
                     .zipCode("21193")
                     .street("StrandStrasse")
@@ -91,8 +91,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .firstName("Konditer")
                     .lastName("Konditeridze")
                     .email("konditeridze@gmail.com")
-                    .hashPassword("$2a$10$KrckCT.RKuAbniEAJoi2R.xIoeTHin/PEjuPH4qRVtTV9DStncu1K")
-                    //Confectioner222!
+                    .hashPassword("$2a$10$haaeEtWromRC9K21rlrIV.4uA.9YBICWgd3IkqxUwYmc/ZQhm0IeK")
+                    // Qwerty123!
                     .town("Kiel")
                     .zipCode("44333")
                     .street("StrandStrasse")
@@ -106,8 +106,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .firstName("Konditer")
                     .lastName("Konditerenko")
                     .email("konditerenko@gmail.com")
-                    .hashPassword("$2a$10$ruOLOFb6ugIquDl4iSv0DOVfSpC1orM5E512eitSFPoaJF03EfhP2")
-                    //Confectioner333!
+                    .hashPassword("$2a$10$haaeEtWromRC9K21rlrIV.4uA.9YBICWgd3IkqxUwYmc/ZQhm0IeK")
+                    // Qwerty123!
                     .town("Kiel")
                     .zipCode("32331")
                     .street("StrandStrasse")
@@ -322,7 +322,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .firstName("Client")
                     .lastName("Clientowitsch")
                     .email("client@gmail.com")
-                    .hashPassword("$2a$10$YdArHpvx6U8A6cFgmrv4GO46E6EJM9Pq2Xniz9QfHc0NsveV7oUdm")
+                    .hashPassword("$2a$10$kN76LkTWZM5PRJiXJ2qurur.DMST0z/SWDyn/WOknEBy4Fpd/iScG")
+                    // Client007!
                     .town("Kiel")
                     .zipCode("22336")
                     .street("StrandStrasse")
@@ -336,7 +337,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .firstName("Ivan")
                     .lastName("Ivanovich")
                     .email("client1@gmail.com")
-                    .hashPassword("$2a$10$x4x5qCBkKBUMsYpUpOJYw.GxFbFgSBHryob0sHZOTB4Rl8DmwP1M6")
+                    .hashPassword("$2a$10$kN76LkTWZM5PRJiXJ2qurur.DMST0z/SWDyn/WOknEBy4Fpd/iScG")
+                    // Client007!
                     .town("Timmendorf")
                     .zipCode("22337")
                     .street("Timmendorfer")
@@ -350,7 +352,8 @@ public class InitialDataRunner implements CommandLineRunner {
                     .firstName("Petr")
                     .lastName("Petrenko")
                     .email("client2@gmail.com")
-                    .hashPassword("$2a$10$x4x5qCBkKBUMsYpUpOJYw.GxFbFgSBHryob0sHZOTB4Rl8DmwP1M6")
+                    .hashPassword("$2a$10$kN76LkTWZM5PRJiXJ2qurur.DMST0z/SWDyn/WOknEBy4Fpd/iScG")
+                    // Client007!
                     .town("Winser")
                     .zipCode("22332")
                     .street("NeuerStr.")
