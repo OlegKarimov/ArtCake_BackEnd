@@ -27,12 +27,11 @@ public interface OrdersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
                     }),
-            @ApiResponse(responseCode = "401", description = "Forbidden",
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),
     })
-
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/cakes/{cake-id}")
     ResponseEntity<OrderDto> addOrder(@Parameter(required = true, description = "Cake id", example = "1")
@@ -41,7 +40,7 @@ public interface OrdersApi {
 
     @Operation(summary = "Moving order to process", description = "Allowed MANAGER")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Not found",
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),
@@ -62,11 +61,7 @@ public interface OrdersApi {
 
     @Operation(summary = "Moving order to finished", description = "Allowed CONFECTIONER")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Not found",
-                    content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
-                    }),
-            @ApiResponse(responseCode = "403", description = "Excess denied",
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),
@@ -82,17 +77,13 @@ public interface OrdersApi {
 
     @Operation(summary = "Moving order to declined", description = "Allowed CONFECTIONER")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Not found",
-                    content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
-                    }),
-            @ApiResponse(responseCode = "403", description = "Excess denied",
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),
             @ApiResponse(responseCode = "200", description = "Updated order",
                     content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
                     })
     })
     @PreAuthorize("hasAnyAuthority('CONFECTIONER')")
