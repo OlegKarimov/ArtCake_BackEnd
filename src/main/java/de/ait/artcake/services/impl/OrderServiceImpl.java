@@ -1,5 +1,6 @@
 package de.ait.artcake.services.impl;
 
+import de.ait.artcake.dto.CakeDto;
 import de.ait.artcake.dto.NewOrderDto;
 import de.ait.artcake.dto.OrderDto;
 import de.ait.artcake.dto.OrderInProcessDto;
@@ -19,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.HTMLEditorKit;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -41,6 +43,10 @@ public class OrderServiceImpl implements OrdersService {
         Long userId = ((AuthenticatedUser) authentication.getPrincipal()).id();
 
         Cake cake = cakesService.getCakeOrThrow(cakeId);
+
+        if(cake.getState().toString().equals("DELETED")){
+            throw new RestException(HttpStatus.FORBIDDEN, "TEMPORARILY_UNAVAILABLE");
+        }
 
         User user = usersService.getUserOrThrow(userId);
 

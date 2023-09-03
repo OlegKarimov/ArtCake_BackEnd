@@ -126,6 +126,7 @@ public class CakesServiceImpl implements CakesService {
                 .orElseThrow(() ->
                         new RestException(HttpStatus.NOT_FOUND,"Cake with id <"+ cakeId + "> not found"));
     }
+
     @Override
     public CakesDto getCakesByCategory(String category)
     {

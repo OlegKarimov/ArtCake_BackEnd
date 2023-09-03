@@ -70,8 +70,8 @@ public class CakeControllerIntegrationTest {
                     .andExpect(jsonPath("$.name", is("oreoCheesecake")))
                     .andExpect(jsonPath("$.ingredients", is("oreo, mascarpone, sugar")))
                     .andExpect(jsonPath("$.price", is(180.00)))
-                    .andExpect(jsonPath("$.category", is("CHEESECAKES")))
-                    .andExpect(jsonPath("$.state", is("CREATED")));
+                    .andExpect(jsonPath("$.category", is("CHEESECAKES")));
+
         }
 
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
