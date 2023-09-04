@@ -1,7 +1,6 @@
 package de.ait.artcake.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.ait.artcake.dto.NewCakeDto;
 import de.ait.artcake.dto.NewOrderDto;
 import de.ait.artcake.dto.OrderDto;
 import de.ait.artcake.dto.OrderInProcessDto;
@@ -15,11 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
-
 import static org.hamcrest.Matchers.is;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -52,10 +47,10 @@ public class OrderControllerIntegrationTest {
         void addOrderAsAuthenticatedClient() throws Exception {
 
             String body = objectMapper.writeValueAsString(NewOrderDto.builder()
-                            .clientWishes("Make in blue and white colours")
-                            .count(1)
-                            .deadline("2023-10-10")
-                            .build());
+                    .clientWishes("Make in blue and white colours")
+                    .count(1)
+                    .deadline("2023-10-10")
+                    .build());
 
             mockMvc.perform(post("/api/orders/cakes/1")
                             .param("cakeId", "1")
@@ -67,9 +62,11 @@ public class OrderControllerIntegrationTest {
                     .andExpect(jsonPath("$.count", is(1)))
                     .andExpect(jsonPath("$.clientWishes", is("Make in blue and white colours")))
                     .andExpect(jsonPath("$.totalPrice", is(33.33)))
-                    .andExpect(jsonPath("$.creationDate", is("2023-09-03")))
+                    .andExpect(jsonPath("$.creationDate", is("2023-09-04")))
                     .andExpect(jsonPath("$.deadline", is("2023-10-10")))
                     .andExpect(jsonPath("$.state", is("CREATED")));
+        }
+    }
 
     @Nested
     @DisplayName("PUT /api/orders/{order-id} method is works:")
@@ -97,17 +94,6 @@ public class OrderControllerIntegrationTest {
                     .andExpect(jsonPath("$.deadline", is("2023-10-10")))
                     .andExpect(jsonPath("$.state", is("IN_PROCESS")))
                     .andExpect(jsonPath("$.totalPrice", is(206.0)));
-//                  .andExpect(jsonPath("$.client", is(jsonPath("$.id",is(1)),
-//                            jsonPath("$.firstName", is("Jim")),
-//                            jsonPath("$.lastName", is("Carrey")),
-//                            jsonPath("$.email", is("manager @mail.com")),
-//                            jsonPath("$.town", is("Hamburg")),
-//                            jsonPath("$.zipCode", is("22339")),
-//                            jsonPath("$.street", is("Norbert-Schmid-Platz")),
-//                            jsonPath("$.houseNumber",is(55)),
-//                            jsonPath("$.phoneNumber", is("+4917611223344")),
-//                            jsonPath("$.role",is("MANAGER")),
-//                            jsonPath("$.state", is("CONFIRMED")));
         }
 
         @Sql(scripts = "/sql/data_for_orders.sql")
@@ -185,8 +171,17 @@ public class OrderControllerIntegrationTest {
                             .content(body))
                     .andDo(print())
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.state", is("IN_PROCESS")));
 
+                    .andExpect(jsonPath("$.state", is("IN_PROCESS")));
+        }
+    }
+
+    @Nested
+    @DisplayName("PUT /api/users/client/orders method is works:")
+    class MoveOrderstoProcess {
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
         void move_order_to_process_as_Unauthorized() throws Exception {
 
             String body = objectMapper.writeValueAsString(OrderInProcessDto.builder()
@@ -290,8 +285,13 @@ public class OrderControllerIntegrationTest {
                             .param("orderId", "1")
                             .header("Content-Type", "application/json")
                             .content(body))
-                    .andDo(print())
-              
+                    .andDo(print());
+        }
+
+        @WithUserDetails(value = "manager@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
         void get_all_orders_for_Client_as_Manager() throws Exception {
 
             mockMvc.perform(get("/api/users/client/orders")

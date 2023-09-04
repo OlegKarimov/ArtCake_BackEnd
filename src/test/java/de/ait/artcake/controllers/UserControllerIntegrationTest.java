@@ -76,7 +76,7 @@ public class UserControllerIntegrationTest {
                     .andExpect(status().isUnauthorized());
         }
     }
-}
+
 
     @Nested
     @DisplayName("GET /api/me method is works:")
