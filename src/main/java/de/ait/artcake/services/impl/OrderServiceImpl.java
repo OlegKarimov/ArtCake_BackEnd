@@ -1,9 +1,6 @@
 package de.ait.artcake.services.impl;
 
-import de.ait.artcake.dto.CakeDto;
-import de.ait.artcake.dto.NewOrderDto;
-import de.ait.artcake.dto.OrderDto;
-import de.ait.artcake.dto.OrderInProcessDto;
+import de.ait.artcake.dto.*;
 import de.ait.artcake.handler.RestException;
 import de.ait.artcake.models.Cake;
 import de.ait.artcake.models.Order;
@@ -78,7 +75,7 @@ public class OrderServiceImpl implements OrdersService {
     }
 
     @Override
-    public OrderDto addOrderToProcess(Long orderId, OrderInProcessDto orderToProcess) {
+    public OrderForManagerDto addOrderToProcess(Long orderId, OrderInProcessDto orderToProcess) {
 
         Order order = getOrderOrThrow(orderId);
 
@@ -90,7 +87,7 @@ public class OrderServiceImpl implements OrdersService {
 
         ordersRepository.save(order);
 
-        return OrderDto.from(order);
+        return OrderForManagerDto.from(order);
     }
 
     @Override

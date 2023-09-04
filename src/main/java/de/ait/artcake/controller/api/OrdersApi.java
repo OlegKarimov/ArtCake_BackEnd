@@ -55,7 +55,7 @@ public interface OrdersApi {
     })
     @PreAuthorize("hasAuthority('MANAGER')")
     @PutMapping("/{order-id}")
-    ResponseEntity<OrderDto> orderToProcess(@Parameter(required = true, description = "Order id", example = "2")
+    ResponseEntity<OrderForManagerDto> orderToProcess(@Parameter(required = true, description = "Order id", example = "2")
                                             @RequestParam @PathVariable("order-id") Long orderId,
                                             @RequestBody OrderInProcessDto orderToProcess);
 

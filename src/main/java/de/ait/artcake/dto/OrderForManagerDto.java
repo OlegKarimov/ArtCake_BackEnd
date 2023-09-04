@@ -34,6 +34,9 @@ public class OrderForManagerDto {
     @Schema(description = "Order creation date", example = "2023-02-02")
     private String creationDate;
 
+    @Schema(description = "Confectioner Identifier", example = "1")
+    private Long confectionerId;
+
     @Schema(description = "Deadline date ", example = "2023-02-02")
     private String deadline;
 
@@ -52,6 +55,7 @@ public class OrderForManagerDto {
                 .deadline(order.getDeadline().toString())
                 .totalPrice(order.getTotalPrice())
                 .creationDate(order.getCreationDate().toString())
+                .confectionerId(order.getConfectionerId())
                 .client(UserDto.from(order.getClient()))
                 .state(order.getState().name())
                 .build();
