@@ -56,10 +56,4 @@ public class CakesController implements CakesApi {
                 .body(cakesService.updateCake(cakeId, updateCake));
     }
 
-    @Override
-    public ResponseEntity<CakeDto> deleteCake(Long cakeId) {
-        return ResponseEntity
-                .ok()
-                .body(cakesService.deleteCake(cakeId));
-    }
 }
