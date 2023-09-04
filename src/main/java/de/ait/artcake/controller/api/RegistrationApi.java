@@ -31,10 +31,6 @@ public interface RegistrationApi {
             @ApiResponse(responseCode = "400", description = "Validation error",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorsDto.class))
-                    }),
-            @ApiResponse(responseCode = "404", description = "Validation error",
-                    content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorsDto.class))
                     })
     })
     @PostMapping

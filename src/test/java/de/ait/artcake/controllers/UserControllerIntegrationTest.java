@@ -14,6 +14,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -45,17 +49,34 @@ public class UserControllerIntegrationTest {
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         }
+    }
 
-        @WithUserDetails(value = "test@mail.com")
-        @Sql(scripts = "/sql/data_for_manager_getAllOrders.sql")
+    @Nested
+    @DisplayName("GET /api/users/manager/orders method is works: ")
+    class GetAllOrdersAsManagerTests {
+        @WithUserDetails(value = "manager@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @Test
-        public void getAllOrdersAsManager() throws Exception {
+        void getAllOrdersAsManager() throws Exception {
+
             mockMvc.perform(get("/api/users/manager/orders")
-                            .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk());
+                            .param("page", "0"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.count", is(2)));
+        }
+
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void getAllOrdersAsManagerUnauthorized() throws Exception {
+
+            mockMvc.perform(get("/api/users/manager/orders")
+                            .param("page", "0"))
+                    .andExpect(status().isUnauthorized());
         }
     }
+}
 
     @Nested
     @DisplayName("GET /api/me method is works:")

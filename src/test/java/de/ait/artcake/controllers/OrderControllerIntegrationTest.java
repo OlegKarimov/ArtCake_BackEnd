@@ -1,6 +1,8 @@
 package de.ait.artcake.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.ait.artcake.dto.NewCakeDto;
+import de.ait.artcake.dto.NewOrderDto;
 import de.ait.artcake.dto.OrderDto;
 import de.ait.artcake.dto.OrderInProcessDto;
 import org.junit.jupiter.api.*;
@@ -16,8 +18,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 
 import static org.hamcrest.Matchers.is;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,11 +42,38 @@ public class OrderControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Nested
+    @DisplayName("POST /api/orders/cakes/ method is works: ")
+    class AddOrderTest {
+        @WithUserDetails(value = "client@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void addOrderAsAuthenticatedClient() throws Exception {
+
+            String body = objectMapper.writeValueAsString(NewOrderDto.builder()
+                            .clientWishes("Make in blue and white colours")
+                            .count(1)
+                            .deadline("2023-10-10")
+                            .build());
+
+            mockMvc.perform(post("/api/orders/cakes/1")
+                            .param("cakeId", "1")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andDo(print())
+                    .andExpect(status().isCreated())
+                    .andExpect(jsonPath("$.id", is(3)))
+                    .andExpect(jsonPath("$.count", is(1)))
+                    .andExpect(jsonPath("$.clientWishes", is("Make in blue and white colours")))
+                    .andExpect(jsonPath("$.totalPrice", is(33.33)))
+                    .andExpect(jsonPath("$.creationDate", is("2023-09-03")))
+                    .andExpect(jsonPath("$.deadline", is("2023-10-10")))
+                    .andExpect(jsonPath("$.state", is("CREATED")));
 
     @Nested
     @DisplayName("PUT /api/orders/{order-id} method is works:")
     class AddOrderToProcess {
-
         @WithUserDetails(value = "manager@mail.com")
         @Sql(scripts = "/sql/data_for_orders.sql")
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -79,6 +113,80 @@ public class OrderControllerIntegrationTest {
         @Sql(scripts = "/sql/data_for_orders.sql")
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @Test
+        void addOrderAsNotAuthenticatedClient() throws Exception {
+
+            String body = objectMapper.writeValueAsString(NewOrderDto.builder()
+                    .clientWishes("Make in blue and white colours")
+                    .count(2)
+                    .deadline("2023-10-10")
+                    .build());
+
+            mockMvc.perform(post("/api/orders/cakes/1")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andDo(print())
+                    .andExpect(status().isUnauthorized());
+        }
+    }
+
+    @Nested
+    @DisplayName("PUT /api/orders/{order-id} method is works: ")
+    class GetUsersByRoleTests {
+        @WithUserDetails(value = "confectioner@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void orderIsFinishedAsConfectioner() throws Exception {
+
+            String body = objectMapper.writeValueAsString(OrderDto.builder()
+                    .state("IN_PROCESS")
+                    .build());
+
+            mockMvc.perform(put("/api/orders/1/done")
+                            .param("orderId", "1")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.state", is("FINISHED")));
+        }
+
+        @WithUserDetails(value = "manager@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void orderIsFinishedAsManagerIsForbidden() throws Exception {
+
+            String body = objectMapper.writeValueAsString(OrderDto.builder()
+                    .state("IN_PROCESS")
+                    .build());
+
+            mockMvc.perform(put("/api/orders/1/done")
+                            .param("orderId", "1")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andDo(print())
+                    .andExpect(status().isForbidden());
+        }
+
+        @WithUserDetails(value = "confectioner@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void orderCantFinishAsConfectioner() throws Exception {
+
+            String body = objectMapper.writeValueAsString(OrderDto.builder()
+                    .state("IN_PROCESS")
+                    .build());
+
+            mockMvc.perform(put("/api/orders/1/decline")
+                            .param("orderId", "1")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.state", is("IN_PROCESS")));
+
         void move_order_to_process_as_Unauthorized() throws Exception {
 
             String body = objectMapper.writeValueAsString(OrderInProcessDto.builder()
@@ -172,6 +280,18 @@ public class OrderControllerIntegrationTest {
         @Sql(scripts = "/sql/data_for_orders.sql")
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         @Test
+        void orderCantFinishedAsManagerIsForbidden() throws Exception {
+
+            String body = objectMapper.writeValueAsString(OrderDto.builder()
+                    .state("IN_PROCESS")
+                    .build());
+
+            mockMvc.perform(put("/api/orders/1/decline")
+                            .param("orderId", "1")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andDo(print())
+              
         void get_all_orders_for_Client_as_Manager() throws Exception {
 
             mockMvc.perform(get("/api/users/client/orders")
@@ -184,7 +304,6 @@ public class OrderControllerIntegrationTest {
     @Nested
     @DisplayName("PUT /api/users/confectioner/orders method is works:")
     class GetAllOrdersToDoForConfectioner {
-
         @WithUserDetails(value = "confectioner@mail.com")
         @Sql(scripts = "/sql/data_for_orders.sql")
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)

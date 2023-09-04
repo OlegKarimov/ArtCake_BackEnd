@@ -32,7 +32,7 @@ public interface CakesApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = CakeDto.class))
                     }),
-            @ApiResponse(responseCode = "403", description = "forbidden operation",
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
@@ -98,7 +98,7 @@ public interface CakesApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = CakeDto.class))
                     }),
-            @ApiResponse(responseCode = "403", description = "forbidden operation",
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
@@ -111,7 +111,7 @@ public interface CakesApi {
 
     @Operation(summary = "delete cake from our assortment", description = "only for manager")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "cake not found",
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),

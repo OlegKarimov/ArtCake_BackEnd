@@ -34,7 +34,7 @@ public interface UsersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))
                     }),
-            @ApiResponse(responseCode = "401", description = "Profile is not authenticated",
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
@@ -48,11 +48,11 @@ public interface UsersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))
                     }),
-            @ApiResponse(responseCode = "500", description = "forbidden operation",
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),
-            @ApiResponse(responseCode = "404", description = "User not found",
+            @ApiResponse(responseCode = "403", description = "Is Forbidden",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
@@ -68,7 +68,11 @@ public interface UsersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
                     }),
-            @ApiResponse(responseCode = "403", description = "Profile is not authenticated or attempting to sort by a prohibited field",
+            @ApiResponse(responseCode = "401", description = "Profile is not authenticated or attempting to sort by a prohibited field",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Is Forbidden",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
@@ -83,7 +87,11 @@ public interface UsersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
                     }),
-            @ApiResponse(responseCode = "403", description = "Profile is not authenticated or attempting to sort by a prohibited field",
+            @ApiResponse(responseCode = "401", description = "Profile is not authenticated or attempting to sort by a prohibited field",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Is Forbidden",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
@@ -103,7 +111,11 @@ public interface UsersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrdersDto.class))
                     }),
-            @ApiResponse(responseCode = "403", description = "Profile is not authenticated",
+            @ApiResponse(responseCode = "401", description = "Profile is not authenticated",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Is Forbidden",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
