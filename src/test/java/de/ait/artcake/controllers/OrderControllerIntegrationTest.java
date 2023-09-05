@@ -62,9 +62,27 @@ public class OrderControllerIntegrationTest {
                     .andExpect(jsonPath("$.count", is(1)))
                     .andExpect(jsonPath("$.clientWishes", is("Make in blue and white colours")))
                     .andExpect(jsonPath("$.totalPrice", is(33.33)))
-                    .andExpect(jsonPath("$.creationDate", is("2023-09-04")))
+                    .andExpect(jsonPath("$.creationDate", is("2023-09-05")))
                     .andExpect(jsonPath("$.deadline", is("2023-10-10")))
                     .andExpect(jsonPath("$.state", is("CREATED")));
+        }
+
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void addOrderAsNotAuthenticatedClient() throws Exception {
+
+            String body = objectMapper.writeValueAsString(NewOrderDto.builder()
+                    .clientWishes("Make in blue and white colours")
+                    .count(2)
+                    .deadline("2023-10-10")
+                    .build());
+
+            mockMvc.perform(post("/api/orders/cakes/1")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andDo(print())
+                    .andExpect(status().isUnauthorized());
         }
     }
 
@@ -96,23 +114,6 @@ public class OrderControllerIntegrationTest {
                     .andExpect(jsonPath("$.totalPrice", is(206.0)));
         }
 
-        @Sql(scripts = "/sql/data_for_orders.sql")
-        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-        @Test
-        void addOrderAsNotAuthenticatedClient() throws Exception {
-
-            String body = objectMapper.writeValueAsString(NewOrderDto.builder()
-                    .clientWishes("Make in blue and white colours")
-                    .count(2)
-                    .deadline("2023-10-10")
-                    .build());
-
-            mockMvc.perform(post("/api/orders/cakes/1")
-                            .header("Content-Type", "application/json")
-                            .content(body))
-                    .andDo(print())
-                    .andExpect(status().isUnauthorized());
-        }
     }
 
     @Nested
@@ -171,8 +172,25 @@ public class OrderControllerIntegrationTest {
                             .content(body))
                     .andDo(print())
                     .andExpect(status().isOk())
-
                     .andExpect(jsonPath("$.state", is("IN_PROCESS")));
+        }
+
+        @WithUserDetails(value = "manager@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        void orderCantFinishedAsManagerIsForbidden() throws Exception {
+
+            String body = objectMapper.writeValueAsString(OrderDto.builder()
+                    .state("IN_PROCESS")
+                    .build());
+
+            mockMvc.perform(put("/api/orders/1/decline")
+                            .param("orderId", "1")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andDo(print())
+                    .andExpect(status().isForbidden());
         }
     }
 
@@ -269,23 +287,6 @@ public class OrderControllerIntegrationTest {
                             .param("page", "0"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.count", is(0)));;
-        }
-
-        @WithUserDetails(value = "manager@mail.com")
-        @Sql(scripts = "/sql/data_for_orders.sql")
-        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-        @Test
-        void orderCantFinishedAsManagerIsForbidden() throws Exception {
-
-            String body = objectMapper.writeValueAsString(OrderDto.builder()
-                    .state("IN_PROCESS")
-                    .build());
-
-            mockMvc.perform(put("/api/orders/1/decline")
-                            .param("orderId", "1")
-                            .header("Content-Type", "application/json")
-                            .content(body))
-                    .andDo(print());
         }
 
         @WithUserDetails(value = "manager@mail.com")

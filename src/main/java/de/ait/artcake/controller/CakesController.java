@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import de.ait.artcake.services.CakesService;
 import de.ait.artcake.dto.CakesDto;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -54,6 +56,15 @@ public class CakesController implements CakesApi {
         return ResponseEntity
                 .ok()
                 .body(cakesService.updateCake(cakeId, updateCake));
+    }
+
+    @Override
+    public ResponseEntity<List<CakeRatingDto>> getCakeRating() {
+        List<CakeRatingDto> cakeSales = cakesService.getCakeSales();
+        return new ResponseEntity<>(cakeSales, HttpStatus.OK);
+        //return ResponseEntity
+        //        .ok()
+        //        .body(cakesService.getCakeSales());
     }
 
 }

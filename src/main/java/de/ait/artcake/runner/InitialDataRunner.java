@@ -383,7 +383,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .client(client)
                     .cake(cake)
                     .confectionerId(0L)
-                    .state(Order.State.CREATED)
+                    .state(Order.State.FINISHED)
                     .build();
 
             Cake cake1 = cakesRepository.findById(5L).get();
@@ -396,7 +396,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .client(client)
                     .cake(cake1)
                     .confectionerId(0L)
-                    .state(Order.State.CREATED)
+                    .state(Order.State.FINISHED)
                     .build();
 
             Cake cake2 = cakesRepository.findById(1L).get();
@@ -409,7 +409,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .client(client)
                     .cake(cake2)
                     .confectionerId(0L)
-                    .state(Order.State.CREATED)
+                    .state(Order.State.FINISHED)
                     .build();
 
             User client1 = usersRepository.findByEmail("client1@gmail.com").get();
@@ -423,7 +423,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .client(client1)
                     .cake(cake3)
                     .confectionerId(0L)
-                    .state(Order.State.CREATED)
+                    .state(Order.State.FINISHED)
                     .build();
 
             ordersRepository.save(order1);
