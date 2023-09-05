@@ -15,7 +15,5 @@ public interface CakesService {
 
     CakeDto updateCake(Long cakeId, UpdateCakeDto updateCake);
 
-    CakeDto deleteCake(Long cakeId);
-
     CakesDto getCakesByCategory(String category);
 }

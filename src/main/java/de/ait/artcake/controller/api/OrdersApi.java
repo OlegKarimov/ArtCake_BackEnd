@@ -31,6 +31,10 @@ public interface OrdersApi {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     }),
+            @ApiResponse(responseCode = "403", description = "Is Forbidden",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    })
     })
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/cakes/{cake-id}")
@@ -68,6 +72,10 @@ public interface OrdersApi {
             @ApiResponse(responseCode = "200", description = "Updated order",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Is Forbidden",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
     })
     @PreAuthorize("hasAnyAuthority('CONFECTIONER')")
@@ -84,6 +92,10 @@ public interface OrdersApi {
             @ApiResponse(responseCode = "200", description = "Updated order",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Is Forbidden",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
     })
     @PreAuthorize("hasAnyAuthority('CONFECTIONER')")

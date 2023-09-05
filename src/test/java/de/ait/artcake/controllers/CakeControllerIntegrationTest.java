@@ -124,26 +124,6 @@ public class CakeControllerIntegrationTest {
     }
 
     @Nested
-    @DisplayName("DELETE /api/cakes/{cakesId} method is works: ")
-    class DeleteCakeTests {
-        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-        @Test
-        void delete_cake_as_Client() throws Exception {
-            mockMvc.perform(delete("/api/cakes/1"))
-                    .andExpect(status().isUnauthorized());
-        }
-
-        @WithUserDetails(value = "test@mail.com")
-        @Sql(scripts = "/sql/data_for_cakes.sql")
-        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-        @Test
-        void delete_cake_as_Manager() throws Exception {
-            mockMvc.perform(delete("/api/cakes/1"))
-                    .andExpect(status().isOk());
-        }
-    }
-
-    @Nested
     @DisplayName("PUT /api/cakes/{cakesId} method is works: ")
     class UpdateCakeTests {
 

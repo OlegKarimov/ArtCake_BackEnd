@@ -68,17 +68,6 @@ public class CakesServiceImpl implements CakesService {
         return CakeDto.from(cake);
     }
 
-    @Transactional
-    @Override
-    public CakeDto deleteCake(Long cakeId) {
-
-        Cake cake = getCakeOrThrow(cakeId);
-
-        cakesRepository.delete(cake);
-
-        return from(cake);
-    }
-
     @Override
     public CakesDto getAllCakes(Integer pageNumber, String orderByField, Boolean desc) {
 

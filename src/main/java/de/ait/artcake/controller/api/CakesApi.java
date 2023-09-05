@@ -101,6 +101,10 @@ public interface CakesApi {
             @ApiResponse(responseCode = "401", description = "User unauthorized",
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Is Forbidden",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
                     })
     })
     @PreAuthorize("hasAnyAuthority('MANAGER')")
@@ -109,20 +113,5 @@ public interface CakesApi {
                                        @PathVariable("cake-id") Long cakeId,
                                        @Valid @RequestBody  UpdateCakeDto updateCake);
 
-    @Operation(summary = "delete cake from our assortment", description = "only for manager")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "401", description = "User unauthorized",
-                    content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
-                    }),
-            @ApiResponse(responseCode = "200", description = "cake removed",
-                    content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = CakeDto.class))
-                    })
-    })
-    @PreAuthorize("hasAnyAuthority('MANAGER')")
-    @DeleteMapping("/{cake-id}")
-    ResponseEntity<CakeDto> deleteCake(@Parameter(required = true, description = "cake id", example = "2")
-                                       @PathVariable("cake-id") Long cakeId);
 }
 
