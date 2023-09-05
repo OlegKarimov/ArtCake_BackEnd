@@ -62,9 +62,6 @@ public class CakesController implements CakesApi {
     public ResponseEntity<List<CakeRatingDto>> getCakeRating() {
         List<CakeRatingDto> cakeSales = cakesService.getCakeSales();
         return new ResponseEntity<>(cakeSales, HttpStatus.OK);
-        //return ResponseEntity
-        //        .ok()
-        //        .body(cakesService.getCakeSales());
     }
 
 }
