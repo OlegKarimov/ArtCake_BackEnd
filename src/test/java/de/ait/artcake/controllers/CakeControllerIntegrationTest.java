@@ -170,4 +170,15 @@ public class CakeControllerIntegrationTest {
 
         }
     }
+
+    @Nested
+    @DisplayName("GET /api/cakes/sales method is works: ")
+    class GetAllCakeWithRatingTests {
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        public void getAllCakesWithSortingAndPagination() throws Exception {
+            mockMvc.perform(get("/api/cakes/sales"))
+                    .andExpect(status().isOk());
+        }
+    }
 }

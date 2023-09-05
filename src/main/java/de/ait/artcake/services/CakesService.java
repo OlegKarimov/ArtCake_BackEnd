@@ -1,9 +1,8 @@
 package de.ait.artcake.services;
 
-import de.ait.artcake.dto.CakeDto;
-import de.ait.artcake.dto.CakesDto;
-import de.ait.artcake.dto.NewCakeDto;
-import de.ait.artcake.dto.UpdateCakeDto;
+import de.ait.artcake.dto.*;
+
+import java.util.List;
 
 public interface CakesService {
 
@@ -16,4 +15,6 @@ public interface CakesService {
     CakeDto updateCake(Long cakeId, UpdateCakeDto updateCake);
 
     CakesDto getCakesByCategory(String category);
+
+    List<CakeRatingDto> getCakeSales();
 }

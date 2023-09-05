@@ -29,7 +29,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
+    @DecimalMin(value = "0", inclusive = false, message = "Count must be greater than 0")
     @Column(nullable = false)
     private Integer count = 1;
 

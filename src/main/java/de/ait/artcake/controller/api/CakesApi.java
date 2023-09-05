@@ -20,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Tags(value = {
         @Tag(name = "Cakes")
@@ -112,6 +113,21 @@ public interface CakesApi {
     ResponseEntity<CakeDto> updateCake(@Parameter(required = true, description = "cake id", example = "1")
                                        @PathVariable("cake-id") Long cakeId,
                                        @Valid @RequestBody  UpdateCakeDto updateCake);
+
+
+    @Operation(summary = "get cake rating", description = "for all users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "get cake rating",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = CakeRatingDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "not found",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    })
+    })
+    @GetMapping("/sales")
+    ResponseEntity<List<CakeRatingDto>> getCakeRating();
 
 }
 

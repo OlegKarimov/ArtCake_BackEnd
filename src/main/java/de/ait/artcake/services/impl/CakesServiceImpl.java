@@ -1,13 +1,12 @@
 package de.ait.artcake.services.impl;
 
-import de.ait.artcake.dto.CakeDto;
-import de.ait.artcake.dto.CakesDto;
-import de.ait.artcake.dto.NewCakeDto;
-import de.ait.artcake.dto.UpdateCakeDto;
+import de.ait.artcake.dto.*;
 import de.ait.artcake.handler.RestException;
 import de.ait.artcake.models.Cake;
 
+import de.ait.artcake.models.Order;
 import de.ait.artcake.repositories.CakesRepository;
+import de.ait.artcake.repositories.OrdersRepository;
 import de.ait.artcake.services.CakesService;
 import lombok.*;
 
@@ -19,7 +18,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static de.ait.artcake.dto.CakeDto.from;
 import static de.ait.artcake.dto.CakeDto.fromByCategory;
@@ -29,6 +33,8 @@ import static de.ait.artcake.dto.CakeDto.fromByCategory;
 public class CakesServiceImpl implements CakesService {
 
     private final CakesRepository cakesRepository;
+
+    private final OrdersRepository ordersRepository;
 
     @Value("${spring.application.sort.cake.fields}")
     private final List<String> sortFields;
@@ -105,10 +111,10 @@ public class CakesServiceImpl implements CakesService {
     }
 
     @Override
-    public CakeDto getCake(Long cakeId)
-    {
+    public CakeDto getCake(Long cakeId) {
         return CakeDto.from(getCakeOrThrow(cakeId));
     }
+
 
     Cake getCakeOrThrow(Long cakeId) {
         return cakesRepository.findById(cakeId)
@@ -127,6 +133,46 @@ public class CakesServiceImpl implements CakesService {
         } else {
             throw new RestException(HttpStatus.NOT_FOUND, "Category <" + category + "> not found");
         }
+    }
+
+    @Override
+    public List<CakeRatingDto> getCakeSales() {
+        List<Order> finishedOrders = ordersRepository.findByState(Order.State.FINISHED);
+        Map<Long, Map<Long, Integer>> cakeRatingMap = new HashMap<>();
+
+        for (Order order : finishedOrders) {
+            Long cakeId = order.getCake().getId();
+            Long orderId = order.getId();
+            int quantity = order.getCount();
+
+            cakeRatingMap.putIfAbsent(cakeId, new HashMap<>());
+
+            Map<Long, Integer> orderQuantityMap = cakeRatingMap.get(cakeId);
+            orderQuantityMap.put(orderId, quantity);
+        }
+
+        return cakeRatingMap.entrySet()
+                .stream()
+                .flatMap(cakeEntry -> {
+                    Long cakeId = cakeEntry.getKey();
+                    Map<Long, Integer> orderQuantityMap = cakeEntry.getValue();
+
+                    int numberOfSales = orderQuantityMap.size();
+                    int totalQuantity = orderQuantityMap.values().stream().mapToInt(Integer::intValue).sum();
+
+                    return Stream.of(createCakeRating(cakeId, numberOfSales, totalQuantity));
+                })
+                .sorted((a, b) -> Integer.compare(b.getNumberOfSales(), a.getNumberOfSales()))
+                .collect(Collectors.toList());
+    }
+
+    private CakeRatingDto createCakeRating(Long cakeId, int numberOfSales, int totalQuantity) {
+        CakeRatingDto cakeRatingDto = new CakeRatingDto();
+        cakeRatingDto.setCakeId(cakeId);
+        cakeRatingDto.setNumberOfSales(numberOfSales);
+        cakeRatingDto.setTotalQuantity(totalQuantity);
+
+        return cakeRatingDto;
     }
 
 }
