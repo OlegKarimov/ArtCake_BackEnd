@@ -52,12 +52,12 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public UsersDto getAllUsersByRole(String role) {
         UsersDto returnConfectioners = UsersDto.builder()
-                .users(fromByRole(usersRepository.findAll(),role))
+                .users(fromByRole(usersRepository.findAll(), role))
                 .build();
-        if (!returnConfectioners.getUsers().isEmpty()){
+        if (!returnConfectioners.getUsers().isEmpty()) {
             return returnConfectioners;
         } else {
-            throw new RestException(HttpStatus.NOT_FOUND, "User with Role <" + role +"> not found");
+            throw new RestException(HttpStatus.NOT_FOUND, "User with Role <" + role + "> not found");
         }
     }
 
@@ -86,7 +86,8 @@ public class UsersServiceImpl implements UsersService {
                 } catch (NumberFormatException e) {
                     throw new RestException(HttpStatus.NOT_FOUND, "<" + filterValue + ">is wrong, enter the filter value as a number.");
                 }
-            }if (filterBy.equals("confectionerId")) {
+            }
+            if (filterBy.equals("confectionerId")) {
                 try {
                     page = ordersRepository.findAllByConfectionerId(Long.parseLong(filterValue), pageRequest);
                 } catch (NumberFormatException e) {
@@ -134,10 +135,43 @@ public class UsersServiceImpl implements UsersService {
                 .build();
     }
 
+    @Override
+    public UserDto updateUser(Long userId, UpdateUserDto updateUser) {
+
+        User user = getUserOrThrow(userId);
+
+        user.setTown(updateUser.getTown());
+        user.setStreet(updateUser.getStreet());
+        user.setHouseNumber(updateUser.getHouseNumber());
+        user.setZipCode(updateUser.getZipCode());
+        user.setPhoneNumber(updateUser.getPhoneNumber());
+
+        if (updateUser.getState().equalsIgnoreCase(User.State.NOT_CONFIRMED.name()) ||
+                updateUser.getState().equalsIgnoreCase(User.State.CONFIRMED.name()) ||
+                updateUser.getState().equalsIgnoreCase(User.State.BANNED.name())) {
+            user.setState(User.State.valueOf(updateUser.getState()));
+        } else {
+            throw new RestException(HttpStatus.FORBIDDEN, "Impossible to set <" + updateUser.getState() + "> " +
+                    "as user state. Available states: NOT_CONFIRMED, CONFIRMED and BANNED");
+        }
+
+        if (updateUser.getRole().equalsIgnoreCase(User.Role.CONFECTIONER.name()) ||
+                updateUser.getRole().equalsIgnoreCase(User.Role.CLIENT.name())) {
+            user.setRole(User.Role.valueOf(updateUser.getRole()));
+        } else {
+            throw new RestException(HttpStatus.FORBIDDEN, "Impossible to set <" + updateUser.getRole() + "> " +
+                    "as user role. Available roles: CONFECTIONER or CLIENT");
+        }
+
+        usersRepository.save(user);
+
+        return UserDto.from(user);
+    }
+
     private PageRequest getPageRequest(Integer pageNumber, String orderByField, Boolean desc) {
         Integer pageSize = 10;
 
-        if(orderByField != null && !orderByField.equals("")) {
+        if (orderByField != null && !orderByField.equals("")) {
 
             pageRequestsUtil.checkField(sortFields, orderByField);
             Sort.Direction direction = Sort.Direction.ASC;
@@ -154,6 +188,6 @@ public class UsersServiceImpl implements UsersService {
 
     User getUserOrThrow(Long userId) {
         return usersRepository.findById(userId).orElseThrow(
-                () -> new RestException(HttpStatus.NOT_FOUND, "User with id <" + userId +"> not found"));
+                () -> new RestException(HttpStatus.NOT_FOUND, "User with id <" + userId + "> not found"));
     }
 }

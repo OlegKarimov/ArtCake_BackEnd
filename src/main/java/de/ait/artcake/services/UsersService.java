@@ -12,4 +12,6 @@ public interface UsersService {
     OrdersDto getAllOrdersForClient(Integer pageNumber, String orderByField, Boolean desc);
 
     OrdersDto getAllOrdersForConfectioner(Integer pageNumber, String orderByField, Boolean desc);
+
+    UserDto updateUser(Long userId, UpdateUserDto updateUser);
 }

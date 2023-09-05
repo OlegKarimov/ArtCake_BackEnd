@@ -1,10 +1,6 @@
 package de.ait.artcake.controller.api;
 
 import de.ait.artcake.dto.*;
-import de.ait.artcake.dto.OrdersDto;
-import de.ait.artcake.dto.StandardResponseDto;
-import de.ait.artcake.dto.UserDto;
-import de.ait.artcake.dto.UsersDto;
 import de.ait.artcake.security.details.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,10 +13,9 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Tags(value = {
         @Tag(name = "users")
@@ -127,4 +122,25 @@ public interface UsersApi {
                                                     @RequestParam(value = "orderBy", required = false) String field,
                                                     @Parameter(description = "true if you want to sort in reverse order")
                                                     @RequestParam(value = "desc", required = false) Boolean desc);
+
+    @Operation(summary = "Update information about user", description = "Allowed only for manager")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Updating successful",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = CakeDto.class))
+                    }),
+            @ApiResponse(responseCode = "401", description = "User unauthorized",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    }),
+            @ApiResponse(responseCode = "403", description = "Is Forbidden",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDto.class))
+                    })
+    })
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
+    @PutMapping("/{user-id}")
+    ResponseEntity<UserDto> updateUser(@Parameter(required = true, description = "User id", example = "1")
+                                       @PathVariable("user-id") Long userId,
+                                       @Valid @RequestBody  UpdateUserDto updateUser);
 }

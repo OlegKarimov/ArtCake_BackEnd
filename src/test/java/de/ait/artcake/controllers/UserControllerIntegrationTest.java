@@ -1,6 +1,8 @@
 package de.ait.artcake.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.ait.artcake.dto.UpdateCakeDto;
+import de.ait.artcake.dto.UpdateUserDto;
 import de.ait.artcake.dto.UserDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +111,135 @@ public class UserControllerIntegrationTest {
                     .andExpect(jsonPath("$.role", is("MANAGER")))
                     .andExpect(jsonPath("$.phoneNumber", is("+4917611223344")))
                     .andExpect(status().isOk());
+        }
+    }
+    @Nested
+    @DisplayName("GET /api/users/{user-id} method is works:")
+    class UpdateUser {
+
+        @WithUserDetails(value = "manager@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        public void update_User_as_Manager() throws Exception {
+
+            String body = objectMapper.writeValueAsString(UpdateUserDto.builder()
+                    .town("Bremen")
+                    .street("Bremenskaja")
+                    .zipCode("11111")
+                    .houseNumber(99)
+                    .phoneNumber("+491111111111")
+                    .state("NOT_CONFIRMED")
+                    .role("CONFECTIONER")
+                    .build());
+
+            mockMvc.perform(put("/api/users/3")
+                    .param("userId", "3")
+                    .header("Content-Type", "application/json")
+                    .content(body))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id", is(3)))
+                    .andExpect(jsonPath("$.firstName", is("Client")))
+                    .andExpect(jsonPath("$.lastName", is("Clientovich")))
+                    .andExpect(jsonPath("$.email", is("client@mail.com")))
+                    .andExpect(jsonPath("$.houseNumber", is(99)))
+                    .andExpect(jsonPath("$.town", is("Bremen")))
+                    .andExpect(jsonPath("$.street", is("Bremenskaja")))
+                    .andExpect(jsonPath("$.zipCode", is("11111")))
+                    .andExpect(jsonPath("$.phoneNumber", is("+491111111111")))
+                    .andExpect(jsonPath("$.state", is("NOT_CONFIRMED")))
+                    .andExpect(jsonPath("$.role", is ("CONFECTIONER")));
+        }
+
+        @WithUserDetails(value = "client@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        public void update_User_as_Client() throws Exception {
+
+            String body = objectMapper.writeValueAsString(UpdateUserDto.builder()
+                    .town("Bremen")
+                    .street("Bremenskaja")
+                    .zipCode("11111")
+                    .houseNumber(99)
+                    .phoneNumber("+491111111111")
+                    .state("NOT_CONFIRMED")
+                    .role("CONFECTIONER")
+                    .build());
+
+            mockMvc.perform(put("/api/users/3")
+                            .param("userId", "3")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andExpect(status().isForbidden());
+        }
+
+        @WithUserDetails(value = "confectioner@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        public void update_User_as_Confectioner() throws Exception {
+
+            String body = objectMapper.writeValueAsString(UpdateUserDto.builder()
+                    .town("Bremen")
+                    .street("Bremenskaja")
+                    .zipCode("11111")
+                    .houseNumber(99)
+                    .phoneNumber("+491111111111")
+                    .state("NOT_CONFIRMED")
+                    .role("CONFECTIONER")
+                    .build());
+
+            mockMvc.perform(put("/api/users/3")
+                            .param("userId", "3")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andExpect(status().isForbidden());
+        }
+
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        public void update_User_as_Unauthorized() throws Exception {
+
+            String body = objectMapper.writeValueAsString(UpdateUserDto.builder()
+                    .town("Bremen")
+                    .street("Bremenskaja")
+                    .zipCode("11111")
+                    .houseNumber(99)
+                    .phoneNumber("+491111111111")
+                    .state("NOT_CONFIRMED")
+                    .role("CONFECTIONER")
+                    .build());
+
+            mockMvc.perform(put("/api/users/3")
+                            .param("userId", "3")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andExpect(status().isUnauthorized());
+        }
+
+        @WithUserDetails(value = "manager@mail.com")
+        @Sql(scripts = "/sql/data_for_orders.sql")
+        @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+        @Test
+        public void update_User_to_Manager_as_Manager() throws Exception {
+
+            String body = objectMapper.writeValueAsString(UpdateUserDto.builder()
+                    .town("Bremen")
+                    .street("Bremenskaja")
+                    .zipCode("11111")
+                    .houseNumber(99)
+                    .phoneNumber("+491111111111")
+                    .state("NOT_CONFIRMED")
+                    .role("MANAGER")
+                    .build());
+
+            mockMvc.perform(put("/api/users/3")
+                            .param("userId", "3")
+                            .header("Content-Type", "application/json")
+                            .content(body))
+                    .andExpect(status().isForbidden());
         }
     }
 }

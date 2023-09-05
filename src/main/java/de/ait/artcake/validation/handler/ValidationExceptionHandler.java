@@ -27,7 +27,6 @@ public class ValidationExceptionHandler {
                     if (error instanceof FieldError fieldError) {
                         errorDto.setField(fieldError.getField());
 
-                        // Добавляем обработку для числовых значений
                         Object rejectedValue = fieldError.getRejectedValue();
                         if (rejectedValue != null) {
                             if (rejectedValue instanceof Number) {
