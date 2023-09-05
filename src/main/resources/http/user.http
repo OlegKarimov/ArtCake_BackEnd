@@ -1,4 +1,4 @@
-### Get all Orders
+### Get all Orders as Manager
 
 GET http://localhost:8080/api/users/orders?page=0&orderBy=state&desc=true&filterBy=client&filterValue=1
 Content-Type: application/json
@@ -8,7 +8,21 @@ Content-Type: application/json
 GET http://localhost:8080/api/users/client/orders?page=0
 Content-Type: application/json
 
-### Get all Orders for confectioner
+### Get all Orders for Confectioner
 
-http://localhost:8080/api/users/confectioner/orders?page=0&desc=false
+GET http://localhost:8080/api/users/confectioner/orders?page=0&desc=false
 Content-Type: application/json
+
+### Update infromation about User
+PUT http://localhost:8080/api/users/3
+Content-Type: application/json
+
+{
+"town": "Berlin",
+"zipCode": "22112",
+"street": "Tondorfer str.",
+"houseNumber": 10,
+"phoneNumber": "+4917622334455",
+"state": "CONFIRMED",
+"role": "CONFECTIONER"
+}

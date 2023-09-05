@@ -49,4 +49,13 @@ public class UsersController implements UsersApi {
                 .ok()
                 .body(usersService.getAllOrdersForClient(pageNumber, orderByField, desc));
     }
+
+    @Override
+    public ResponseEntity<UserDto> updateUser(Long userId, UpdateUserDto updateUser) {
+        return ResponseEntity
+                .ok()
+                .body(usersService.updateUser(userId, updateUser));
+    }
+
+
 }
