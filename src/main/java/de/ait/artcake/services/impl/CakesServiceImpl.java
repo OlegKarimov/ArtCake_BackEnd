@@ -41,7 +41,7 @@ public class CakesServiceImpl implements CakesService {
 
     @Value("${spring.application.cake.page.size}")
     private Integer pageSize;
-  
+
     @Transactional
     @Override
     public CakeDto addCake(NewCakeDto newCake) {
@@ -89,7 +89,7 @@ public class CakesServiceImpl implements CakesService {
     }
 
     private PageRequest getPageRequest(Integer pageNumber, String orderByField, Boolean desc) {
-        if(orderByField != null && !orderByField.equals("")) {
+        if (orderByField != null && !orderByField.equals("")) {
 
             checkSortField(orderByField);
             Sort.Direction direction = Sort.Direction.ASC;
@@ -105,8 +105,8 @@ public class CakesServiceImpl implements CakesService {
     }
 
     private void checkSortField(String field) {
-        if(!sortFields.contains(field)) {
-            throw new RestException(HttpStatus.FORBIDDEN, "Can not sort <" + field + ">" );
+        if (!sortFields.contains(field)) {
+            throw new RestException(HttpStatus.FORBIDDEN, "Can not sort <" + field + ">");
         }
     }
 
@@ -119,16 +119,15 @@ public class CakesServiceImpl implements CakesService {
     Cake getCakeOrThrow(Long cakeId) {
         return cakesRepository.findById(cakeId)
                 .orElseThrow(() ->
-                        new RestException(HttpStatus.NOT_FOUND,"Cake with id <"+ cakeId + "> not found"));
+                        new RestException(HttpStatus.NOT_FOUND, "Cake with id <" + cakeId + "> not found"));
     }
 
     @Override
-    public CakesDto getCakesByCategory(String category)
-    {
+    public CakesDto getCakesByCategory(String category) {
         CakesDto returnCakes = CakesDto.builder()
-            .cakes(fromByCategory(cakesRepository.findAll(), category))
-            .build();
-        if (!returnCakes.getCakes().isEmpty()){
+                .cakes(fromByCategory(cakesRepository.findAll(), category))
+                .build();
+        if (!returnCakes.getCakes().isEmpty()) {
             return returnCakes;
         } else {
             throw new RestException(HttpStatus.NOT_FOUND, "Category <" + category + "> not found");
@@ -153,16 +152,16 @@ public class CakesServiceImpl implements CakesService {
 
         return cakeRatingMap.entrySet()
                 .stream()
-                .flatMap(cakeEntry -> {
+                .map(cakeEntry -> {
                     Long cakeId = cakeEntry.getKey();
                     Map<Long, Integer> orderQuantityMap = cakeEntry.getValue();
 
                     int numberOfSales = orderQuantityMap.size();
                     int totalQuantity = orderQuantityMap.values().stream().mapToInt(Integer::intValue).sum();
 
-                    return Stream.of(createCakeRating(cakeId, numberOfSales, totalQuantity));
+                    return createCakeRating(cakeId, numberOfSales, totalQuantity);
                 })
-                .sorted((a, b) -> Integer.compare(b.getNumberOfSales(), a.getNumberOfSales()))
+                .sorted((a, b) -> Integer.compare(b.getTotalQuantity(), a.getTotalQuantity()))
                 .collect(Collectors.toList());
     }
 
