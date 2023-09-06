@@ -18,7 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.Objects;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,9 +159,17 @@ public class CakesServiceImpl implements CakesService {
                     int numberOfSales = orderQuantityMap.size();
                     int totalQuantity = orderQuantityMap.values().stream().mapToInt(Integer::intValue).sum();
 
-                    return createCakeRating(cakeId, numberOfSales, totalQuantity);
+                    Cake cake = getCakeById(cakeId);
+
+                    if (cake.getState() != Cake.State.DELETED) {
+                        return createCakeRating(cakeId, numberOfSales, totalQuantity);
+                    } else {
+                        return null;
+                    }
                 })
+                .filter(Objects::nonNull)
                 .sorted((a, b) -> Integer.compare(b.getTotalQuantity(), a.getTotalQuantity()))
+                .limit(5)
                 .collect(Collectors.toList());
     }
 
@@ -172,6 +180,10 @@ public class CakesServiceImpl implements CakesService {
         cakeRatingDto.setTotalQuantity(totalQuantity);
 
         return cakeRatingDto;
+    }
+
+    private Cake getCakeById(Long cakeId) {
+        return cakesRepository.findById(cakeId).orElse(null);
     }
 
 }
