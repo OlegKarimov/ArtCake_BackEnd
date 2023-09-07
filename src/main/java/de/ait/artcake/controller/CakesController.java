@@ -31,21 +31,21 @@ public class CakesController implements CakesApi {
     }
 
     @Override
-    public ResponseEntity<CakeDto> getCake(Long cakeId) {
+    public ResponseEntity<GetCakeImageDto> getCake(Long cakeId) {
         return ResponseEntity
                 .ok()
                 .body(cakesService.getCake(cakeId));
     }
 
     @Override
-    public ResponseEntity<CakesDto> getAllCakes(Integer pageNumber, String orderByField, Boolean desc ) {
+    public ResponseEntity<GetCakesImageDto> getAllCakes(Integer pageNumber, String orderByField, Boolean desc ) {
         return ResponseEntity
                 .ok()
                 .body(cakesService.getAllCakes(pageNumber, orderByField, desc));
     }
 
     @Override
-    public ResponseEntity<CakesDto> getCakesByCategory(String category) {
+    public ResponseEntity<GetCakesImageDto> getCakesByCategory(String category) {
         return ResponseEntity
                 .ok()
                 .body(cakesService.getCakesByCategory(category));

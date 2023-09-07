@@ -132,6 +132,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(210.00)
                     .category(Cake.Category.CHEESECAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cheesecakes/chocolate.jpg")
                     .build();
 
             Cake raspberryCheesecake = Cake.builder()
@@ -140,6 +141,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(170.00)
                     .category(Cake.Category.CHEESECAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cheesecakes/raspberry.jpg")
                     .build();
 
             Cake wildberriesCheesecake = Cake.builder()
@@ -148,6 +150,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(170.00)
                     .category(Cake.Category.CHEESECAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cheesecakes/wildberry.jpg")
                     .build();
 
             Cake lillyCheesecake = Cake.builder()
@@ -156,6 +159,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(160.00)
                     .category(Cake.Category.CHEESECAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cheesecakes/lilly.jpg")
                     .build();
 
             Cake vanillaCheesecake = Cake.builder()
@@ -164,6 +168,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(150.00)
                     .category(Cake.Category.CHEESECAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cheesecakes/vanilla.jpg")
                     .build();
 
             cakesRepository.save(chocolateCheesecake);
@@ -180,6 +185,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(80.00)
                     .category(Cake.Category.CUPCAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cupcakes/chocolate.jpg")
                     .build();
 
             Cake ferreroCupcake = Cake.builder()
@@ -188,6 +194,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(90.00)
                     .category(Cake.Category.CUPCAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cupcakes/ferrero.jpg")
                     .build();
 
             Cake blackberryCupcake = Cake.builder()
@@ -196,6 +203,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(70.00)
                     .category(Cake.Category.CUPCAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cupcakes/blackberry.jpg")
                     .build();
 
             Cake blueberryCupcake = Cake.builder()
@@ -204,6 +212,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(70.00)
                     .category(Cake.Category.CUPCAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cupcakes/blueberry.jpg")
                     .build();
 
             Cake wildberriesCupcake = Cake.builder()
@@ -212,6 +221,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(70.00)
                     .category(Cake.Category.CUPCAKES)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/cupcakes/wildberry.jpg")
                     .build();
 
             cakesRepository.save(chocolateCupcake);
@@ -228,6 +238,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(95.00)
                     .category(Cake.Category.MACARONS)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/macarons/chocolate.jpg")
                     .build();
 
             Cake lemonMacarons = Cake.builder()
@@ -236,6 +247,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(90.00)
                     .category(Cake.Category.MACARONS)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/macarons/lemon.jpg")
                     .build();
 
             Cake velvetMacarons = Cake.builder()
@@ -244,6 +256,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(95.00)
                     .category(Cake.Category.MACARONS)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/macarons/velvet.jpg")
                     .build();
 
             Cake raspberriesMacarons = Cake.builder()
@@ -252,6 +265,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(80.00)
                     .category(Cake.Category.MACARONS)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/macarons/raspberry.jpg")
                     .build();
 
             Cake bloodorangeMacarons = Cake.builder()
@@ -260,6 +274,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(90.00)
                     .category(Cake.Category.MACARONS)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/macarons/bloodOrange.jpg")
                     .build();
 
             cakesRepository.save(chocolateMacarons);
@@ -276,6 +291,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(190.00)
                     .category(Cake.Category.MOUSSE)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/mousse/Kokosmousse.jpg")
                     .build();
 
             Cake strawberryMousse = Cake.builder()
@@ -284,6 +300,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(180.00)
                     .category(Cake.Category.MOUSSE)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/mousse/strawberrymousse.jpg")
                     .build();
 
             Cake blackberryMousse = Cake.builder()
@@ -292,6 +309,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(180.00)
                     .category(Cake.Category.MOUSSE)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/mousse/blackberry%20mousse.jpg")
                     .build();
 
             Cake appleMousse = Cake.builder()
@@ -300,6 +318,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(180.00)
                     .category(Cake.Category.MOUSSE)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/mousse/applemousse.jpg")
                     .build();
 
             Cake raspberryMousse = Cake.builder()
@@ -308,6 +327,7 @@ public class InitialDataRunner implements CommandLineRunner {
                     .price(180.00)
                     .category(Cake.Category.MOUSSE)
                     .state(Cake.State.CREATED)
+                    .imagePath("https://github.com/OlegKarimov/ArtCake_Front_End/blob/main/public/Images/mousse/raspberrymousse.jpg")
                     .build();
 
             cakesRepository.save(coconutMousse);

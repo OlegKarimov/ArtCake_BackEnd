@@ -50,4 +50,6 @@ public class Cake {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private State state;
+
+    private String imagePath;
 }

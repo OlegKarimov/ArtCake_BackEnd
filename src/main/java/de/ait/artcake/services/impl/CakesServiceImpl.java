@@ -25,8 +25,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static de.ait.artcake.dto.CakeDto.from;
-import static de.ait.artcake.dto.CakeDto.fromByCategory;
+import static de.ait.artcake.dto.GetCakeImageDto.from;
+import static de.ait.artcake.dto.GetCakeImageDto.fromByCategory;
 
 @Service
 @RequiredArgsConstructor
@@ -75,13 +75,13 @@ public class CakesServiceImpl implements CakesService {
     }
 
     @Override
-    public CakesDto getAllCakes(Integer pageNumber, String orderByField, Boolean desc) {
+    public GetCakesImageDto getAllCakes(Integer pageNumber, String orderByField, Boolean desc) {
 
         PageRequest pageRequest = getPageRequest(pageNumber, orderByField, desc);
 
         Page<Cake> page = cakesRepository.findAll(pageRequest);
 
-        return CakesDto.builder()
+        return GetCakesImageDto.builder()
                 .cakes(from(page.getContent()))
                 .count(page.getTotalElements())
                 .pagesCount(page.getTotalPages())
@@ -111,8 +111,8 @@ public class CakesServiceImpl implements CakesService {
     }
 
     @Override
-    public CakeDto getCake(Long cakeId) {
-        return CakeDto.from(getCakeOrThrow(cakeId));
+    public GetCakeImageDto getCake(Long cakeId) {
+        return GetCakeImageDto.from(getCakeOrThrow(cakeId));
     }
 
 
@@ -123,8 +123,8 @@ public class CakesServiceImpl implements CakesService {
     }
 
     @Override
-    public CakesDto getCakesByCategory(String category) {
-        CakesDto returnCakes = CakesDto.builder()
+    public GetCakesImageDto getCakesByCategory(String category) {
+        GetCakesImageDto returnCakes = GetCakesImageDto.builder()
                 .cakes(fromByCategory(cakesRepository.findAll(), category))
                 .build();
         if (!returnCakes.getCakes().isEmpty()) {
