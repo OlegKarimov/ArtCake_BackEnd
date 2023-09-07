@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface CakesService {
 
-    CakesDto getAllCakes(Integer pageNumber, String orderByField, Boolean desc);
+    GetCakesImageDto getAllCakes(Integer pageNumber, String orderByField, Boolean desc);
 
-    CakeDto getCake(Long cakeId);
+    GetCakeImageDto getCake(Long cakeId);
 
     CakeDto addCake(NewCakeDto newCake);
 
     CakeDto updateCake(Long cakeId, UpdateCakeDto updateCake);
 
-    CakesDto getCakesByCategory(String category);
+    GetCakesImageDto getCakesByCategory(String category);
 
     List<CakeRatingDto> getCakeSales();
 }

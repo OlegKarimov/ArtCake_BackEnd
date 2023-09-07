@@ -62,7 +62,7 @@ public class OrderControllerIntegrationTest {
                     .andExpect(jsonPath("$.count", is(1)))
                     .andExpect(jsonPath("$.clientWishes", is("Make in blue and white colours")))
                     .andExpect(jsonPath("$.totalPrice", is(33.33)))
-                    .andExpect(jsonPath("$.creationDate", is("2023-09-05")))
+                    .andExpect(jsonPath("$.creationDate", is("2023-09-07")))
                     .andExpect(jsonPath("$.deadline", is("2023-10-10")))
                     .andExpect(jsonPath("$.state", is("CREATED")));
         }

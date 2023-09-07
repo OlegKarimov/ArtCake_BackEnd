@@ -56,7 +56,7 @@ public interface CakesApi {
                     })
     })
     @GetMapping("/{cake-id}")
-    ResponseEntity<CakeDto> getCake(@Parameter(required = true, description = "cake id", example = "1")
+    ResponseEntity<GetCakeImageDto> getCake(@Parameter(required = true, description = "cake id", example = "1")
                                     @PathVariable("cake-id") Long cakeId);
 
     @Operation(summary = "get all cakes", description = "for all users")
@@ -71,7 +71,7 @@ public interface CakesApi {
                     })
     })
     @GetMapping
-    ResponseEntity<CakesDto> getAllCakes(@Parameter(description = "page number", example = "1")
+    ResponseEntity<GetCakesImageDto> getAllCakes(@Parameter(description = "page number", example = "1")
                                          @RequestParam(value = "page") Integer page,
                                          @Parameter(description = "field to sort by. Available for id, name, price, category")
                                          @RequestParam(value = "orderBy", required = false) String field,
@@ -90,7 +90,7 @@ public interface CakesApi {
                     })
     })
     @GetMapping("/category/{category}")
-    ResponseEntity<CakesDto> getCakesByCategory(@Parameter(required = true, description = "category", example = "MOUSSE")
+    ResponseEntity<GetCakesImageDto> getCakesByCategory(@Parameter(required = true, description = "category", example = "MOUSSE")
                                                 @PathVariable("category") String category);
 
     @Operation(summary = "update cake in our assortment", description = "only for manager")
