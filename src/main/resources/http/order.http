@@ -1,0 +1,35 @@
+### Add new order
+POST http://localhost:8080/api/orders/cakes/1?cakeId=1
+Content-Type: application/json
+
+{
+  "count": 3,
+  "clientWishes": "Need Letters WELCOME HOME",
+  "deadline": "2023-10-11"
+}
+
+### Add new order
+POST http://localhost:8080/api/orders/cakes/1?cakeId=1
+Content-Type: application/json
+
+{
+  "count": 7,
+  "deadline": "2023-07-29"
+}
+
+### Set order to Process
+PUT http://localhost:8080/api/orders/4?orderId=4&confectionerId=9
+Content-Type: application/json
+
+{
+  "confectionerId": 9
+}
+
+### Set order Finished
+PUT http://localhost:8080/api/orders/4/done?orderId=4
+Content-Type: application/json
+
+
+### Set order Cant Finish
+PUT http://localhost:8080/api/orders/1/decline?orderId=1
+Content-Type: application/json

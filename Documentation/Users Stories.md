@@ -25,7 +25,7 @@ This Epic describes the work of managers on the ArtCake website. The goal is to 
 9. I, as a manager, want to be able to change the confectioner in the order (the order status should change automatically).
 
 10. I, as a manager, want to be able to change an employee (pastry chef)
-11.* I, as a manager, want to be able to add products to the menu in the appropriate categories (categories correspond to confectioners. 1 confectioner - 1 category).
+11. I, as a manager, want to be able to add products to the menu in the appropriate categories (categories correspond to confectioners. 1 confectioner - 1 category) **.
 
 
 
@@ -70,7 +70,7 @@ This Epic describes the work of confectioners on the ArtCake website. The goal i
 9. Я, как менеджер, хочу иметь возможность поменять кондитера в заказе (статус заказа должен поменяться автоматически).
 
 10. Я, как менеджер, хочу иметь возможность сменить сотрудника (кондитера)
-11.* Я, как менеджер, хочу иметь возможность добавлять продукцию в меню по соответствующим категориям (категории соответствуют кондитерам. 1 кондитер - 1 категория).
+11. Я, как менеджер, хочу иметь возможность добавлять продукцию в меню по соответствующим категориям (категории соответствуют кондитерам. 1 кондитер - 1 категория) **.
 
 
 

@@ -1,23 +1,53 @@
-### Добавление первого пользователя
+### Adding user
 POST http://localhost:8080/api/registration
 Content-Type: application/json
 
 {
-  "fullName": "Jackie Chan",
+  "firstName": "Jackie",
+  "lastName": "Chan",
   "email": "example@mail.com",
   "password": "Qwerty123!",
-  "address": "Hamburg, Norbert-Schmid-Platz 11",
+  "town": "Hamburg",
+  "zipCode": "44551",
+  "street": "Norbert-Schmid-Platz",
+  "houseNumber": "11",
   "phoneNumber": "+4917611223344"
 }
 
-### Добавление второго пользователя
+### Adding user
 POST http://localhost:8080/api/registration
 Content-Type: application/json
 
 {
-  "fullName": "Will Smith",
+  "firstName": "Will",
+  "lastName": "Smith",
   "email": "simple@mail.com",
   "password": "willS007!",
-  "address": "Kiel, StadtStrasse 49",
+  "town": "Kiel",
+  "zipCode": "22312",
+  "street": "StadtStrasse",
+  "houseNumber": "49",
   "phoneNumber": "+4917699887766"
 }
+
+### Adding user
+POST http://localhost:8080/api/registration
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Manageroff",
+  "email": "manager@mail.com",
+  "password": "Manager007!",
+  "town": "Kiel",
+  "zipCode": "55212",
+  "street": "StrandStrasse",
+  "houseNumber": "21",
+  "phoneNumber": "+4917688776655"
+}
+### Получение профиля пользователя
+
+GET http://localhost:8080/api/users/my
+
+### Getting all Users by Role
+GET localhost:8080/api/users/role/CONFECTIONER
